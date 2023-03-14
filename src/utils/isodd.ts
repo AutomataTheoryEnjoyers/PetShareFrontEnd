@@ -1,1 +1,1 @@
-export const isOdd = (n: number) => n % 2 == 1
+export const isOdd = (n: number): boolean => n % 2 == 1
