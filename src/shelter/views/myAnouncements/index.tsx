@@ -4,7 +4,7 @@ import { useMyAnouncements } from "../../queries/myAnouncements";
 export const MyAnouncements = () => {
   const { data } = useMyAnouncements();
   return <Container>
-    <Header>MyAnouncements</Header>
+    <Header>My Anouncements</Header>
     <List>{data?.map((anouncement) => (
       <AnouncementListElement anouncement={anouncement} />
     ))}</List>

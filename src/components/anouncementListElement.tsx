@@ -5,12 +5,35 @@ type Props = {
   anouncement: Anouncement
 }
 export const AnouncementListElement = ({ anouncement }: Props) => {
+  const pet = usePetInfo(anouncement.IDPet);
   return <Containter>
-    <LeftContainer />
-    <RightContainer />
-    <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.imgflip.com%2F6u25jl.jpg&f=1&nofb=1&ipt=d87bf92cf52464c1f9e44ec545667489ebccb881e0d6bc866b22ee4e91be3ea4&ipo=images" />
+    <LeftContainer>
+      <Title>{anouncement.Title}</Title>
+      <Header>{anouncement.CreationDate.toDateString()}</Header>
+      <Header>{anouncement.ClosingDate.toDateString()}</Header>
+      <Header>{anouncement.Status}</Header>
+    </LeftContainer>
+    <RightContainer>
+      <Title>Animal Name</Title>
+      <Header>Species</Header>
+      <Header>Breed</Header>
+      <Header>Age</Header>
+    </RightContainer>
+    <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
   </Containter>
 }
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 25px;
+`
+
+const Header = styled.p`
+  margin: 0;
+  padding: 5px;
+  font-size: 15px;
+`
 
 const Containter = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -23,13 +46,15 @@ const Containter = styled.div`
 
 const LeftContainer = styled.div`
   flex: 1;
+  border-right: 2px solid black;
 `
 
 const RightContainer = styled.div`
   flex: 1;
-  border-left: 2px solid black;
+  margin-left: 10px;
 `
 
 const Image = styled.img`
   width: 150px;
+  border-radius: 10px;
 `
