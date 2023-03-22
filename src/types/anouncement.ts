@@ -4,7 +4,7 @@ export type Anouncement = {
   Description: string,
   CreationDate: Date,
   ClosingDate: Date,
-  Status: 'Open' | 'Closed' | 'In veryfication' | 'Deleted',
+  Status: 'Open' | 'Closed' | 'In verification' | 'Deleted',
   LastUpdateDate: Date,
   IDPet: number
 }
