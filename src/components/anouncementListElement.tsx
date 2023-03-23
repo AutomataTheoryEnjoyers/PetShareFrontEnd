@@ -38,7 +38,7 @@ const Header = styled.p`
 
 const Containter = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  border-radius: 5px;
   padding: 10px;
   background-color: white;
   height: 150px;
@@ -57,5 +57,5 @@ const RightContainer = styled.div`
 
 const Image = styled.img`
   width: 150px;
-  border-radius: 10px;
+  border-radius: 50%;
 `

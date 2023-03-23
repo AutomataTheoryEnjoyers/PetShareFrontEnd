@@ -1,5 +1,5 @@
 export type Pet = {
-  ID: number,
+  ID: string,
   Name: string,
   Species: string,
   Breed: string,

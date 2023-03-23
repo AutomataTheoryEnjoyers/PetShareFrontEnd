@@ -6,7 +6,7 @@ export const MyAnouncements = () => {
   return <Container>
     <Header>My Anouncements</Header>
     <List>{data?.map((anouncement) => (
-      <AnouncementListElement anouncement={anouncement} />
+      <AnouncementListElement key={anouncement.ID} anouncement={anouncement} />
     ))}</List>
   </Container>;
 };
@@ -17,6 +17,7 @@ const Container = styled.div`
 const Header = styled.h1`
   margin-bottom: 20px;
   margin-top: 0;
+  text-align: center;
 `
 
 const List = styled.div`

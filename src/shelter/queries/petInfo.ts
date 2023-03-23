@@ -1,10 +1,10 @@
 import { Pet } from "../../types/pet"
 
-export const usePetInfo = (ID: number) => {
+export const usePetInfo = (ID: string) => {
   const query = {
     isLoading: false,
     data: {
-      ID: 1,
+      ID: "aaaaa-aaa-aaa",
       Birthday: new Date("2018-02-28T16:41:41.090Z"),
       Breed: "Best breed",
       Description: "Description",
@@ -13,5 +13,6 @@ export const usePetInfo = (ID: number) => {
       Species: "jamniczek"
     } as Pet
   }
+
   return query;
 }
