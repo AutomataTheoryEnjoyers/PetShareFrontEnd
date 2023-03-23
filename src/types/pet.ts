@@ -1,9 +1,13 @@
+import { Shelter } from "./shelter"
+
 export type Pet = {
-  ID: string,
-  Name: string,
-  Species: string,
-  Breed: string,
-  Birthday: Date,
-  Description: string,
-  Photo: string,
+  id: string,
+  shelterId: string,
+  shelter: Shelter,
+  name?: string,
+  species?: string,
+  breed?: string,
+  birthday: Date,
+  description?: string,
+  photo?: string,
 }

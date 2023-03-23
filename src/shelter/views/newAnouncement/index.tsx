@@ -8,14 +8,12 @@ export const NewAnouncement = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [closingDate, setClosingDate] = useState('');
   const [petID, setPetID] = useState(data ? data[0].ID : "");
 
   const handleSubmit = () => {
     postAnnouncement({
       Description: description,
       Title: title,
-      ClosingDate: new Date(closingDate),
       IDPet: petID
     })
   }
@@ -39,16 +37,6 @@ export const NewAnouncement = () => {
         required
       />
     </div>
-    <div id="closing-date">
-      <Label>Closing date:</Label>
-      <Input
-        type="date"
-        value={closingDate}
-        onChange={(e) => setClosingDate(e.target.value)}
-        min={new Date().toISOString().split("T").at(0)}
-        required
-      />
-    </div>
     <div id="pet">
       <Label>Pet:</Label>
       <Select
@@ -69,7 +57,7 @@ const Container = styled.div`
   gap: 10px;
   height: 100%;
   height: min(60vh, 600px);
-  grid-template: auto auto auto auto 1fr / 1fr 1fr 1fr;
+  grid-template: auto auto auto  1fr / 1fr 1fr 1fr;
 
   >div {
     display: flex;
@@ -84,17 +72,12 @@ const Container = styled.div`
 
   #pet{
     grid-column: 3 / 4;
-    grid-row: 4 / 5;
+    grid-row: 3 / 4;
   }
 
   #description{
     grid-column: 1 / 3;
-    grid-row: 3 / 6;
-  }
-
-  #closing-date{
-    grid-column: 3 / 4;
-    grid-row: 3 / 4;
+    grid-row: 3 / 5;
   }
 
 `
@@ -137,6 +120,7 @@ const Select = styled.select`
   padding: 6px 10px;
   border: 1px solid #ddd;
   box-sizing: border-box;
+  border-radius: 5px;
   display: block;
 `
 

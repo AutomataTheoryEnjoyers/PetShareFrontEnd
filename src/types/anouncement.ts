@@ -1,10 +1,13 @@
+import { Pet } from "./pet"
+
 export type Anouncement = {
-  ID: string,
-  Title: string,
-  Description: string,
-  CreationDate: Date,
-  ClosingDate: Date,
-  Status: 'Open' | 'Closed' | 'In verification' | 'Deleted',
-  LastUpdateDate: Date,
-  IDPet: string
+  id: string,
+  title?: string,
+  description?: string,
+  creationDate: Date,
+  closingDate?: Date,
+  status: number,
+  lastUpdateDate: Date,
+  idPet: string
+  pet: Pet,
 }
