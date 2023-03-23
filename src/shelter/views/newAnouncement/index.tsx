@@ -1,4 +1,4 @@
-import React, { FormEventHandler, useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { postAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
