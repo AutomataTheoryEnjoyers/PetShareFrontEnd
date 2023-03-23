@@ -57,5 +57,5 @@ const RightContainer = styled.div`
 
 const Image = styled.img`
   width: 150px;
-  border-radius: 50%;
+  border-radius: 5px;
 `
