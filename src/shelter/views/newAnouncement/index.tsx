@@ -8,7 +8,7 @@ export const NewAnouncement = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [petID, setPetID] = useState(data ? data[0].ID : "");
+  const [petID, setPetID] = useState(data ? data[0].id : "");
 
   const handleSubmit = () => {
     postAnnouncement({
@@ -43,7 +43,7 @@ export const NewAnouncement = () => {
         value={petID}
         onChange={(e) => setPetID(e.target.value)}>
         {data?.map((pet) => (
-          <option key={pet.ID} value={pet.ID}>{pet.Name + " (" + pet.ID + ")"}</option>
+          <option key={pet.id} value={pet.id}>{pet.name + " (" + pet.id + ")"}</option>
         ))}
       </Select>
     </div>

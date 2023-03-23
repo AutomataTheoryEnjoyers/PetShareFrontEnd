@@ -5,25 +5,32 @@ export const useMyPets = () => {
     isLoading: false,
     data: [
       {
-        Name: "fifik1",
-        Breed: "Best Breed",
-        Species: "Best species",
-        Description: "",
-        ID: "1111-111-11111"
+        name: "fifik1",
+        breed: "Best Breed",
+        species: "Best species",
+        description: "",
+        id: "1111-111-11111"
       },
       {
-        Name: "fifik2",
-        Breed: "Best Breed",
-        Species: "Best species",
-        Description: "",
-        ID: "2222-222-22222"
+        name: "fifik2",
+        breed: "Best Breed",
+        species: "Best species",
+        description: "",
+        id: "2111-111-11111"
       },
       {
-        Name: "fifik3",
-        Breed: "Best Breed",
-        Species: "Best species",
-        Description: "",
-        ID: "3333-333-33333"
+        name: "fifik3",
+        breed: "Best Breed",
+        species: "Best species",
+        description: "",
+        id: "3111-111-11111"
+      },
+      {
+        name: "fifik4",
+        breed: "Best Breed",
+        species: "Best species",
+        description: "",
+        id: "4111-111-11111"
       },
     ] as Pet[]
   }
