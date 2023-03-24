@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react";
-import { useMyAnouncements } from "../../shelter/queries/myAnouncements"
 
-import { AnouncementListElement } from "../anouncementListElement";
+import { AnnouncementListElement } from "../announcementListElement";
 
 test("renders component", async () => {
   const announcement = {
@@ -30,7 +29,7 @@ test("renders component", async () => {
     },
   };
 
-  const { queryByText } = render(<AnouncementListElement anouncement={announcement} />)
+  const { queryByText } = render(<AnnouncementListElement anouncement={announcement} />)
 
   expect(queryByText(announcement.pet.name)).toBeTruthy();
 })
