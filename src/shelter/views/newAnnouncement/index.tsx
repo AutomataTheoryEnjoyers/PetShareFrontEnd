@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { postAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
 
-export const NewAnouncement = () => {
+export const NewAnnouncement = () => {
   const { data } = useMyPets();
 
   const [title, setTitle] = useState('');

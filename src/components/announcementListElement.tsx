@@ -1,10 +1,10 @@
 import styled from "styled-components"
-import { Anouncement } from "../types/anouncement"
+import { Announcement } from "../types/announcement"
 
 type Props = {
-  anouncement: Anouncement
+  anouncement: Announcement
 }
-export const AnouncementListElement = ({ anouncement }: Props) => {
+export const AnnouncementListElement = ({ anouncement }: Props) => {
   return <Containter>
     <LeftContainer>
       <Title>{anouncement.title}</Title>

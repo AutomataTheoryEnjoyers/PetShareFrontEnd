@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import { Navbar } from "./components/navbar";
-import { MyAnouncements } from "./views/myAnouncements";
-import { NewAnouncement } from "./views/newAnouncement";
+import { MyAnnouncements } from "./views/myAnnouncements";
+import { NewAnnouncement } from "./views/newAnnouncement";
 import { SignUp } from "./views/signup";
 export const Router = () => (
   <Container>
@@ -11,8 +11,8 @@ export const Router = () => (
       <View>
         <Routes>
           <Route path="home" element={< SignUp />} />
-          <Route path="my-anouncements" element={< MyAnouncements />} />
-          <Route path="new-anouncement" element={< NewAnouncement />} />
+          <Route path="my-anouncements" element={< MyAnnouncements />} />
+          <Route path="new-announcement" element={< NewAnnouncement />} />
         </Routes>
       </View>
     </Content>

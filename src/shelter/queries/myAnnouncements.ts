@@ -1,7 +1,7 @@
 // import { useQuery } from "react-query"
-import { Anouncement } from "../../types/anouncement"
+import { Announcement } from "../../types/announcement"
 
-export const useMyAnouncements = () => {
+export const useMyAnnouncements = () => {
   // const query = useQuery
   const query = {
     isLoading: false,
@@ -181,7 +181,7 @@ export const useMyAnouncements = () => {
           },
         },
       },
-    ] as Anouncement[]
+    ] as Announcement[]
   }
   return query;
 }

@@ -1,6 +1,6 @@
 import { Pet } from "./pet"
 
-export type Anouncement = {
+export type Announcement = {
   id: string,
   title?: string,
   description?: string,
