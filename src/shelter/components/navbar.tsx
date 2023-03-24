@@ -6,6 +6,7 @@ export const Navbar = () => {
     <Header>PetShare</Header>
     <Links>
       <Link name="My Anouncements" path="/shelter/my-anouncements" />
+      <Link name="New Anouncement" path="/shelter/new-anouncement" />
     </Links>
   </Bar>
 }
@@ -53,7 +54,9 @@ const LinkContainer = styled.a<{ isActive?: boolean }>`
 
 const Bar = styled.nav`
   display: flex;
-  background-color: rgba(62,170,111, 1);
+  background-color: ${(props) =>
+    props.theme.colors.main
+  };
   align-items: stretch;
   padding: 0 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);

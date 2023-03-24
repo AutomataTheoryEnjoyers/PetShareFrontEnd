@@ -4,7 +4,7 @@ export const SignUp = () => {
 };
 
 const Container = styled.div`
-  background-color: ${(props) =>
-    props.theme.colors.background
-  };
+  background-color: ${(props) => {
+    return props.theme.colors.background;
+  }};
 `
