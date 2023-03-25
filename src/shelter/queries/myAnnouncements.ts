@@ -18,6 +18,8 @@ export const useMyAnnouncements = () => {
         pet: {
           id: "1111-1111-1111",
           name: "fifik1",
+          species: "kotowaty",
+          breed: "kot",
           birthday: new Date("2018-02-28T16:41:41.090Z"),
           shelterId: "1",
           shelter: {

@@ -5,7 +5,7 @@ type Props = {
   anouncement: Announcement
 }
 export const AnnouncementListElement = ({ anouncement }: Props) => {
-  return <Containter>
+  return <Container>
     <LeftContainer>
       <Title>{anouncement.title}</Title>
       <Header>{anouncement.creationDate.toDateString()}</Header>
@@ -19,7 +19,7 @@ export const AnnouncementListElement = ({ anouncement }: Props) => {
       <Header>{anouncement.pet.birthday.toDateString()}</Header>
     </RightContainer>
     <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
-  </Containter>
+  </Container>
 }
 
 const Title = styled.h1`
@@ -34,7 +34,7 @@ const Header = styled.p`
   font-size: 15px;
 `
 
-const Containter = styled.div`
+const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;

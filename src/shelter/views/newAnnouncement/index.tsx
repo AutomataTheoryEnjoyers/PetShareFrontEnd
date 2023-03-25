@@ -19,7 +19,7 @@ export const NewAnnouncement = () => {
   }
 
   return <Container>
-    <Header>New Anouncement</Header>
+    <Header>New Announcement</Header>
     <div id="title">
       <Label >Title:</Label>
       <Input
