@@ -19,10 +19,11 @@ export const NewAnnouncement = () => {
   }
 
   return <Container>
-    <Header>New Anouncement</Header>
+    <Header>New Announcement</Header>
     <div id="title">
       <Label >Title:</Label>
       <Input
+        data-testid="title-input"
         type="text"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
@@ -32,6 +33,7 @@ export const NewAnnouncement = () => {
     <div id="description">
       <Label>Description:</Label>
       <DescriptionArea
+        data-testid="description-input"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         required
@@ -40,6 +42,7 @@ export const NewAnnouncement = () => {
     <div id="pet">
       <Label>Pet:</Label>
       <Select
+        data-testid="pet-input"
         value={petID}
         onChange={(e) => setPetID(e.target.value)}>
         {data?.map((pet) => (

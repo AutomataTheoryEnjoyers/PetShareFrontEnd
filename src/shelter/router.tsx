@@ -11,7 +11,7 @@ export const Router = () => (
       <View>
         <Routes>
           <Route path="home" element={< SignUp />} />
-          <Route path="my-anouncements" element={< MyAnnouncements />} />
+          <Route path="my-announcements" element={< MyAnnouncements />} />
           <Route path="new-announcement" element={< NewAnnouncement />} />
         </Routes>
       </View>
