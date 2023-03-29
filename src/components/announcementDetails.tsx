@@ -1,9 +1,5 @@
 import styled from "styled-components"
 import { Announcement } from "../types/announcement";
-import { useMyAnnouncements } from "../shelter/queries/myAnnouncements";
-import { useMyPets } from "../shelter/queries/myPets";
-import { User } from "../types/user";
-import { ReactElement, JSXElementConstructor, ReactFragment, ReactPortal } from "react";
 import { Application } from "../types/application";
 
 type ImageProps = {
@@ -59,16 +55,16 @@ export const ShelterDetailsElement = ({ announcement }: PetProps) => {
 
 export const AnnouncementDetailsElement = ({ announcement }: AnnouncementProps) => {
   return <AnnouncementDetailsContainer>
-    <AnnouncementDetailsContainer_Dates>
-      <AnnouncementDetailsContainer_Dates_Left>
+    <AnnouncementDetailsContainerDates>
+      <AnnouncementDetailsContainerDatesLeft>
         <TextDetails>Created: {announcement.creationDate.toDateString()}</TextDetails>
         <TextDetails>Last Update: {announcement.lastUpdateDate.toDateString()}</TextDetails>
-      </AnnouncementDetailsContainer_Dates_Left>
-      <AnnouncementDetailsContainer_Dates_Right>
+      </AnnouncementDetailsContainerDatesLeft>
+      <AnnouncementDetailsContainerDatesRight>
         <TextDetails>Status: {announcement.status}</TextDetails>
         {announcement.closingDate != null && <TextDetails>Closing date: {announcement.closingDate.toDateString()}</TextDetails>}
-      </AnnouncementDetailsContainer_Dates_Right>
-    </AnnouncementDetailsContainer_Dates>
+      </AnnouncementDetailsContainerDatesRight>
+    </AnnouncementDetailsContainerDates>
     <Title>{announcement.title && announcement.title}</Title>
     <DescriptionText>{announcement.description && announcement.description}</DescriptionText>
     <BottomContainer>
@@ -78,7 +74,7 @@ export const AnnouncementDetailsElement = ({ announcement }: AnnouncementProps) 
 }
 
 export const ApplicationListElement = ({ announcement, applications }: UserListProps) => {
-  var usableApplications = applications.filter((applic) => applic.announcement.id == announcement.id)
+  var usableApplications = applications.filter((applic) => applic.announcement.id === announcement.id)
   return <ApplicationListContainer>
     {usableApplications.map(applic => (
       <ApplicationContainerElement application={applic} />
@@ -111,12 +107,6 @@ const Title = styled.h1`
   margin: 0;
   padding: 5px;
   font-size: 25px;
-`
-
-const Header = styled.p`
-  margin: 0;
-  padding: 5px;
-  font-size: 15px;
 `
 
 const TextDetails = styled.p`
@@ -181,17 +171,17 @@ const AnnouncementDetailsContainer = styled.div`
   position: relative;
   text-align: left;
 `
-const AnnouncementDetailsContainer_Dates = styled.div`
+const AnnouncementDetailsContainerDates = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `
-const AnnouncementDetailsContainer_Dates_Left = styled.div`
+const AnnouncementDetailsContainerDatesLeft = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `
-const AnnouncementDetailsContainer_Dates_Right = styled.div`
+const AnnouncementDetailsContainerDatesRight = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;

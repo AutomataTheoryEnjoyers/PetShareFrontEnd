@@ -15,7 +15,6 @@ export const Router = () => (
           <Route path="my-announcements/:id" element={< AnnouncementDetails />} />
           <Route path="my-announcements" element={< MyAnnouncements />} />
           <Route path="new-announcement" element={< NewAnnouncement />} />
-          <Route path="announcement-details" element={< AnnouncementDetails />} />
         </Routes>
       </View>
     </Content>

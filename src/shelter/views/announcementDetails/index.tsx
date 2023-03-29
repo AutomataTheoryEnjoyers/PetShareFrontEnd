@@ -1,6 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import { postAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyAnnouncements } from "../../queries/myAnnouncements";
 import { useMyApplications } from "../../queries/myApplications";
 import { ImageElement, PetDetailsElement, AnnouncementDetailsElement, ApplicationListElement, ShelterDetailsElement } from "../../../components/announcementDetails";
@@ -11,20 +9,8 @@ export const AnnouncementDetails = () => {
   const { id } = useParams()
 
   const announcements = useMyAnnouncements();
-  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announc) => announc.id == id) as Announcement;
+  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announc) => announc.id === id) as Announcement;
   const applications = useMyApplications();
-
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [petID, setPetID] = useState(announcements.data ? announcements.data[0].id : "");
-
-  const handleSubmit = () => {
-    postAnnouncement({
-      Description: description,
-      Title: title,
-      IDPet: petID
-    })
-  }
 
   return <Container>
     <div id="image"><ImageElement announcement={currentAnnouncement} /></div>
