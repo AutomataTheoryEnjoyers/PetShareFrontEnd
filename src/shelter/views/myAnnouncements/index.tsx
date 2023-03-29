@@ -6,7 +6,7 @@ export const MyAnnouncements = () => {
   return <Container>
     <Header>My Announcements</Header>
     <List>{data?.map((announcement) => (
-      <AnnouncementListElement key={announcement.id} anouncement={announcement} />
+      <AnnouncementListElement key={announcement.id} announcement={announcement} />
     ))}</List>
   </Container>;
 };

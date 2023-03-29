@@ -4,10 +4,14 @@ import { postAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyAnnouncements } from "../../queries/myAnnouncements";
 import { useMyApplications } from "../../queries/myApplications";
 import { ImageElement, PetDetailsElement, AnnouncementDetailsElement, ApplicationListElement, ShelterDetailsElement } from "../../../components/announcementDetails";
+import { useParams } from "react-router-dom";
+import { Announcement } from "../../../types/announcement";
 
 export const AnnouncementDetails = () => {
+  const { id } = useParams()
+
   const announcements = useMyAnnouncements();
-  const currentAnnouncement = announcements.data[0];
+  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announc) => announc.id == id) as Announcement;
   const applications = useMyApplications();
 
   const [title, setTitle] = useState('');

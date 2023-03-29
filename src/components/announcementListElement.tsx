@@ -1,26 +1,33 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 import { Announcement } from "../types/announcement"
 
 type Props = {
-  anouncement: Announcement
+  announcement: Announcement
 }
-export const AnnouncementListElement = ({ anouncement }: Props) => {
-  return <Container>
-    <LeftContainer>
-      <Title>{anouncement.title}</Title>
-      <Header>{anouncement.creationDate.toDateString()}</Header>
-      <Header>{anouncement.closingDate?.toDateString()}</Header>
-      <Header>{anouncement.status}</Header>
-    </LeftContainer>
-    <RightContainer>
-      <Title>{anouncement.pet.name}</Title>
-      <Header>{anouncement.pet.species}</Header>
-      <Header>{anouncement.pet.breed}</Header>
-      <Header>{anouncement.pet.birthday.toDateString()}</Header>
-    </RightContainer>
-    <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
-  </Container>
+export const AnnouncementListElement = ({ announcement }: Props) => {
+  return <LinkStyled to={`/shelter/my-announcements/${announcement.id}`}>
+    <Container>
+      <LeftContainer>
+        <Title>{announcement.title}</Title>
+        <Header>{announcement.creationDate.toDateString()}</Header>
+        <Header>{announcement.closingDate?.toDateString()}</Header>
+        <Header>{announcement.status}</Header>
+      </LeftContainer>
+      <RightContainer>
+        <Title>{announcement.pet.name}</Title>
+        <Header>{announcement.pet.species}</Header>
+        <Header>{announcement.pet.breed}</Header>
+        <Header>{announcement.pet.birthday.toDateString()}</Header>
+      </RightContainer>
+      <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
+    </Container>
+  </LinkStyled>
 }
+
+const LinkStyled = styled(Link)`
+  text-decoration: none;
+`
 
 const Title = styled.h1`
   margin: 0;
