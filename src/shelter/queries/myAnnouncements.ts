@@ -24,9 +24,16 @@ export const useMyAnnouncements = () => {
           shelterId: "1",
           shelter: {
             id: "1",
+            fullShelterName: "Cute and Funny Shelter",
+            phoneNumber: "928392322",
+            email: "GimmeShelter@RS.com",
             address: {
-              id: "1",
-              street: "street"
+              id: "2",
+              street: "308 Negra Arroyo Lane",
+              city: "Albuquerque",
+              province: "New Mexice",
+              postalCode: "87104",
+              country: "United States of America",
             },
             addressId: "1",
             isAuthorized: true,
