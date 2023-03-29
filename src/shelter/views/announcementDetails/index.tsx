@@ -55,7 +55,6 @@ const Container = styled.div`
 
   #image{
     grid-area: image;
-    height: 500px;
   }
 
   #pet{
