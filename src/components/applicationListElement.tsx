@@ -1,7 +1,8 @@
 import styled from "styled-components"
 import { DescriptionText } from "../styles/global"
 import { Application } from "../types/application"
-import { BsFillEnvelopeAtFill, BsFillTelephoneFill } from "react-icons/bs"
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type UserProps = {
     application: Application
@@ -17,11 +18,11 @@ export const ApplicationContainerElement = ({ application }: UserProps) => {
         </UsernameContainer>
         <MiddleContainer>
             <MiddleContainerText>
-                <BsFillTelephoneFill />
+                <FontAwesomeIcon icon={faPhone} />
                 <DescriptionText> {application.user.phoneNumber}</DescriptionText>
             </MiddleContainerText>
             <MiddleContainerText>
-                <BsFillEnvelopeAtFill />
+                <FontAwesomeIcon icon={faEnvelope} />
                 <DescriptionText> {application.user.email}</DescriptionText>
             </MiddleContainerText>
         </MiddleContainer>

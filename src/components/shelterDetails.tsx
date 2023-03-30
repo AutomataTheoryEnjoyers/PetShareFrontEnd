@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { TextDetails, Title } from "../styles/global";
 import { Announcement } from "../types/announcement";
-import { BsFillEnvelopeAtFill, BsFillTelephoneFill } from "react-icons/bs"
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
     announcement: Announcement
@@ -12,11 +13,11 @@ export const ShelterDetailsElement = ({ announcement }: Props) => {
     return <ShelterDetailsContainer>
         <Title>{shelter.fullShelterName}</Title>
         <IconTextRow>
-            <BsFillTelephoneFill />
+            <FontAwesomeIcon icon={faPhone} />
             <TextDetails>  {shelter.phoneNumber}</TextDetails>
         </IconTextRow>
         <IconTextRow>
-            <BsFillEnvelopeAtFill />
+            <FontAwesomeIcon icon={faEnvelope} />
             <TextDetails>  {shelter.email}</TextDetails>
         </IconTextRow>
         <TextDetails>Address:</TextDetails>
