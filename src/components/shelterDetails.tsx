@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { DescriptionText, TextDetails, Title } from "../styles/global";
+import { TextDetails, Title } from "../styles/global";
 import { Announcement } from "../types/announcement";
 import { BsFillEnvelopeAtFill, BsFillTelephoneFill } from "react-icons/bs"
 
