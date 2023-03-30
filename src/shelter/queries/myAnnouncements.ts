@@ -21,6 +21,7 @@ export const useMyAnnouncements = () => {
           species: "kotowaty",
           breed: "kot",
           birthday: new Date("2018-02-28T16:41:41.090Z"),
+          photo: "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
           shelterId: "1",
           shelter: {
             id: "1",
@@ -56,9 +57,16 @@ export const useMyAnnouncements = () => {
           shelterId: "1",
           shelter: {
             id: "1",
+            fullShelterName: "Cute and Funny Shelter",
+            phoneNumber: "928392322",
+            email: "GimmeShelter@RS.com",
             address: {
-              id: "1",
-              street: "street"
+              id: "2",
+              street: "308 Negra Arroyo Lane",
+              city: "Albuquerque",
+              province: "New Mexice",
+              postalCode: "87104",
+              country: "United States of America",
             },
             addressId: "1",
             isAuthorized: true,

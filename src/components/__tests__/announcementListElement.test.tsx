@@ -29,7 +29,7 @@ test("renders component", async () => {
     },
   };
 
-  const { queryByText } = render(<AnnouncementListElement anouncement={announcement} />)
+  const { queryByText } = render(<AnnouncementListElement announcement={announcement} />)
 
   expect(queryByText(announcement.pet.name)).toBeTruthy();
 })

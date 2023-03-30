@@ -1,15 +1,20 @@
 import styled from "styled-components";
 import { useMyAnnouncements } from "../../queries/myAnnouncements";
 import { useMyApplications } from "../../queries/myApplications";
-import { ImageElement, PetDetailsElement, AnnouncementDetailsElement, ApplicationListElement, ShelterDetailsElement } from "../../../components/announcementDetails";
-import { useParams } from "react-router-dom";
 import { Announcement } from "../../../types/announcement";
+import { useParams } from "react-router-dom";
+import { ImageElement } from "../../../components/ImageElement";
+import { ShelterDetailsElement } from "../../../components/shelterDetails";
+import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
+import { ApplicationListElement } from "../../../components/applicationList";
+import { PetDetailsElement } from "../../../components/petDetailsElement";
+
 
 export const AnnouncementDetails = () => {
   const { id } = useParams()
 
   const announcements = useMyAnnouncements();
-  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announc) => announc.id === id) as Announcement;
+  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announcement) => announcement.id === id) as Announcement;
   const applications = useMyApplications();
 
   return <Container>
@@ -34,6 +39,8 @@ const Container = styled.div`
   "details details details"
   "details details details"
   "user user user";
+
+  grid-template-columns: 1fr 1fr 1fr;
 
   #title{
     grid-area: title;
