@@ -36,9 +36,18 @@ const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
-  background-color: white;
+  background-color: ${(props) =>
+    props.theme.colors.powderWhite
+  };
   height: 150px;
   display: flex;
+  transition: all 0.2s;
+  :hover{
+    background-color: ${(props) =>
+    props.theme.colors.lightGreen
+  };
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
 `
 
 const LeftContainer = styled.div`

@@ -90,7 +90,7 @@ const ButtonAccept = styled.button`
 border-radius: 5px;
 padding: 5px;
 background-color: ${(props) =>
-        props.theme.colors.darkLemonLime
+        props.theme.colors.appleGreen
     };
 color: white;
 display: flex;
