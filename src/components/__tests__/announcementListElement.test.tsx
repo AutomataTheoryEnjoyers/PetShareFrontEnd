@@ -1,13 +1,18 @@
 import { render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { defaultTheme } from "../../styles/theme";
 
 import { AnnouncementListElement } from "../announcementListElement";
 
 function renderWithRouter(component: any) {
   return render(
-    <MemoryRouter>
-      {component}
-    </MemoryRouter>
+    <ThemeProvider theme={defaultTheme}>
+      <MemoryRouter>
+        {component}
+      </MemoryRouter>
+    </ThemeProvider>
+
   );
 }
 
