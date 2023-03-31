@@ -1,6 +1,15 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 import { AnnouncementListElement } from "../announcementListElement";
+
+function renderWithRouter(component: any) {
+  return render(
+    <MemoryRouter>
+      {component}
+    </MemoryRouter>
+  );
+}
 
 test("renders component", async () => {
   const announcement = {
@@ -29,7 +38,7 @@ test("renders component", async () => {
           id: "2",
           street: "308 Negra Arroyo Lane",
           city: "Albuquerque",
-          province: "New Mexice",
+          province: "New Mexico",
           postalCode: "87104",
           country: "United States of America",
         },
@@ -39,7 +48,7 @@ test("renders component", async () => {
     },
   };
 
-  const { queryByText } = render(<AnnouncementListElement announcement={announcement} />)
+  const { getByText } = renderWithRouter(<AnnouncementListElement announcement={announcement} />)
 
-  expect(queryByText(announcement.pet.name)).toBeTruthy();
+  expect(getByText(announcement.pet.name)).toBeTruthy();
 })
