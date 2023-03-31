@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
 import { NewAnouncement } from "../../types/newAnnouncement";
 
-export const postAnnouncement = (announcement: NewAnouncement) => {
+export const usePostAnnouncement = (announcement: NewAnouncement) => {
   const query = useQuery('new-announcements', () => fetch(
     BACKEND_URL + "announcements",
     {

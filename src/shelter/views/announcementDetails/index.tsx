@@ -14,7 +14,7 @@ export const AnnouncementDetails = () => {
   const { id } = useParams()
 
   const announcements = useMyAnnouncements();
-  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announcement) => announcement.id === id) as Announcement;
+  const currentAnnouncement = announcements.data?.find((announcement) => announcement.id === id) as Announcement;
   const applications = useMyApplications();
 
   return <Container>
