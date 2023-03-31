@@ -5,8 +5,8 @@ export const Navbar = () => {
   return <Bar>
     <Header>PetShare</Header>
     <Links>
-      <Link name="My Anouncements" path="/shelter/my-anouncements" />
-      <Link name="New Anouncement" path="/shelter/new-anouncement" />
+      <Link name="My Announcements" path="/shelter/my-announcements" />
+      <Link name="New Announcement" path="/shelter/new-announcement" />
     </Links>
   </Bar>
 }

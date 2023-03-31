@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import { Navbar } from "./components/navbar";
+import { AnnouncementDetails } from "./views/announcementDetails";
 import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
 import { SignUp } from "./views/signup";
@@ -11,7 +12,8 @@ export const Router = () => (
       <View>
         <Routes>
           <Route path="home" element={< SignUp />} />
-          <Route path="my-anouncements" element={< MyAnnouncements />} />
+          <Route path="my-announcements/:id" element={< AnnouncementDetails />} />
+          <Route path="my-announcements" element={< MyAnnouncements />} />
           <Route path="new-announcement" element={< NewAnnouncement />} />
         </Routes>
       </View>

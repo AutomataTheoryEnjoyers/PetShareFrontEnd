@@ -1,6 +1,20 @@
 import { render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { defaultTheme } from "../../styles/theme";
 
 import { AnnouncementListElement } from "../announcementListElement";
+
+function renderWithRouter(component: any) {
+  return render(
+    <ThemeProvider theme={defaultTheme}>
+      <MemoryRouter>
+        {component}
+      </MemoryRouter>
+    </ThemeProvider>
+
+  );
+}
 
 test("renders component", async () => {
   const announcement = {
@@ -15,13 +29,23 @@ test("renders component", async () => {
     pet: {
       id: "1111-1111-1111",
       name: "fifik1",
+      species: "kotowaty",
+      breed: "kot",
       birthday: new Date("2018-02-28T16:41:41.090Z"),
+      photo: "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
       shelterId: "1",
       shelter: {
         id: "1",
+        fullShelterName: "Cute and Funny Shelter",
+        phoneNumber: "928392322",
+        email: "GimmeShelter@RS.com",
         address: {
-          id: "1",
-          street: "street"
+          id: "2",
+          street: "308 Negra Arroyo Lane",
+          city: "Albuquerque",
+          province: "New Mexico",
+          postalCode: "87104",
+          country: "United States of America",
         },
         addressId: "1",
         isAuthorized: true,
@@ -29,7 +53,7 @@ test("renders component", async () => {
     },
   };
 
-  const { queryByText } = render(<AnnouncementListElement anouncement={announcement} />)
+  const { getByText } = renderWithRouter(<AnnouncementListElement announcement={announcement} />)
 
-  expect(queryByText(announcement.pet.name)).toBeTruthy();
+  expect(getByText(announcement.pet.name)).toBeTruthy();
 })
