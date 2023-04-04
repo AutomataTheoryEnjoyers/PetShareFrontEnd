@@ -1,5 +1,5 @@
-import { useLocation, useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { Link } from "../../components/navbarLink"
 
 export const Navbar = () => {
   return <Bar>
@@ -11,17 +11,6 @@ export const Navbar = () => {
   </Bar>
 }
 
-type LinkProps = {
-  path: string,
-  name: string,
-}
-
-const Link = ({ path, name }: LinkProps) => {
-  const location = useLocation();
-  const navigate = useNavigate()
-  const isActive = location.pathname === path;
-  return <LinkContainer isActive={isActive} onClick={() => navigate(path)}>{name}</LinkContainer>
-}
 
 const Links = styled.div`
   margin-left: auto;
@@ -35,21 +24,6 @@ const Header = styled.h1`
   margin: 20px;
   margin-left: 20px;
   opacity: 0.7;
-`
-
-const LinkContainer = styled.a<{ isActive?: boolean }>`
-  margin-left: 16px;
-  text-decoration: none;
-  padding: 6px;
-  transition: all 0.2s;
-  font-weight: ${({ isActive }) => isActive ? "700" : "400"};
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-
-  :hover{
-    background-color: rgba(255,255,255, 0.1);
-  }
 `
 
 const Bar = styled.nav`

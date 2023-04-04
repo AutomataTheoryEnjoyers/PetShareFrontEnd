@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AnnouncementListElement } from "../../../components/announcementListElement";
+import { Header } from "../../../components/header";
 import { useAnnouncements } from "../../queries/announcements";
 export const Announcements = () => {
   const { data } = useAnnouncements();
@@ -12,12 +13,6 @@ export const Announcements = () => {
 };
 
 const Container = styled.div`
-`
-
-const Header = styled.h1`
-  margin-bottom: 20px;
-  margin-top: 0;
-  text-align: center;
 `
 
 const List = styled.div`
