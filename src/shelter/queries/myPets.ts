@@ -9,6 +9,7 @@ export const useMyPets = () => {
       method: "GET",
       headers: {
         'Content-Type': 'application/json',
+        'accept': 'text/plain'
       }
     }
   ).then(res => res.json()));
