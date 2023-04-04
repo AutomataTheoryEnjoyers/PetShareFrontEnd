@@ -17,13 +17,13 @@ export const AnnouncementDetails = () => {
   const currentAnnouncement = announcements.data?.find((announcement) => announcement.id === id) as Announcement;
   const applications = useMyApplications();
 
-  return <Container>
+  return (currentAnnouncement && <Container>
     <div id="image"><ImageElement announcement={currentAnnouncement} /></div>
     <div id="pet"><PetDetailsElement announcement={currentAnnouncement} /></div>
     <div id="shelter"><ShelterDetailsElement announcement={currentAnnouncement} /></div>
     <div id="details"><AnnouncementDetailsElement announcement={currentAnnouncement} /></div>
     <div id="userlist"><ApplicationListElement announcement={currentAnnouncement} applications={applications.data} /></div>
-  </Container>
+  </Container>)
 };
 
 const Container = styled.div`
