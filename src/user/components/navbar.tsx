@@ -3,14 +3,12 @@ import { Link } from "../../components/navbarLink"
 
 export const Navbar = () => {
   return <Bar>
-    <Header>PetShare-Shelter</Header>
+    <Header>PetShare-User</Header>
     <Links>
-      <Link name="My Announcements" path="/shelter/my-announcements" />
-      <Link name="New Announcement" path="/shelter/new-announcement" />
+      <Link name="Announcements" path="/user/announcements" />
     </Links>
   </Bar>
 }
-
 
 const Links = styled.div`
   margin-left: auto;
