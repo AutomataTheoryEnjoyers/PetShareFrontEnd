@@ -16,6 +16,7 @@ export const useAnnouncements = () => {
       {
         ...announcementResponse,
         creationDate: new Date(announcementResponse.creationDate),
+        lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
         closingDate: new Date(announcementResponse.closingDate),
         pet: {
           ...announcementResponse.pet,
