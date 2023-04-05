@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { postAnnouncement } from "../../mutations/postAnnouncement";
+import { usePostAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
 
 export const NewAnnouncement = () => {
@@ -10,8 +10,8 @@ export const NewAnnouncement = () => {
   const [description, setDescription] = useState('');
   const [petID, setPetID] = useState(data ? data[0].id : "");
 
-  const handleSubmit = () => {
-    postAnnouncement({
+  const useHandleSubmit = () => {
+    usePostAnnouncement({
       Description: description,
       Title: title,
       IDPet: petID
@@ -47,7 +47,7 @@ export const NewAnnouncement = () => {
         ))}
       </Select>
     </div>
-    <SubmitButton onClick={handleSubmit}>Add announcement</SubmitButton>
+    <SubmitButton onClick={useHandleSubmit}>Add announcement</SubmitButton>
   </Container>;
 };
 

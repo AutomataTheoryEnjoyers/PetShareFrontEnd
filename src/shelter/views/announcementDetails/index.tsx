@@ -14,16 +14,16 @@ export const AnnouncementDetails = () => {
   const { id } = useParams()
 
   const announcements = useMyAnnouncements();
-  const currentAnnouncement = (id == null) ? announcements.data[0] : announcements.data.find((announcement) => announcement.id === id) as Announcement;
+  const currentAnnouncement = announcements.data?.find((announcement) => announcement.id === id) as Announcement;
   const applications = useMyApplications();
 
-  return <Container>
+  return (currentAnnouncement && <Container>
     <div id="image"><ImageElement announcement={currentAnnouncement} /></div>
     <div id="pet"><PetDetailsElement announcement={currentAnnouncement} /></div>
     <div id="shelter"><ShelterDetailsElement announcement={currentAnnouncement} /></div>
     <div id="details"><AnnouncementDetailsElement announcement={currentAnnouncement} /></div>
     <div id="userlist"><ApplicationListElement announcement={currentAnnouncement} applications={applications.data} /></div>
-  </Container>
+  </Container>)
 };
 
 const Container = styled.div`

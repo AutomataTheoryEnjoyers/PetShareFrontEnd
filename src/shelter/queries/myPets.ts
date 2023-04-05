@@ -1,38 +1,23 @@
+import { useQuery } from "react-query"
+import { BACKEND_URL } from "../../backendUrl";
 import { Pet } from "../../types/pet"
 
 export const useMyPets = () => {
-  const query = {
-    isLoading: false,
-    data: [
+  const query = useQuery<Pet[]>('my-pets', () => fetch(
+    BACKEND_URL + "pet",
+    {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'text/plain'
+      }
+    }
+  ).then(res => res.json())
+    .then(res => res.map((announcementResponse: any) => (
       {
-        name: "fifik1",
-        breed: "Best Breed",
-        species: "Best species",
-        description: "",
-        id: "1111-111-11111"
-      },
-      {
-        name: "fifik2",
-        breed: "Best Breed",
-        species: "Best species",
-        description: "",
-        id: "2111-111-11111"
-      },
-      {
-        name: "fifik3",
-        breed: "Best Breed",
-        species: "Best species",
-        description: "",
-        id: "3111-111-11111"
-      },
-      {
-        name: "fifik4",
-        breed: "Best Breed",
-        species: "Best species",
-        description: "",
-        id: "4111-111-11111"
-      },
-    ] as Pet[]
-  }
+        ...announcementResponse.pet,
+        birthday: new Date(announcementResponse.pet.birthday)
+      }
+    ))));
   return query
 }
