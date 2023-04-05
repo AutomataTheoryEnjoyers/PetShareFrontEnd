@@ -12,6 +12,12 @@ export const useMyPets = () => {
         'accept': 'text/plain'
       }
     }
-  ).then(res => res.json()));
+  ).then(res => res.json())
+    .then(res => res.map((announcementResponse: any) => (
+      {
+        ...announcementResponse.pet,
+        birthday: new Date(announcementResponse.pet.birthday)
+      }
+    ))));
   return query
 }

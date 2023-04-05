@@ -11,6 +11,18 @@ export const useAnnouncements = () => {
         'Content-Type': 'application/json',
       }
     }
-  ).then(res => res.json()));
+  ).then(res => res.json())
+    .then(res => res.map((announcementResponse: any) => (
+      {
+        ...announcementResponse,
+        creationDate: new Date(announcementResponse.creationDate),
+        closingDate: new Date(announcementResponse.closingDate),
+        pet: {
+          ...announcementResponse.pet,
+          birthday: new Date(announcementResponse.pet.birthday)
+        }
+      })
+    ))
+  );
   return query;
 }
