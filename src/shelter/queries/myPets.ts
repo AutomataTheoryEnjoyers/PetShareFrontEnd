@@ -13,10 +13,10 @@ export const useMyPets = () => {
       }
     }
   ).then(res => res.json())
-    .then(res => res.map((announcementResponse: any) => (
+    .then(res => res.map((res: any) => (
       {
-        ...announcementResponse.pet,
-        birthday: new Date(announcementResponse.pet.birthday)
+        ...res,
+        birthday: new Date(res.birthday)
       }
     ))));
   return query
