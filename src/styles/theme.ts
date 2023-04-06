@@ -5,6 +5,9 @@ export const defaultTheme = {
     tomato: "#ff6347",
     appleGreen: "#79D021",
     lightGreen: "#d8f4bc",
+    highlight: "#85af98",
+    opposite: "#c34c8e",
+    darkgrey: "#545454",
     main: "#3cb371"
   },
   // https://icolorpalette.com/color?q=79D021

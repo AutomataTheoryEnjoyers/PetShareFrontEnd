@@ -1,21 +1,27 @@
-import { Routes, Route } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
+import { Routes, Route, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
 import { Announcements } from "./views/announcements";
-export const Router = () => (
-  <Container>
+export const Router = () => {
+  const location = useLocation();
+  return <Container>
     <Navbar />
     <Content>
       <View>
-        <Routes>
-          <Route path="announcements" element={<Announcements />} />
-          <Route path="announcements/:id" element={<AnnouncementDetails />} />
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes key={location.pathname} location={location}>
+            <Route path="announcements" element={<Announcements />} />
+            <Route path="announcements/:id" element={<AnnouncementDetails />} />
+            <Route path="" element={<PageNotFound />} />
+          </Routes>
+        </AnimatePresence>
       </View>
     </Content>
   </Container >
-);
+};
 
 const Content = styled.div`
   padding: 20px;

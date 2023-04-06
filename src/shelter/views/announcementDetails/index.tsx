@@ -8,6 +8,7 @@ import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { ApplicationListElement } from "../../../components/applicationList";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
+import { AnimatedPage } from "../../../components/animatedPage";
 
 
 export const AnnouncementDetails = () => {
@@ -17,13 +18,13 @@ export const AnnouncementDetails = () => {
   const currentAnnouncement = announcements.data?.find((announcement) => announcement.id === id) as Announcement;
   const applications = useMyApplications();
 
-  return (currentAnnouncement && <Container>
+  return (currentAnnouncement && <AnimatedPage><Container>
     <div id="image"><ImageElement announcement={currentAnnouncement} /></div>
     <div id="pet"><PetDetailsElement announcement={currentAnnouncement} /></div>
     <div id="shelter"><ShelterDetailsElement announcement={currentAnnouncement} /></div>
     <div id="details"><AnnouncementDetailsElement announcement={currentAnnouncement} /></div>
     <div id="userlist"><ApplicationListElement announcement={currentAnnouncement} applications={applications.data} /></div>
-  </Container>)
+  </Container></AnimatedPage>)
 };
 
 const Container = styled.div`

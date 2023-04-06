@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
 
@@ -18,7 +19,7 @@ export const NewAnnouncement = () => {
     })
   }
 
-  return <Container>
+  return <AnimatedPage><Container>
     <Header>New Announcement</Header>
     <div id="title">
       <Label >Title:</Label>
@@ -48,7 +49,7 @@ export const NewAnnouncement = () => {
       </Select>
     </div>
     <SubmitButton onClick={useHandleSubmit}>Add announcement</SubmitButton>
-  </Container>;
+  </Container></AnimatedPage>;
 };
 
 const Container = styled.div`

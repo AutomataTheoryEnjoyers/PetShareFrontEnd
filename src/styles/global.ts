@@ -4,8 +4,19 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    background-color: #DEE8E6;
+    background-color: #e2d0da;
     font-family: Open-Sans, Helvetica, Sans-Serif;
+
+    div::-webkit-scrollbar {
+      width: 10px;
+    }
+     
+    div::-webkit-scrollbar-thumb {
+        background: #c34c8e;
+        border-radius: 4px;
+        box-shadow: inset 0 0 6px rgba(44, 0, 117, 0.5);
+    }
+
   }
 
   *{
@@ -14,9 +25,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Title = styled.h1`
-margin: 0;
-padding: 5px;
-font-size: 25px;
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
 `
 
 export const TextDetails = styled.p`
