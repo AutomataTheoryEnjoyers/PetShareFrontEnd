@@ -7,17 +7,17 @@ export const useMyPets = () => {
     fetch(BACKEND_URL + "pet", {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        accept: "text/plain",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) =>
-        res.map((announcementResponse: any) => ({
-          ...announcementResponse.pet,
-          birthday: new Date(announcementResponse.pet.birthday),
-        }))
-      )
-  );
-  return query;
-};
+        'Content-Type': 'application/json',
+        'accept': 'text/plain'
+      }
+    }
+  ).then(res => res.json())
+    .then(res => res.map((res: any) => (
+      {
+        ...res,
+        birthday: new Date(res.birthday)
+      }
+    ))));
+  return query
+}
+
