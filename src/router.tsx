@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./views/home";
 import { Router as ShelterRouter } from "./shelter/router";
 import { Router as UserRouter } from "./user/router";
@@ -15,5 +15,5 @@ export const Router = () => {
         </Routes>
       </AnimatePresence>
     </BrowserRouter>
-  )
+  );
 };
