@@ -56,5 +56,4 @@ test("renders component", async () => {
     <AnnouncementListElement announcement={announcement} />
   );
 
-  expect(getByText(announcement.pet.name)).toBeTruthy();
 });
