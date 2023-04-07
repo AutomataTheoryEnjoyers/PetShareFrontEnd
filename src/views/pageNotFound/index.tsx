@@ -7,7 +7,10 @@ export const PageNotFound = () => {
       <Container>
         <h1>Error 404</h1>
         <h3>Page was not found</h3>
-        <img alt="" src="https://cdn.pixabay.com/photo/2018/01/09/11/04/dog-3071334__480.jpg" />
+        <img
+          alt=""
+          src="https://cdn.pixabay.com/photo/2018/01/09/11/04/dog-3071334__480.jpg"
+        />
       </Container>
     </AnimatedPage>
   );
