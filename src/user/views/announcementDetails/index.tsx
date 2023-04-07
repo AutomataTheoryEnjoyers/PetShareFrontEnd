@@ -6,6 +6,7 @@ import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { useAnnouncements } from "../../queries/announcements";
+import { AnimatedPage } from "../../../components/animatedPage";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ export const AnnouncementDetails = () => {
 
   return (
     currentAnnouncement && (
-      <Container>
+      <AnimatedPage><Container>
         <div id="image">
           <ImageElement announcement={currentAnnouncement} />
         </div>
@@ -30,7 +31,7 @@ export const AnnouncementDetails = () => {
         <div id="details">
           <AnnouncementDetailsElement announcement={currentAnnouncement} />
         </div>
-      </Container>
+      </Container></AnimatedPage>
     )
   );
 };

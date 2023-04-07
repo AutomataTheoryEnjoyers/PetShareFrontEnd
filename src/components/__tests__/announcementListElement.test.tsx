@@ -52,7 +52,7 @@ test("renders component", async () => {
     },
   };
 
-  const { getByText } = renderWithRouter(
+  const { } = renderWithRouter(
     <AnnouncementListElement announcement={announcement} />
   );
 
