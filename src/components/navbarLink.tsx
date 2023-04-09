@@ -9,7 +9,7 @@ type Props = {
 export const Link = ({ path, name }: Props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isActive = location.pathname === path;
+  const isActive = location.pathname.includes(path);
   return (
     <LinkContainer isActive={isActive} onClick={() => navigate(path)}>
       {name}

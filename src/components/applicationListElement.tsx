@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { DescriptionText } from "../styles/global";
 import { Application } from "../types/application";
 import {
   faPhone,
