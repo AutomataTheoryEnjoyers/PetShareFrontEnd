@@ -17,10 +17,10 @@ export const ImageElement = ({ announcement }: ImageProps) => {
 const ImageContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  padding: 10px;
+  padding: 0;
   background-color: ${(props) => props.theme.colors.powderWhite};
-  height: 100%;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,8 +28,9 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   width: auto;
-  max-width: 95%;
-  max-height: 95%;
-  margin: 2%;
+  max-width: 96%;
+  max-height: 96%;
+  margin: 1%;
   border-radius: 5px;
+  object-fit: cover;
 `;

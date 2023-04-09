@@ -52,8 +52,7 @@ test("renders component", async () => {
     },
   };
 
-  const { } = renderWithRouter(
+  const {} = renderWithRouter(
     <AnnouncementListElement announcement={announcement} />
   );
-
 });

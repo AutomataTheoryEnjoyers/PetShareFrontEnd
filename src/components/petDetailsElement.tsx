@@ -13,9 +13,8 @@ export const PetDetailsElement = ({ announcement }: PetProps) => {
   return (
     <PetDetailsContainer>
       <TileTitle>
-        Pet details <FontAwesomeIcon icon={faCat} />{" "}
+        {pet.name} <FontAwesomeIcon icon={faCat} />{" "}
       </TileTitle>
-      <DetailsSection prompt={pet.name}>{pet.name}</DetailsSection>
       <DetailsSection prompt={pet.species}>
         Species: {pet.species}
       </DetailsSection>

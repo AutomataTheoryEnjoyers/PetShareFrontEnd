@@ -18,11 +18,8 @@ export const ShelterDetailsElement = ({ announcement }: Props) => {
   return (
     <ShelterDetailsContainer>
       <TileTitle>
-        Shelter details <FontAwesomeIcon icon={faBuilding} />{" "}
+        {shelter.fullShelterName} <FontAwesomeIcon icon={faBuilding} />{" "}
       </TileTitle>
-      <DetailsSection prompt={shelter.fullShelterName}>
-        {shelter.fullShelterName}
-      </DetailsSection>
       <DetailsSection prompt={shelter.phoneNumber}>
         {" "}
         <FontAwesomeIcon icon={faPhone} /> {shelter.phoneNumber}

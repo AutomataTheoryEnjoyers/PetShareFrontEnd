@@ -18,20 +18,22 @@ export const AnnouncementDetails = () => {
 
   return (
     currentAnnouncement && (
-      <AnimatedPage><Container>
-        <div id="image">
-          <ImageElement announcement={currentAnnouncement} />
-        </div>
-        <div id="pet">
-          <PetDetailsElement announcement={currentAnnouncement} />
-        </div>
-        <div id="shelter">
-          <ShelterDetailsElement announcement={currentAnnouncement} />
-        </div>
-        <div id="details">
-          <AnnouncementDetailsElement announcement={currentAnnouncement} />
-        </div>
-      </Container></AnimatedPage>
+      <AnimatedPage>
+        <Container>
+          <div id="image">
+            <ImageElement announcement={currentAnnouncement} />
+          </div>
+          <div id="pet">
+            <PetDetailsElement announcement={currentAnnouncement} />
+          </div>
+          <div id="shelter">
+            <ShelterDetailsElement announcement={currentAnnouncement} />
+          </div>
+          <div id="details">
+            <AnnouncementDetailsElement announcement={currentAnnouncement} />
+          </div>
+        </Container>
+      </AnimatedPage>
     )
   );
 };

@@ -52,7 +52,7 @@ const Button = styled.div`
   color: black;
   border-radius: 10px;
   margin: 30px;
-  transition: all 0.3s ease;
+  transition: all 0.7s ease;
   background-color: white;
   flex-direction: column;
   display: flex;
@@ -62,7 +62,7 @@ const Button = styled.div`
   text-decoration: none;
 
   :hover {
-    transform: scale(1.2);
+    transform: scale(1.2) rotate(360deg);
     cursor: pointer;
     border: solid 6px ${(props) => props.theme.colors.main};
     color: ${(props) => props.theme.colors.main};

@@ -32,6 +32,7 @@ export const AnnouncementDetailsElement = ({ announcement }: Props) => {
         {announcement.description && announcement.description}
       </DescriptionText>
       <BottomContainer>
+        <Separator />
         <AnnouncementIdContainer>ID: {announcement.id}</AnnouncementIdContainer>
       </BottomContainer>
     </AnnouncementDetailsContainer>
@@ -70,8 +71,13 @@ const DescriptionText = styled.p`
   font-size: 14px;
 `;
 
-const BottomContainer = styled.div`
-  border-top: 2px solid black;
+const BottomContainer = styled.div``;
+
+const Separator = styled.hr`
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  margin-bottom: 0;
 `;
 
 const AnnouncementIdContainer = styled.div`

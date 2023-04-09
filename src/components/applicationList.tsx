@@ -18,7 +18,7 @@ export const ApplicationListElement = ({
   return (
     <ApplicationListContainer>
       {usableApplications.map((application) => (
-        <ApplicationContainerElement application={application} />
+        <ApplicationContainerElement key={application.id} application={application} />
       ))}
     </ApplicationListContainer>
   );
@@ -26,9 +26,9 @@ export const ApplicationListElement = ({
 
 const ApplicationListContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-content: space-between;
-  justify-content: space-around;
+  justify-content: start;
   list-style: none;
   align-items: stretch;
   gap: 10px;
