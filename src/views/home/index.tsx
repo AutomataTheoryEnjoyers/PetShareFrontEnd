@@ -62,7 +62,7 @@ const Button = styled.div`
   text-decoration: none;
 
   :hover {
-    transform: scale(1.2) rotate(360deg);
+    transform: scale(1.2);
     cursor: pointer;
     border: solid 6px ${(props) => props.theme.colors.main};
     color: ${(props) => props.theme.colors.main};

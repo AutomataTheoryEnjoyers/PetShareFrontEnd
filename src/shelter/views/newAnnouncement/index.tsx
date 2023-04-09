@@ -26,6 +26,7 @@ export const NewAnnouncement = () => {
         <div id="title">
           <Label>Title:</Label>
           <Input
+            maxLength={60}
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -35,6 +36,7 @@ export const NewAnnouncement = () => {
         <div id="description">
           <Label>Description:</Label>
           <DescriptionArea
+            maxLength={400}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
@@ -44,9 +46,9 @@ export const NewAnnouncement = () => {
           <Label>Pet:</Label>
           <Select value={petID} onChange={(e) => setPetID(e.target.value)}>
             {data?.map((pet) => (
-              <option key={pet.id} value={pet.id}>
+              <Option key={pet.id} value={pet.id}>
                 {pet.name + " (" + pet.id + ")"}
-              </option>
+              </Option>
             ))}
           </Select>
         </div>
@@ -106,6 +108,8 @@ const DescriptionArea = styled.textarea`
   border-radius: 5px;
   display: block;
   grid-column: 1 / 3;
+  font-size: 20px;
+  resize: none;
 `;
 
 const Input = styled.input`
@@ -116,6 +120,9 @@ const Input = styled.input`
   border-radius: 5px;
   padding: 5px;
   display: block;
+  height: 50px;
+  font-size: 30px;
+  font-weight: 400;
 `;
 
 const Select = styled.select`
@@ -125,7 +132,12 @@ const Select = styled.select`
   box-sizing: border-box;
   border-radius: 5px;
   display: block;
+  height: 40px;
 `;
+
+const Option = styled.option`
+  height: 40px;
+`
 
 const SubmitButton = styled.button`
   background: ${(props) => props.theme.colors.main};
@@ -136,4 +148,11 @@ const SubmitButton = styled.button`
   cursor: pointer;
   outline: none;
   margin-top: auto;
+  height: 50px;
+  font-size: 25px;
+  font-weight: 700;
+  transition: 0.5s all;
+  :hover {
+    background: ${(props) => props.theme.colors.darkGreen};
+  }
 `;

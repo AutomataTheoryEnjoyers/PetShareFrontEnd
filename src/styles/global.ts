@@ -7,6 +7,14 @@ const GlobalStyle = createGlobalStyle`
     background-color: #e2d0da;
     font-family: Open-Sans, Helvetica, Sans-Serif;
 
+    h1, h2, h3, h4{
+      font-weight: 400;
+    }
+
+    h1 {
+      letter-spacing: 2px;
+    }
+
     div::-webkit-scrollbar {
       width: 10px;
     }
