@@ -52,7 +52,7 @@ export const NewAnnouncement = () => {
             ))}
           </Select>
         </div>
-        <SubmitButton onClick={useHandleSubmit}>Add announcement</SubmitButton>
+        <SubmitButton onClick={useHandleSubmit}>Submit</SubmitButton>
       </Container>
     </AnimatedPage>
   );

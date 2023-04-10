@@ -1,4 +1,4 @@
-import { faCake, faCat } from "@fortawesome/free-solid-svg-icons";
+import { faCake, faDog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode } from "react";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ export const PetDetailsElement = ({ announcement }: PetProps) => {
   return (
     <PetDetailsContainer>
       <TileTitle>
-        {pet.name} <FontAwesomeIcon icon={faCat} />{" "}
+        {pet.name} <FontAwesomeIcon icon={faDog} />{" "}
       </TileTitle>
       <DetailsSection prompt={pet.species}>
         Species: {pet.species}
@@ -56,7 +56,7 @@ const PetDetailsContainer = styled.div`
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.powderWhite};
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   padding-bottom: 10px;
   flex-direction: column;

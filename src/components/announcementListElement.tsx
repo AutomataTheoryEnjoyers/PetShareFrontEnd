@@ -55,7 +55,7 @@ const Container = styled.div`
   }
   :hover {
     top: -10px;
-    transform: scale(1.02) translate(40px, 0px);
+    transform: scale(1.05);
     z-axis: 1000;
     .right-arrow {
       opacity: 1;

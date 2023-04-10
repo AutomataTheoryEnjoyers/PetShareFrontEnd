@@ -78,6 +78,6 @@ const ShelterDetailsContainer = styled.div`
   padding-bottom: 10px;
   flex-direction: column;
   align-items: flex-center;
-  justify-content: space-between;
+  justify-content: space-around;
   row-gap: 5px;
 `;

@@ -42,7 +42,7 @@ const Content = styled.div`
 
 const View = styled.div`
   margin: 0 auto;
-  width: min(90vw, 1001px);
+  width: min(90vw, 1000px);
   height: 100%;
   flex: 1;
 `;

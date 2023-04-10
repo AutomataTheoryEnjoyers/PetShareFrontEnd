@@ -54,7 +54,7 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
-  transition: 0.5s background-color;
+  transition: 0.2s background-color;
   background-color: ${({ hoverState }) => {
     if (hoverState === "Check") return (props) => props.theme.colors.lightGreen;
     if (hoverState === "Cross") return (props) => props.theme.colors.lightTomato;
@@ -75,11 +75,11 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   }
 
   .cross {
-    transition: 0.5s all;
+    transition: 0.2s all;
   }
 
   .check {
-    transition: 0.5s all;
+    transition: 0.2s all;
   }
 
   .cross:hover {

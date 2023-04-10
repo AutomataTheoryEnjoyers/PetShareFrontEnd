@@ -52,7 +52,7 @@ const Button = styled.div`
   color: black;
   border-radius: 10px;
   margin: 30px;
-  transition: all 0.7s ease;
+  transition: all 0.3s ease;
   background-color: white;
   flex-direction: column;
   display: flex;
