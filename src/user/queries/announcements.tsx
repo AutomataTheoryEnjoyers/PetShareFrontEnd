@@ -1,5 +1,5 @@
-import { useQuery } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+// import { useQuery } from "react-query";
+// import { BACKEND_URL } from "../../backendUrl";
 import { Announcement } from "../../types/announcement";
 
 export const useAnnouncements = () => {

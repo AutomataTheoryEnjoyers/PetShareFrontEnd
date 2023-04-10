@@ -70,7 +70,7 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
     width: calc(50% - 10px);
   }
 
-  @media screen and (max-width: 480px) {
+  @media screen and (max-width: 600px) {
     width: 100%;
   }
 
