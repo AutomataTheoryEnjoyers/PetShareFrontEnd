@@ -4,11 +4,11 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 function prepare() {
-  if (process.env.NODE_ENV === "development") {
-    const { worker } = require("./mocks/browser");
-    return worker.start();
-  }
-  return Promise.resolve();
+  //if (process.env.NODE_ENV === "development") {
+  const { worker } = require("./mocks/browser");
+  return worker.start();
+  //}
+  //return Promise.resolve();
 }
 
 const root = ReactDOM.createRoot(
