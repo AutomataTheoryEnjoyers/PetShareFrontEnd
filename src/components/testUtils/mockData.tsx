@@ -17,6 +17,8 @@ export const mockAnnouncement = {
     photo:
       "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
     shelterId: "1",
+    description:
+      "this is a mock pet, some test data to check working of the service",
     shelter: {
       id: "1",
       fullShelterName: "Cute and Funny Shelter",
