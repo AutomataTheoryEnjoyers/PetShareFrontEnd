@@ -101,7 +101,7 @@ export const mockPets = [
     birthday: new Date("2018-02-28T16:41:41.090Z"),
     photo:
       "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
-    shelterId: mockShelters[0],
+    shelterId: mockShelters[0].id,
     description:
       "this is a mock pet, some test data to check working of the service",
     shelter: mockShelters[0],
@@ -114,7 +114,7 @@ export const mockPets = [
     birthday: new Date("2018-02-28T16:41:41.090Z"),
     photo:
       "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
-    shelterId: mockShelters[2],
+    shelterId: mockShelters[2].id,
     description:
       "this is a mock pet, some test data to check working of the service",
     shelter: mockShelters[2],

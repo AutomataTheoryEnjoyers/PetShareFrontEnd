@@ -2,32 +2,32 @@ import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { ShelterDetailsElement } from "../shelterDetails";
 import { renderWithRouter } from "../testUtils/functions";
-import { mockAnnouncement } from "../testUtils/mockData";
+import { mockAnnouncements } from "../../mocks/mockData";
 
 test("renders PetDetailsElement component", () => {
   const {} = renderWithRouter(
-    <ShelterDetailsElement announcement={mockAnnouncement} />
+    <ShelterDetailsElement announcement={mockAnnouncements[0]} />
   );
 
   expect(
-    screen.getByText(mockAnnouncement.pet.shelter.fullShelterName)
+    screen.getByText(mockAnnouncements[0].pet.shelter.fullShelterName)
   ).toBeInTheDocument();
 
   expect(
-    screen.getByText(mockAnnouncement.pet.shelter.phoneNumber)
+    screen.getByText(mockAnnouncements[0].pet.shelter.phoneNumber)
   ).toBeInTheDocument();
 
   expect(
-    screen.getByText(mockAnnouncement.pet.shelter.email)
+    screen.getByText(mockAnnouncements[0].pet.shelter.email)
   ).toBeInTheDocument();
 
   expect(
-    screen.getByText(mockAnnouncement.pet.shelter.address.street)
+    screen.getByText(mockAnnouncements[0].pet.shelter.address.street)
   ).toBeInTheDocument();
   expect(
-    screen.getByText(mockAnnouncement.pet.shelter.address.province)
+    screen.getByText(mockAnnouncements[0].pet.shelter.address.province)
   ).toBeInTheDocument();
   expect(
-    screen.getByText(mockAnnouncement.pet.shelter.address.country)
+    screen.getByText(mockAnnouncements[0].pet.shelter.address.country)
   ).toBeInTheDocument();
 });

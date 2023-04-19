@@ -2,30 +2,31 @@ import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { PetDetailsElement } from "../petDetailsElement";
 import { renderWithRouter } from "../testUtils/functions";
-import { mockAnnouncement } from "../testUtils/mockData";
+import { mockAnnouncements } from "../../mocks/mockData";
 
 test("renders PetDetailsElement component", () => {
   const {} = renderWithRouter(
-    <PetDetailsElement announcement={mockAnnouncement} />
+    <PetDetailsElement announcement={mockAnnouncements[0]} />
   );
 
-  expect(screen.getByText(mockAnnouncement.pet.name)).toBeInTheDocument();
+  expect(screen.getByText(mockAnnouncements[0].pet.name)).toBeInTheDocument();
 
   expect(
-    screen.getAllByText(mockAnnouncement.pet.species, { exact: false }).length
+    screen.getAllByText(mockAnnouncements[0].pet.species, { exact: false })
+      .length
   ).toBeGreaterThan(0);
 
   expect(
-    screen.getAllByText(mockAnnouncement.pet.breed, { exact: false }).length
+    screen.getAllByText(mockAnnouncements[0].pet.breed, { exact: false }).length
   ).toBeGreaterThan(0);
 
   expect(
-    screen.getAllByText(mockAnnouncement.pet.birthday.toDateString(), {
+    screen.getAllByText(mockAnnouncements[0].pet.birthday.toDateString(), {
       exact: false,
     }).length
   ).toBeGreaterThan(0);
 
   expect(
-    screen.getByText(mockAnnouncement.pet.description)
+    screen.getByText(mockAnnouncements[0].pet.description)
   ).toBeInTheDocument();
 });

@@ -1,21 +1,21 @@
 import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { mockApplication } from "../testUtils/mockData";
+import { mockApplications } from "../../mocks/mockData";
 import { ApplicationContainerElement } from "../applicationListElement";
 import { renderWithRouter } from "../testUtils/functions";
 
 test("renders AnnouncementListElement component", async () => {
   const {} = renderWithRouter(
-    <ApplicationContainerElement application={mockApplication} />
+    <ApplicationContainerElement application={mockApplications[0]} />
   );
 
   expect(
-    screen.getByText(mockApplication.user.userName, { exact: false })
+    screen.getByText(mockApplications[0].user.userName, { exact: false })
   ).toBeInTheDocument();
   expect(
-    screen.getByText(mockApplication.user.phoneNumber, { exact: false })
+    screen.getByText(mockApplications[0].user.phoneNumber, { exact: false })
   ).toBeInTheDocument();
   expect(
-    screen.getByText(mockApplication.user.email, { exact: false })
+    screen.getByText(mockApplications[0].user.email, { exact: false })
   ).toBeInTheDocument();
 });

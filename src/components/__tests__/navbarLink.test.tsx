@@ -1,14 +1,24 @@
-import { screen } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { Link } from "../navbarLink";
 import { renderWithRouter } from "../testUtils/functions";
 
-const mockPath = "https://pzw17.ompzw.pl/";
-const mockName = "ExtraLink";
+describe("Navbar Link component", () => {
+  test("renders with correct name prop", () => {
+    const { getByText } = renderWithRouter(<Link path="/home" name="Home" />);
+    expect(getByText("Home")).toBeInTheDocument();
+  });
 
-test("renders navlink component", () => {
-  const {} = renderWithRouter(<Link path={mockPath} name={mockName} />);
+  // test("navigates to correct path when clicked", () => {
+  //   const { getByText } = renderWithRouter(<Link path="/home" name="Home" />);
+  //   fireEvent.click(getByText("Home"));
+  //   expect(window.location.pathname).toBe("/home");
+  // });
 
-  const link = screen.getByText(mockName);
-  expect(link).toBeInTheDocument();
+  test("has correct style when active", () => {
+    const { getByText } = renderWithRouter(<Link path="/home" name="Home" />, [
+      "/home",
+    ]);
+    expect(getByText("Home")).toHaveStyle("font-weight: 700");
+  });
 });

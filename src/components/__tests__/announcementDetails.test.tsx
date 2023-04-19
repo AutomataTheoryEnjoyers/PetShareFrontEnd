@@ -1,31 +1,32 @@
-import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { AnnouncementDetailsElement } from "../announcementDetails";
-import { mockAnnouncement } from "../testUtils/mockData";
+import { mockAnnouncements } from "../../mocks/mockData";
 import { renderWithRouter } from "../testUtils/functions";
 
 test("renders AnnouncementDetailsElement component", () => {
-  const {} = renderWithRouter(
-    <AnnouncementDetailsElement announcement={mockAnnouncement} />
+  const { getByText } = renderWithRouter(
+    <AnnouncementDetailsElement announcement={mockAnnouncements[0]} />
   );
 
-  expect(screen.getByRole("heading")).toHaveTextContent(
-    mockAnnouncement.title && mockAnnouncement.title
-  );
   expect(
-    screen.getByText(`Created: ${mockAnnouncement.creationDate.toDateString()}`)
+    getByText(`Created: ${mockAnnouncements[0].creationDate.toDateString()}`)
   ).toBeInTheDocument();
   expect(
-    screen.getByText(
-      `Last Update: ${mockAnnouncement.lastUpdateDate.toDateString()}`
+    getByText(
+      `Last Update: ${mockAnnouncements[0].lastUpdateDate.toDateString()}`
     )
   ).toBeInTheDocument();
-  if (mockAnnouncement.closingDate != null)
+  expect(
+    getByText(`Status: ${mockAnnouncements[0].status}`)
+  ).toBeInTheDocument();
+  expect(getByText(`ID: ${mockAnnouncements[0].id}`)).toBeInTheDocument();
+  if (mockAnnouncements[0].closingDate) {
     expect(
-      screen.getByText(
-        `Closing date: ${mockAnnouncement.closingDate.toDateString()}`
+      getByText(
+        `Closing date: ${mockAnnouncements[0].closingDate.toDateString()}`
       )
     ).toBeInTheDocument();
-  expect(screen.getByText(mockAnnouncement.description)).toBeInTheDocument();
-  expect(screen.getByText(`ID: ${mockAnnouncement.id}`)).toBeInTheDocument();
+  }
+  expect(getByText(mockAnnouncements[0].title)).toBeInTheDocument();
+  expect(getByText(mockAnnouncements[0].description)).toBeInTheDocument();
 });
