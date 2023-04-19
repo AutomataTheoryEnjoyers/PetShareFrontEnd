@@ -50,4 +50,10 @@ describe("new Announcement view", () => {
   //   fireEvent.change(petSelect, { target: { value: mockPets[0].id } });
   //   expect(petSelect.value).toBe(mockPets[0].id);
   // });
+
+  // test("calls the usePostAnnouncement hook when the user clicks the submit button", () => {
+  //   const { getByText } = renderWithRouterAndQueryProvider(<NewAnnouncement />);
+  //   const submitButton = getByText("Submit");
+  //   expect(usePostAnnouncement).toHaveBeenCalled();
+  // });
 });
