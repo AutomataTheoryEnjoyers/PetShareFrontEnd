@@ -8,11 +8,9 @@ import { UserContextType } from "../../../types/userContextType";
 import { UserContext } from "../../../components/userContext";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
 
 export const Callback = () => {
     const {
-        isAuthenticated,
         user,
         isLoading,
         error,
@@ -65,33 +63,12 @@ export const Callback = () => {
 
     return (
         <AnimatedPage>
-            <h1> Auth0 callback page</h1>
+            {/* <h1> Auth0 callback page</h1> */}
             {error && <Navigate to="/announcements" />}
-            {!isLoading && userData && <Navigate to="/register" />}
             {!error && isLoading && <ClipLoader />}
-            {!error && !isLoading && (
-                <>
-                    Congrats! Successfully logged in!
-                </>
-            )}
-            {!error && !isLoading && isAuthenticated
-                && user && (
-                    <ul>
-                        {Object.keys(user).map(
-                            (objKey, i) => <li key={i}> {objKey}: {user[objKey]} </li>
-                        )}
-
-                    </ul>
-                )}
-            {!isLoading && userData && (
-                <>
-                    {userData ? userData.role : "Context is null"}
-                </>
-            )}
+            {!error && !isLoading && userData && userData.role === "unassigned" && <Navigate to="/register" />}
+            {!error && !isLoading && userData && userData.role === "adopter" && <Navigate to="/user/announcements" />}
+            {!error && !isLoading && userData && userData.role === "shelter" && <Navigate to="/shelter/my-announcements" />}
         </AnimatedPage>
     );
 };
-
-const Container = styled.div`
-            text-align: center;
-            `;

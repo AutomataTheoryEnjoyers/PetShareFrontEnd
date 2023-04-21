@@ -1,9 +1,10 @@
 import { Address } from "./address";
+import { UserStatus } from "./userStatus";
 
 export type User = {
   userName?: string;
   phoneNumber?: string;
   email?: string;
-  isAuthorized: boolean;
+  status: UserStatus;
   address: Address;
 };

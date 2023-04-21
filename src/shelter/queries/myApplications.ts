@@ -12,7 +12,7 @@ export const useMyApplications = () => {
         lastUpdateDate: new Date("2018-03-29T16:41:41.090Z"),
         isWithdrawed: true,
         user: {
-          isAuthorized: true,
+          status: 0,
           userName: "Barack Obama",
           phoneNumber: "123456789",
           email: "xXxobaminatorxXx@minecraft.com",
@@ -55,7 +55,7 @@ export const useMyApplications = () => {
         lastUpdateDate: new Date("2018-03-29T16:43:41.090Z"),
         isWithdrawed: false,
         user: {
-          isAuthorized: true,
+          status: 0,
           userName: "Walter White",
           phoneNumber: "666666666",
           email: "MasterChef@ABQ.net",
@@ -103,7 +103,7 @@ export const useMyApplications = () => {
         lastUpdateDate: new Date("2018-03-29T16:43:41.090Z"),
         isWithdrawed: false,
         user: {
-          isAuthorized: true,
+          status: 0,
           userName: "Hank Schrader",
           phoneNumber: "287300234",
           email: "Schraderbrau@ABQ.net",
@@ -149,7 +149,7 @@ export const useMyApplications = () => {
         lastUpdateDate: new Date("2018-03-29T16:41:41.090Z"),
         isWithdrawed: true,
         user: {
-          isAuthorized: true,
+          status: 0,
           userName: "James McGill",
           phoneNumber: "231231321",
           email: "SallGoodMan@ABQ.com",
