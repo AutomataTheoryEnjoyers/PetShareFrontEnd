@@ -18,7 +18,10 @@ export const ApplicationListElement = ({
   return (
     <ApplicationListContainer>
       {usableApplications.map((application) => (
-        <ApplicationContainerElement key={application.id} application={application} />
+        <ApplicationContainerElement
+          key={application.id}
+          application={application}
+        />
       ))}
     </ApplicationListContainer>
   );

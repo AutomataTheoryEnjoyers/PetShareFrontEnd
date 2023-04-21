@@ -57,7 +57,8 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   transition: 0.2s background-color;
   background-color: ${({ hoverState }) => {
     if (hoverState === "Check") return (props) => props.theme.colors.lightGreen;
-    if (hoverState === "Cross") return (props) => props.theme.colors.lightTomato;
+    if (hoverState === "Cross")
+      return (props) => props.theme.colors.lightTomato;
     return (props) => props.theme.colors.powderWhite;
   }};
   display: flex;
