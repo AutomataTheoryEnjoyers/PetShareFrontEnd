@@ -6,6 +6,8 @@ import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
 import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
+import { MyPets } from "./views/myPets";
+import { NewPet } from "./views/newPet";
 import { SignUp } from "./views/signup";
 export const Router = () => {
   const location = useLocation();
@@ -23,6 +25,8 @@ export const Router = () => {
               />
               <Route path="my-announcements" element={<MyAnnouncements />} />
               <Route path="new-announcement" element={<NewAnnouncement />} />
+              <Route path="my-pets" element={<MyPets />} />
+              <Route path="new-pet" element={<NewPet />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </AnimatePresence>
