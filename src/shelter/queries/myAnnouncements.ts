@@ -1,7 +1,6 @@
-// import { useQuery } from "react-query"
 import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
-import { Announcement } from "../../types/announcement"
+import { Announcement } from "../../types/announcement";
 
 export const useMyAnnouncements = () => {
   const query = useQuery<Announcement[]>('my-announcements', () => fetch(
@@ -26,5 +25,5 @@ export const useMyAnnouncements = () => {
       })
     ))
   );
-  return query
-}
+  return query;
+};

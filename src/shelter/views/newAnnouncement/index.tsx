@@ -1,54 +1,61 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
 
 export const NewAnnouncement = () => {
   const { data } = useMyPets();
 
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [petID, setPetID] = useState(data ? data[0].id : "");
 
   const useHandleSubmit = () => {
     usePostAnnouncement({
       Description: description,
       Title: title,
-      IDPet: petID
-    })
-  }
+      IDPet: petID,
+    });
+  };
 
-  return <Container>
-    <Header>New Announcement</Header>
-    <div id="title">
-      <Label >Title:</Label>
-      <Input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-      />
-    </div>
-    <div id="description">
-      <Label>Description:</Label>
-      <DescriptionArea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-    </div>
-    <div id="pet">
-      <Label>Pet:</Label>
-      <Select
-        value={petID}
-        onChange={(e) => setPetID(e.target.value)}>
-        {data?.map((pet) => (
-          <option key={pet.id} value={pet.id}>{pet.name + " (" + pet.id + ")"}</option>
-        ))}
-      </Select>
-    </div>
-    <SubmitButton onClick={useHandleSubmit}>Add announcement</SubmitButton>
-  </Container>;
+  return (
+    <AnimatedPage>
+      <Container>
+        <Header>New Announcement</Header>
+        <div id="title">
+          <Label>Title:</Label>
+          <Input
+            maxLength={60}
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
+        </div>
+        <div id="description">
+          <Label>Description:</Label>
+          <DescriptionArea
+            maxLength={400}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div id="pet">
+          <Label>Pet:</Label>
+          <Select value={petID} onChange={(e) => setPetID(e.target.value)}>
+            {data?.map((pet) => (
+              <Option key={pet.id} value={pet.id}>
+                {pet.name + " (" + pet.id + ")"}
+              </Option>
+            ))}
+          </Select>
+        </div>
+        <SubmitButton onClick={useHandleSubmit}>Submit</SubmitButton>
+      </Container>
+    </AnimatedPage>
+  );
 };
 
 const Container = styled.div`
@@ -57,42 +64,40 @@ const Container = styled.div`
   gap: 10px;
   height: 100%;
   height: min(60vh, 600px);
-  grid-template: auto auto auto  1fr / 1fr 1fr 1fr;
+  grid-template: auto auto auto 1fr / 1fr 1fr 1fr;
 
-  >div {
+  > div {
     display: flex;
     flex-direction: column;
-
   }
 
-  #title{
+  #title {
     grid-column: 1 / 4;
     grid-row: 2 / 3;
   }
 
-  #pet{
+  #pet {
     grid-column: 3 / 4;
     grid-row: 3 / 4;
   }
 
-  #description{
+  #description {
     grid-column: 1 / 3;
     grid-row: 3 / 5;
   }
-
-`
+`;
 
 const Header = styled.h1`
   margin-bottom: 20px;
   margin-top: 0;
   grid-column: 1 / 4;
-`
+`;
 
 const Label = styled.label`
   text-align: left;
   display: block;
   margin: 5px;
-`
+`;
 
 const DescriptionArea = styled.textarea`
   width: 100%;
@@ -103,7 +108,9 @@ const DescriptionArea = styled.textarea`
   border-radius: 5px;
   display: block;
   grid-column: 1 / 3;
-`
+  font-size: 20px;
+  resize: none;
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -113,7 +120,10 @@ const Input = styled.input`
   border-radius: 5px;
   padding: 5px;
   display: block;
-`
+  height: 50px;
+  font-size: 30px;
+  font-weight: 400;
+`;
 
 const Select = styled.select`
   width: 100%;
@@ -122,12 +132,15 @@ const Select = styled.select`
   box-sizing: border-box;
   border-radius: 5px;
   display: block;
+  height: 40px;
+`;
+
+const Option = styled.option`
+  height: 40px;
 `
 
 const SubmitButton = styled.button`
-  background: ${(props) =>
-    props.theme.colors.main
-  };
+  background: ${(props) => props.theme.colors.main};
   color: #fff;
   border: 0;
   padding: 5px;
@@ -135,4 +148,11 @@ const SubmitButton = styled.button`
   cursor: pointer;
   outline: none;
   margin-top: auto;
-`
+  height: 50px;
+  font-size: 25px;
+  font-weight: 700;
+  transition: 0.5s all;
+  :hover {
+    background: ${(props) => props.theme.colors.darkGreen};
+  }
+`;

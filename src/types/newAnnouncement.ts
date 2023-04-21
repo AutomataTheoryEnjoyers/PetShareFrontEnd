@@ -1,5 +1,5 @@
 export type NewAnouncement = {
-  Title: string,
-  Description: string,
-  IDPet: string
-}
+  Title: string;
+  Description: string;
+  IDPet: string;
+};

@@ -5,7 +5,12 @@ export const defaultTheme = {
     tomato: "#ff6347",
     appleGreen: "#79D021",
     lightGreen: "#d8f4bc",
-    main: "#3cb371"
+    darkGreen: "#29754b",
+    lightTomato: "#fcc2b8",
+    highlight: "#85af98",
+    opposite: "#c34c8e",
+    darkgrey: "#545454",
+    main: "#3cb371",
   },
   // https://icolorpalette.com/color?q=79D021
   // https://www.w3schools.com/colors/colors_picker.asp?colorhex=3CB371
@@ -13,6 +18,6 @@ export const defaultTheme = {
   fontSizes: {
     small: "1em",
     medium: "2em",
-    large: "3em"
-  }
-} as const
+    large: "3em",
+  },
+} as const;

@@ -1,112 +1,122 @@
-import styled from "styled-components"
-import { DescriptionText } from "../styles/global"
-import { Application } from "../types/application"
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import styled from "styled-components";
+import { Application } from "../types/application";
+import {
+  faPhone,
+  faEnvelope,
+  faUser,
+  faCheck,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+
+type HoverState = "None" | "Check" | "Cross";
 
 type UserProps = {
-    application: Application
-}
+  application: Application;
+};
 
 export const ApplicationContainerElement = ({ application }: UserProps) => {
-    return <ApplicationContainer>
-        <UsernameContainer>
-            <UsernameText>
-                {application.user.userName && application.user.userName}
-                {!application.user.userName && "Default Username"}
-            </UsernameText>
-        </UsernameContainer>
-        <MiddleContainer>
-            <MiddleContainerText>
-                <FontAwesomeIcon icon={faPhone} />
-                <DescriptionText> {application.user.phoneNumber}</DescriptionText>
-            </MiddleContainerText>
-            <MiddleContainerText>
-                <FontAwesomeIcon icon={faEnvelope} />
-                <DescriptionText> {application.user.email}</DescriptionText>
-            </MiddleContainerText>
-        </MiddleContainer>
-        <RightContainer>
-            <ButtonAccept>Accept</ButtonAccept>
-            <ButtonReject>Reject</ButtonReject>
-        </RightContainer>
-    </ApplicationContainer>
-}
+  const [hoverState, setHoverState] = useState("None" as HoverState);
 
-const ApplicationContainer = styled.div`
-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-border-radius: 5px;
-padding: 10px;
-background-color: ${(props) =>
-        props.theme.colors.powderWhite
-    };
-height: 90px;
-display: flex;
-`
+  return (
+    <ApplicationContainer hoverState={hoverState}>
+      <UsernameText>
+        {application.user.userName} <FontAwesomeIcon icon={faUser} />
+      </UsernameText>
+      <DetailText>
+        <FontAwesomeIcon icon={faPhone} />
+        {application.user.phoneNumber}
+      </DetailText>
+      <DetailText>
+        <FontAwesomeIcon icon={faEnvelope} />
+        {application.user.email}
+      </DetailText>
+      <ButtonsContainer className="buttonContainer">
+        <FontAwesomeIcon
+          className="check"
+          icon={faCheck}
+          onMouseEnter={() => setHoverState("Check")}
+          onMouseLeave={() => setHoverState("None")}
+        />
+        <FontAwesomeIcon
+          className="cross"
+          icon={faXmark}
+          onMouseEnter={() => setHoverState("Cross")}
+          onMouseLeave={() => setHoverState("None")}
+        />
+      </ButtonsContainer>
+    </ApplicationContainer>
+  );
+};
+
+const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  transition: 0.2s background-color;
+  background-color: ${({ hoverState }) => {
+    if (hoverState === "Check") return (props) => props.theme.colors.lightGreen;
+    if (hoverState === "Cross") return (props) => props.theme.colors.lightTomato;
+    return (props) => props.theme.colors.powderWhite;
+  }};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: calc(33.6% - 10px);
+  height: 250px;
+
+  @media screen and (max-width: 900px) {
+    width: calc(50% - 10px);
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+
+  .cross {
+    transition: 0.2s all;
+  }
+
+  .check {
+    transition: 0.2s all;
+  }
+
+  .cross:hover {
+    color: tomato;
+    transform: scale(1.5);
+    cursor: pointer;
+  }
+
+  .check:hover {
+    color: green;
+    transform: scale(1.5);
+    cursor: pointer;
+  }
+`;
+
+const DetailText = styled.p`
+  margin-top: 10px;
+  font-size: 18px;
+  flex: 1;
+  -webkit-text-fit: contain; /* for Safari */
+  text-fit: contain;
+`;
+
+const ButtonsContainer = styled.div`
+  font-size: 40px;
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 10px;
+`;
 
 const UsernameText = styled.h2`
-margin: 0;
-padding-left: 5px;
-font-size: 20px;
-`
-
-const UsernameContainer = styled.div`
-flex: 1;
-border-right: 2px solid black;
-display: flex;
-align-items: center;
-align-content: center;
-`
-
-const MiddleContainerText = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-align-content: center;
-font-size: 10;
-`
-
-const MiddleContainer = styled.div`
-flex: 2;
-display: flex;
-flex-direction: column;
-align-items: center;
-align-content: center;
-justify-content: space-around;
-`
-
-const RightContainer = styled.div`
-flex: 1;
-display: flex;
-flex-direction: column;
-margin-left: 10px;
-align-items: stretch;
-align-content: stretch;
-justify-content: space-around;
-font-size: 10;
-`
-
-const ButtonAccept = styled.button`
-border-radius: 5px;
-padding: 5px;
-background-color: ${(props) =>
-        props.theme.colors.appleGreen
-    };
-color: white;
-display: flex;
-justify-content: center;
-width: 100%;
-`
-
-const ButtonReject = styled.button`
-border-radius: 5px;
-padding: 5px;
-margin-top: 5px;
-background-color: ${(props) =>
-        props.theme.colors.tomato
-    };
-color: white;
-display: flex;
-justify-content: center;
-width: 100%;
-`
+  margin: 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 25px;
+  flex: 1;
+  -webkit-text-fit: contain; /* for Safari */
+  text-fit: contain;
+`;
