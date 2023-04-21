@@ -7,4 +7,4 @@ const Container = styled.div`
   background-color: ${(props) => {
     return props.theme.colors.background;
   }};
-`
+`;

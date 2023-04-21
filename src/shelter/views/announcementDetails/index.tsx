@@ -8,22 +8,43 @@ import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { ApplicationListElement } from "../../../components/applicationList";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
-
+import { AnimatedPage } from "../../../components/animatedPage";
 
 export const AnnouncementDetails = () => {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const announcements = useMyAnnouncements();
-  const currentAnnouncement = announcements.data?.find((announcement) => announcement.id === id) as Announcement;
+  const currentAnnouncement = announcements.data?.find(
+    (announcement) => announcement.id === id
+  ) as Announcement;
   const applications = useMyApplications();
 
-  return (currentAnnouncement && <Container>
-    <div id="image"><ImageElement announcement={currentAnnouncement} /></div>
-    <div id="pet"><PetDetailsElement announcement={currentAnnouncement} /></div>
-    <div id="shelter"><ShelterDetailsElement announcement={currentAnnouncement} /></div>
-    <div id="details"><AnnouncementDetailsElement announcement={currentAnnouncement} /></div>
-    <div id="userlist"><ApplicationListElement announcement={currentAnnouncement} applications={applications.data} /></div>
-  </Container>)
+  return (
+    currentAnnouncement && (
+      <AnimatedPage>
+        <Container>
+          <div id="image">
+            <ImageElement announcement={currentAnnouncement} />
+          </div>
+          <div id="pet">
+            <PetDetailsElement announcement={currentAnnouncement} />
+          </div>
+          <div id="shelter">
+            <ShelterDetailsElement announcement={currentAnnouncement} />
+          </div>
+          <div id="details">
+            <AnnouncementDetailsElement announcement={currentAnnouncement} />
+          </div>
+          <div id="userlist">
+            <ApplicationListElement
+              announcement={currentAnnouncement}
+              applications={applications.data}
+            />
+          </div>
+        </Container>
+      </AnimatedPage>
+    )
+  );
 };
 
 const Container = styled.div`
@@ -32,37 +53,37 @@ const Container = styled.div`
   gap: 10px;
   height: 100%;
   height: min(60vh, 600px);
-  grid-template-areas: 
-  "title title title"
-  "image image pet"
-  "image image shelter"
-  "details details details"
-  "details details details"
-  "user user user";
+  grid-template-areas:
+    "title title title"
+    "image image pet"
+    "image image shelter"
+    "details details details"
+    "details details details"
+    "user user user";
 
   grid-template-columns: 1fr 1fr 1fr;
 
-  #title{
+  #title {
     grid-area: title;
   }
 
-  #image{
+  #image {
     grid-area: image;
   }
 
-  #pet{
+  #pet {
     grid-area: pet;
   }
 
-  #shelter{
+  #shelter {
     grid-area: shelter;
   }
 
-  #details{
-    grid-area: details
+  #details {
+    grid-area: details;
   }
 
-  #userlist{
+  #userlist {
     grid-area: user;
   }
-`
+`;

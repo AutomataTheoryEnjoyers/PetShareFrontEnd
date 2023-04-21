@@ -1,13 +1,13 @@
-import { Pet } from "./pet"
+import { Pet } from "./pet";
 
 export type Announcement = {
-  id: string,
-  title?: string,
-  description?: string,
-  creationDate: Date,
-  closingDate?: Date,
-  status: number,
-  lastUpdateDate: Date,
-  idPet: string
-  pet: Pet,
-}
+  id: string;
+  title?: string;
+  description?: string;
+  creationDate: Date;
+  closingDate?: Date;
+  status: number;
+  lastUpdateDate: Date;
+  idPet: string;
+  pet: Pet;
+};
