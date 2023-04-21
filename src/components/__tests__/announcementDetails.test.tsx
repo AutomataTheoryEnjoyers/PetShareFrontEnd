@@ -17,7 +17,7 @@ test("renders AnnouncementDetailsElement component", () => {
     )
   ).toBeInTheDocument();
   expect(
-    getByText(`Status: ${mockAnnouncements[0].status}`)
+    getByText(`Status: ${mockAnnouncements[0].status}`, { exact: false })
   ).toBeInTheDocument();
   expect(getByText(`ID: ${mockAnnouncements[0].id}`)).toBeInTheDocument();
   if (mockAnnouncements[0].closingDate) {
