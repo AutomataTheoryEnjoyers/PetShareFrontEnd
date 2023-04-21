@@ -1,8 +1,8 @@
-import { useQuery } from "react-query";
+import { useQuery, UseQueryResult } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
 import { Pet } from "../../types/pet";
 
-export const useMyPets = () => {
+export const useMyPets = (): UseQueryResult<Pet[], unknown> => {
   const query = useQuery<Pet[]>("my-pets", () =>
     fetch(BACKEND_URL + "pet", {
       method: "GET",

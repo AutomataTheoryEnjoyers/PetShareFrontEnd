@@ -1,59 +1,93 @@
-import { NewAnnouncement } from "../newAnnouncement";
 import "@testing-library/jest-dom";
-import { fireEvent } from "@testing-library/react";
-import { renderWithRouterAndQueryProvider } from "../../../components/testUtils/functions";
-import { mockPets } from "../../../mocks/mockData";
+import { screen, fireEvent } from "@testing-library/react";
+import { useMyPets } from "../../queries/myPets";
 import { usePostAnnouncement } from "../../mutations/postAnnouncement";
+import { NewAnnouncement } from "../newAnnouncement";
+import { renderWithRouterAndQueryProvider } from "../../../components/testUtils/functions";
 
-describe("new Announcement view", () => {
-  test("renders NewAnnouncement component without crashing", async () => {
+// mock useMyPets hook
+jest.mock("../../queries/myPets", () => ({
+  useMyPets: jest.fn(),
+}));
+
+// mock usePostAnnouncement hook
+jest.mock("../../mutations/postAnnouncement", () => ({
+  usePostAnnouncement: jest.fn(),
+}));
+
+describe("NewAnnouncement", () => {
+  const pets = [
+    { id: "1", name: "Cat" },
+    { id: "2", name: "Dog" },
+    { id: "3", name: "Bird" },
+  ];
+
+  beforeEach(() => {
+    // reset mocks before each test
+    jest.clearAllMocks();
+  });
+
+  it("renders a form for creating a new announcement", () => {
+    // mock useMyPets to return some pets
+    useMyPets.mockReturnValue({ data: pets });
+
     renderWithRouterAndQueryProvider(<NewAnnouncement />);
+
+    expect(screen.getByText("New Announcement")).toBeInTheDocument();
+    expect(screen.getByLabelText("Title:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Description:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Pet:")).toBeInTheDocument();
+    expect(screen.getByText("Submit")).toBeInTheDocument();
   });
 
-  test("displays the correct header", async () => {
-    const { getByText } = renderWithRouterAndQueryProvider(<NewAnnouncement />);
-    const header = getByText("New Announcement");
-    expect(header).toBeInTheDocument();
-  });
+  it("calls usePostAnnouncement when the form is submitted", () => {
+    // mock useMyPets to return some pets
+    useMyPets.mockReturnValue({ data: pets });
 
-  test("displays the correct input fields", async () => {
-    const { getByLabelText } = renderWithRouterAndQueryProvider(
-      <NewAnnouncement />
-    );
-    const titleInput = getByLabelText("Title:");
-    const descriptionInput = getByLabelText("Description:");
-    const petSelect = getByLabelText("Pet:");
-    expect(titleInput).toBeInTheDocument();
-    expect(descriptionInput).toBeInTheDocument();
-    expect(petSelect).toBeInTheDocument();
-  });
+    // mock usePostAnnouncement to do nothing
+    usePostAnnouncement.mockReturnValue({});
 
-  test("updates the state when the user types in the input fields", async () => {
-    const { getByLabelText } = renderWithRouterAndQueryProvider(
-      <NewAnnouncement />
-    );
-    const titleInput = getByLabelText("Title:") as HTMLInputElement;
-    const descriptionInput = getByLabelText("Description:") as HTMLInputElement;
-    fireEvent.change(titleInput, { target: { value: "Test Title" } });
+    renderWithRouterAndQueryProvider(<NewAnnouncement />);
+
+    const titleInput = screen.getByLabelText("Title:");
+    const descriptionInput = screen.getByLabelText("Description:");
+    const petSelect = screen.getByLabelText("Pet:");
+    const submitButton = screen.getByText("Submit");
+
+    fireEvent.change(titleInput, { target: { value: "New Announcement" } });
     fireEvent.change(descriptionInput, {
-      target: { value: "Test Description" },
+      target: { value: "This is a new announcement" },
     });
-    expect(titleInput.value).toBe("Test Title");
-    expect(descriptionInput.value).toBe("Test Description");
+    fireEvent.change(petSelect, { target: { value: "1" } });
+    fireEvent.click(submitButton);
+
+    expect(usePostAnnouncement).toHaveBeenCalledWith({
+      Title: "New Announcement",
+      Description: "This is a new announcement",
+      IDPet: "1",
+    });
   });
 
-  // test("updates the state when the user selects a pet", async () => {
-  //   const { getByLabelText } = renderWithRouterAndQueryProvider(
-  //     <NewAnnouncement />
-  //   );
-  //   const petSelect = getByLabelText("Pet:") as HTMLInputElement;
-  //   fireEvent.change(petSelect, { target: { value: mockPets[0].id } });
-  //   expect(petSelect.value).toBe(mockPets[0].id);
-  // });
+  // it("disables the submit button when the form is invalid", () => {
+  //   // mock useMyPets to return some pets
+  //   useMyPets.mockReturnValue({ data: pets });
 
-  // test("calls the usePostAnnouncement hook when the user clicks the submit button", () => {
-  //   const { getByText } = renderWithRouterAndQueryProvider(<NewAnnouncement />);
-  //   const submitButton = getByText("Submit");
-  //   expect(usePostAnnouncement).toHaveBeenCalled();
+  //   renderWithRouterAndQueryProvider(<NewAnnouncement />);
+
+  //   const titleInput = screen.getByLabelText("Title:");
+  //   const descriptionInput = screen.getByLabelText("Description:");
+  //   const petSelect = screen.getByLabelText("Pet:");
+  //   const submitButton = screen.getByText("Submit");
+
+  //   // fill in the form with invalid values
+  //   fireEvent.change(titleInput, { target: { value: "" } });
+  //   fireEvent.change(descriptionInput, { target: { value: "" } });
+  //   fireEvent.change(petSelect, { target: { value: "" } });
+
+  //   // submit the form
+  //   fireEvent.click(submitButton);
+
+  //   expect(usePostAnnouncement).not.toHaveBeenCalled();
+  //   expect(submitButton).toBeDisabled();
   // });
 });
