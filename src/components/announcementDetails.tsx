@@ -18,14 +18,15 @@ export const AnnouncementDetailsElement = ({ announcement }: Props) => {
             Last Update: {announcement.lastUpdateDate.toDateString()}
           </TextDetails>
         </AnnouncementDetailsContainerDatesLeft>
-        <AnnouncementDetailsContainerDatesRight>
+        {// Commented for now, will be refactored so it's visible for a shelter and invisible to adopter after implementing auth
+        /* <AnnouncementDetailsContainerDatesRight>
           <TextDetails>Status: {announcement.status}</TextDetails>
           {announcement.closingDate != null && (
             <TextDetails>
               Closing date: {announcement.closingDate.toDateString()}
             </TextDetails>
           )}
-        </AnnouncementDetailsContainerDatesRight>
+        </AnnouncementDetailsContainerDatesRight> */}
       </AnnouncementDetailsContainerDates>
       <Title>{announcement.title && announcement.title}</Title>
       <DescriptionText>
@@ -59,11 +60,11 @@ const AnnouncementDetailsContainerDatesLeft = styled.div`
   flex-direction: column;
   align-items: flex-start;
 `;
-const AnnouncementDetailsContainerDatesRight = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-`;
+// const AnnouncementDetailsContainerDatesRight = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-end;
+// `;
 
 const DescriptionText = styled.p`
   margin: 0;
