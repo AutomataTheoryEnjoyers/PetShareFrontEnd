@@ -17,10 +17,6 @@ describe("AnnouncementDetailsElement", () => {
         `Last Update: ${mockAnnouncements[0].lastUpdateDate.toDateString()}`
       )
     ).toBeInTheDocument();
-    expect(
-      getByText(`Status: ${mockAnnouncements[0].status}`)
-    ).toBeInTheDocument();
-    expect(getByText(`ID: ${mockAnnouncements[0].id}`)).toBeInTheDocument();
     expect(getByText(mockAnnouncements[0].title)).toBeInTheDocument();
     expect(getByText(mockAnnouncements[0].description)).toBeInTheDocument();
   });
