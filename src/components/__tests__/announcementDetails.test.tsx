@@ -5,7 +5,7 @@ import { renderWithRouter } from "../testUtils/functions";
 
 describe("AnnouncementDetailsElement", () => {
   it("renders the announcement details", () => {
-    const { getByText } = renderWithRouter(
+    const { getByText, getByTestId } = renderWithRouter(
       <AnnouncementDetailsElement announcement={mockAnnouncements[0]} />
     );
 
@@ -17,7 +17,8 @@ describe("AnnouncementDetailsElement", () => {
         `Last Update: ${mockAnnouncements[0].lastUpdateDate.toDateString()}`
       )
     ).toBeInTheDocument();
-    expect(getByText(mockAnnouncements[0].title)).toBeInTheDocument();
-    expect(getByText(mockAnnouncements[0].description)).toBeInTheDocument();
+    expect(getByText(mockAnnouncements[0].title!)).toBeInTheDocument();
+    expect(getByText(mockAnnouncements[0].description!)).toBeInTheDocument();
+    expect(getByTestId("followIcon")).toBeInTheDocument();
   });
 });

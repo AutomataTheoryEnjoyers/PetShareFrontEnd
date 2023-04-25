@@ -33,7 +33,7 @@ export const AnnouncementDetails = () => {
             <ShelterDetailsElement announcement={currentAnnouncement} />
           </div>
           <div id="details">
-            <AnnouncementDetailsElement announcement={currentAnnouncement} />
+            <AnnouncementDetailsElement announcement={currentAnnouncement} isShelter={true} />
           </div>
           <div id="userlist">
             <ApplicationListElement

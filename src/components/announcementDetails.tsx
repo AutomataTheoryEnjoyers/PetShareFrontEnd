@@ -7,10 +7,11 @@ import { Announcement } from "../types/announcement";
 
 type Props = {
   announcement: Announcement,
-  isFollowed?: boolean
+  isFollowed?: boolean,
+  isShelter?: boolean,
 };
 
-export const AnnouncementDetailsElement = ({ announcement, isFollowed }: Props) => {
+export const AnnouncementDetailsElement = ({ announcement, isFollowed, isShelter }: Props) => {
   const [overFollow, setOverFollow] = useState(isFollowed ?? false);
   return (
     <AnnouncementDetailsContainer>
@@ -24,11 +25,11 @@ export const AnnouncementDetailsElement = ({ announcement, isFollowed }: Props) 
           </TextDetails>
         </AnnouncementDetailsContainerDatesLeft>
         <AnnouncementDetailsContainerDatesRight>
-          <FollowContainer
+          {!isShelter && <FollowContainer
             onMouseOver={() => setOverFollow(true)}
             onMouseLeave={() => setOverFollow(false)}
             onClick={() => { /*function for following*/ }}
-          ><FontAwesomeIcon icon={faHeart} font-size={overFollow ? 27 : 25} color={isFollowed ? "red" : overFollow ? "red" : "black"} className="followIcon"></FontAwesomeIcon></FollowContainer>
+          ><FontAwesomeIcon icon={faHeart} font-size={overFollow ? 27 : 25} color={isFollowed ? "red" : overFollow ? "red" : "black"} className="followIcon"></FontAwesomeIcon></FollowContainer>}
         </AnnouncementDetailsContainerDatesRight>
       </AnnouncementDetailsContainerDates>
       <Title>{announcement.title && announcement.title}</Title>
