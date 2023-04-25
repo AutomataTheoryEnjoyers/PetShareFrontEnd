@@ -1,8 +1,10 @@
 import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
+import { mockAddresses, mockAnnouncements } from "../../mocks/mockData";
 import { Announcement } from "../../types/announcement";
 
 export const useAnnouncements = () => {
+  return { isLoading: false, data: mockAnnouncements };
   const query = useQuery<Announcement[]>("my-announcements", () =>
     fetch(BACKEND_URL + "announcements", {
       method: "GET",

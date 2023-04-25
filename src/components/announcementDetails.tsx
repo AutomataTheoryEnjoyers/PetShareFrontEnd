@@ -1,12 +1,17 @@
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import styled from "styled-components";
 import { TextDetails, Title } from "../styles/global";
 import { Announcement } from "../types/announcement";
 
 type Props = {
-  announcement: Announcement;
+  announcement: Announcement,
+  isFollowed?: boolean
 };
 
-export const AnnouncementDetailsElement = ({ announcement }: Props) => {
+export const AnnouncementDetailsElement = ({ announcement, isFollowed }: Props) => {
+  const [overFollow, setOverFollow] = useState(isFollowed ?? false);
   return (
     <AnnouncementDetailsContainer>
       <AnnouncementDetailsContainerDates>
@@ -18,17 +23,13 @@ export const AnnouncementDetailsElement = ({ announcement }: Props) => {
             Last Update: {announcement.lastUpdateDate.toDateString()}
           </TextDetails>
         </AnnouncementDetailsContainerDatesLeft>
-        {
-          // Commented for now, will be refactored so it's visible for a shelter and invisible to adopter after implementing auth
-          /* <AnnouncementDetailsContainerDatesRight>
-          <TextDetails>Status: {announcement.status}</TextDetails>
-          {announcement.closingDate != null && (
-            <TextDetails>
-              Closing date: {announcement.closingDate.toDateString()}
-            </TextDetails>
-          )}
-        </AnnouncementDetailsContainerDatesRight> */
-        }
+        <AnnouncementDetailsContainerDatesRight>
+          <FollowContainer
+            onMouseOver={() => setOverFollow(true)}
+            onMouseLeave={() => setOverFollow(false)}
+            onClick={() => { /*function for following*/ }}
+          ><FontAwesomeIcon icon={faHeart} font-size={overFollow ? 27 : 25} color={isFollowed ? "red" : overFollow ? "red" : "black"} className="followIcon"></FontAwesomeIcon></FollowContainer>
+        </AnnouncementDetailsContainerDatesRight>
       </AnnouncementDetailsContainerDates>
       <Title>{announcement.title && announcement.title}</Title>
       <DescriptionText>
@@ -62,15 +63,22 @@ const AnnouncementDetailsContainerDatesLeft = styled.div`
   flex-direction: column;
   align-items: flex-start;
 `;
-// const AnnouncementDetailsContainerDatesRight = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-end;
-// `;
-
+const AnnouncementDetailsContainerDatesRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+const FollowContainer = styled.div`
+padding: 5px;
+.followIcon{
+  transition: all 0.1s;
+}
+:hover {
+cursor: pointer;
+}
+`
 const DescriptionText = styled.p`
   margin: 0;
-  padding: 5px;
   font-size: 14px;
 `;
 
