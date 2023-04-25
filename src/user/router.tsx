@@ -5,6 +5,7 @@ import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
 import { Announcements } from "./views/announcements";
+import { FollowedAnnouncements } from "./views/followedAnnouncements";
 export const Router = () => {
   const location = useLocation();
   return (
@@ -15,6 +16,7 @@ export const Router = () => {
           <AnimatePresence mode="wait">
             <Routes key={location.pathname} location={location}>
               <Route path="announcements" element={<Announcements />} />
+              <Route path="followed-annoucements" element={<FollowedAnnouncements />} />
               <Route
                 path="announcements/:id"
                 element={<AnnouncementDetails />}
