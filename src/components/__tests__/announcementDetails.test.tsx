@@ -6,7 +6,7 @@ import { renderWithRouter } from "../testUtils/functions";
 describe("AnnouncementDetailsElement", () => {
   it("renders the announcement details", () => {
     const { getByText, getByTestId } = renderWithRouter(
-      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} />
+      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} isShelter={true} />
     );
 
     expect(
@@ -20,5 +20,13 @@ describe("AnnouncementDetailsElement", () => {
     expect(getByText(mockAnnouncements[0].title!)).toBeInTheDocument();
     expect(getByText(mockAnnouncements[0].description!)).toBeInTheDocument();
     expect(getByTestId("followIcon")).toBeInTheDocument();
+  });
+
+  it("does not render follow button when the view is for a shelter", () => {
+    const { getByTestId } = renderWithRouter(
+      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} isShelter={false} />
+    );
+
+    expect(getByTestId("followIcon")).not.toBeInTheDocument();
   });
 });
