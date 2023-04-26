@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Navigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { useContext, useEffect, useState } from "react";
 import { UserContextType } from "../../../types/userContextType";
 import { UserContext } from "../../../components/userContext";
-import { count } from "console";
-import { usePostShelter } from "../../mutations/usePostShelter";
+import { usePostNewUser } from "../../mutations/usePostNewUser";
 import { UserData } from "../../../types/userData";
 import { usePatchAuth0 } from "../../mutations/usePatchAuth0";
+import { NewShelter } from "../../../types/newShelter";
+import { NewAdopter } from "../../../types/NewAdopter";
 
 const REGEX_POSTALCODE = /^[0-9]{2}[-]{1}[0-9]{3}$/;
 const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -19,10 +19,10 @@ export const RegistrationPage = () => {
   const { userData, setUserData } = useContext<UserContextType>(UserContext);
 
   const [selectedRole, setSelectedRole] = useState<string>("adopter");
-  const [userName, setUserName] = useState<string>(userData ? userData.userName : "");
+  const [userName, setUserName] = useState<string>("");
   const [fullShelterName, setFullShelterName] = useState<string>("");
-  const [phoneNumber, setPhoneNumber] = useState<string>(userData ? userData.phoneNumber : "");
-  const [email, setEmail] = useState<string>(userData ? userData.email : "");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [street, setStreet] = useState<string>("");
   const [city, setCity] = useState<string>("");
   const [province, setProvince] = useState<string>("");
@@ -51,25 +51,41 @@ export const RegistrationPage = () => {
   }, [postalCode]);
 
   const useHandleSubmit = () => {
-    if (!validEmail || !validPostalCode) return;
-    return HandleSubmitShelter();
-  }
+    let newUser = null;
 
-  const HandleSubmitShelter = () => {
+    if (selectedRole === "adopter") {
+      newUser = {
+        userName: userName,
+        fullShelterName: fullShelterName,
+        phoneNumber: phoneNumber,
+        email: email,
+        address: {
+          country: country,
+          province: province,
+          city: city,
+          street: street,
+          postalCode: postalCode,
+        }
+      } as NewAdopter;
+    }
+    else {
+      newUser = {
+        userName: userName,
+        fullShelterName: fullShelterName,
+        phoneNumber: phoneNumber,
+        email: email,
+        address: {
+          country: country,
+          province: province,
+          city: city,
+          street: street,
+          postalCode: postalCode,
+        }
+      } as NewShelter;
+    }
+
     setLoadingRegister(true);
-    const queryPostShelter = usePostShelter({
-      userName: userName,
-      fullShelterName: fullShelterName,
-      phoneNumber: phoneNumber,
-      email: email,
-      address: {
-        country: country,
-        province: province,
-        city: city,
-        street: street,
-        postalCode: postalCode,
-      }
-    })
+    const queryPostShelter = usePostNewUser(newUser, selectedRole);
     const updatedUserData = {
       ...userData,
       userIdDB: queryPostShelter.data.id,
@@ -181,7 +197,7 @@ export const RegistrationPage = () => {
         </>
         <SubmitButton
           onClick={useHandleSubmit}
-          disabled={!validEmail && !validPostalCode && !isLoadingRegister}
+          disabled={!validEmail || !validPostalCode || isLoadingRegister}
         >
           Submit
         </SubmitButton>
@@ -284,5 +300,8 @@ const SubmitButton = styled.button`
   transition: 0.5s all;
   :hover {
     background: ${(props) => props.theme.colors.darkGreen};
+  }
+  :disabled {
+    background: ${(props) => props.theme.colors.darkgrey};
   }
 `;

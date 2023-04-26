@@ -6,8 +6,10 @@ import { ClipLoader } from "react-spinners";
 import { useContext, useEffect, useState } from "react";
 import { UserContextType } from "../../../types/userContextType";
 import { UserContext } from "../../../components/userContext";
+import jwt from "jwt-decode";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
+const namespace = process.env.REACT_APP_AUTH0_ACCESSTOKEN_NAMESPACE as string;
 
 export const Callback = () => {
     const {
@@ -26,40 +28,23 @@ export const Callback = () => {
 
             try {
                 const accessToken = await getAccessTokenSilently();
-
-                const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
-
-                console.log(userDetailsByIdUrl);
-
-                const metadataResponse = await fetch(userDetailsByIdUrl, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`,
-                    },
-                });
-
-                if (metadataResponse.status === 200) {
-                    setUserData(await metadataResponse.json().then(
-                        response => (
-                            {
-                                // It just works
-                                ...response,
-                                userIdAuth0: response.user_id,
-                                userIdDB: response.app_metadata.db_id,
-                                role: response.app_metadata.role,
-                                email: response.email,
-                                userName: response.username,
-                                phoneNumber: response.phone_number,
-                                accessToken: accessToken,
-                            }
-                        )))
-                }
+                const accessTokenDecoded = jwt(accessToken) as any;
+                console.log(accessTokenDecoded);
+                setUserData(
+                    {
+                        userIdAuth0: accessTokenDecoded["sub"],
+                        userIdDB: accessTokenDecoded[`${namespace}/db_id`],
+                        role: accessTokenDecoded[`${namespace}/role`],
+                        accessToken: accessToken,
+                    }
+                )
             } catch (e) {
                 console.log('Error:', e);
             }
         };
 
         getUserMetadata();
-    }, [getAccessTokenSilently, user?.sub]);
+    }, [getAccessTokenSilently, user]);
 
     return (
         <AnimatedPage>
