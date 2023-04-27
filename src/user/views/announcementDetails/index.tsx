@@ -7,10 +7,11 @@ import { AnnouncementDetailsElement } from "../../../components/announcementDeta
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { useAnnouncements } from "../../queries/announcements";
 import { AnimatedPage } from "../../../components/animatedPage";
+import { useState } from "react";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-
+  const [isApplicable, _] = useState(false);
   const announcements = useAnnouncements();
   const currentAnnouncement = announcements.data?.find(
     (announcement) => announcement.id === id
@@ -33,7 +34,7 @@ export const AnnouncementDetails = () => {
             <AnnouncementDetailsElement announcement={currentAnnouncement} />
           </div>
           <div id="apply-button">
-            <ApplyButton onClick={() => {/*adopt function*/ }}>Adopt!</ApplyButton>
+            <ApplyButton isApplicable={isApplicable} onClick={() => {/*adopt function*/ }}>{isApplicable ? "Adopt!" : "Withdraw"}</ApplyButton>
           </div>
         </Container>
       </AnimatedPage>
@@ -41,8 +42,8 @@ export const AnnouncementDetails = () => {
   );
 };
 
-const ApplyButton = styled.div`
-  background: ${(props) => props.theme.colors.main};
+const ApplyButton = styled.div<{ isApplicable: boolean }>`
+  background: ${(props) => props.isApplicable ? props.theme.colors.main : props.theme.colors.tomato};
   color: #fff;
   border: 0;
   border-radius: 5px;
@@ -55,7 +56,7 @@ const ApplyButton = styled.div`
   letter-spacing: 5px;
   transition: 0.5s all;
   :hover {
-    background: ${(props) => props.theme.colors.darkGreen};
+    background: ${(props) => props.isApplicable ? props.theme.colors.darkGreen : props.theme.colors.darkTomato};
   }
 `
 
