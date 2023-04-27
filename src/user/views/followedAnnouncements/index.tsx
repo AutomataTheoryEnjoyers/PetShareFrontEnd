@@ -8,7 +8,7 @@ export const FollowedAnnouncements = () => {
   const { data } = useAnnouncements();
   return (
     <AnimatedPage>
-      <Header>My Announcements</Header>
+      <Header>Followed Announcements</Header>
       <List>
         {data?.map((announcement) => (
           <AnnouncementListElement
