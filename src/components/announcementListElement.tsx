@@ -61,7 +61,6 @@ const Container = styled.div`
       opacity: 1;
       margin-right: 0;
     }
-    background-color: ${(props) => props.theme.colors.lightGreen};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 `;

@@ -1,123 +1,93 @@
-import styled from "styled-components";
-import { Application } from "../types/application";
-import {
-  faPhone,
-  faEnvelope,
-  faUser,
-  faCheck,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { Title } from "../styles/global";
+import { Application } from "../types/application";
 
-type HoverState = "None" | "Check" | "Cross";
-
-type UserProps = {
+type Props = {
   application: Application;
-};
+}
 
-export const ApplicationContainerElement = ({ application }: UserProps) => {
-  const [hoverState, setHoverState] = useState("None" as HoverState);
-
+export const ApplicationListElement = ({ application }: Props) => {
   return (
-    <ApplicationContainer hoverState={hoverState}>
-      <UsernameText>
-        {application.user.userName} <FontAwesomeIcon icon={faUser} />
-      </UsernameText>
-      <DetailText>
-        <FontAwesomeIcon icon={faPhone} />
-        {application.user.phoneNumber}
-      </DetailText>
-      <DetailText>
-        <FontAwesomeIcon icon={faEnvelope} />
-        {application.user.email}
-      </DetailText>
-      <ButtonsContainer className="buttonContainer">
-        <FontAwesomeIcon
-          className="check"
-          icon={faCheck}
-          onMouseEnter={() => setHoverState("Check")}
-          onMouseLeave={() => setHoverState("None")}
-        />
-        <FontAwesomeIcon
-          className="cross"
-          icon={faXmark}
-          onMouseEnter={() => setHoverState("Cross")}
-          onMouseLeave={() => setHoverState("None")}
-        />
-      </ButtonsContainer>
-    </ApplicationContainer>
+    <LinkStyled to={`/user/announcements/${application.announcement.id}`}>
+      <Container isWithdrawed={application.isWithdrawed}>
+        <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
+        <LeftContainer>
+          <Title>{application.announcement.title}</Title>
+          <BottomText>
+            {application.announcement.pet.name}, {application.announcement.pet.breed},{" "}
+            {new Date().getFullYear() - application.announcement.pet.birthday.getFullYear()}{" "}
+            years old
+          </BottomText>
+        </LeftContainer>
+        <RightContainer>
+          <FontAwesomeIcon
+            className="right-arrow"
+            fontSize={30}
+            icon={faArrowRight}
+          />
+        </RightContainer>
+      </Container>
+    </LinkStyled>
   );
 };
 
-const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
+const LinkStyled = styled(Link)`
+text-decoration: none;
+color: black;
+`;
+
+const Container = styled.div<{ isWithdrawed: boolean }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
-  transition: 0.2s background-color;
-  background-color: ${({ hoverState }) => {
-    if (hoverState === "Check") return (props) => props.theme.colors.lightGreen;
-    if (hoverState === "Cross")
-      return (props) => props.theme.colors.lightTomato;
-    return (props) => props.theme.colors.powderWhite;
-  }};
+  background-color: ${(props) => props.isWithdrawed ? props.theme.colors.lightTomato : props.theme.colors.powderWhite};
+  height: 150px;
+  display: flex;
+  transition: all 0.2s ease-in;
+  .right-arrow {
+    opacity: 0;
+    transition: all 0.2s ease-in;
+    justify-content: center;
+    margin-right: 50px;
+  }
+  :hover {
+    top: -10px;
+    transform: scale(1.05);
+    z-axis: 1000;
+    .right-arrow {
+      opacity: 1;
+      margin-right: 0;
+    }
+`;
+
+const BottomText = styled.p`
+  margin: 0;
+  align-self: flex-end;
+  text-align: left;
+  align-self: flex-start;
+  padding: 5px;
+  color: ${(props) => props.theme.colors.darkgrey};
+`;
+
+const LeftContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: calc(33.6% - 10px);
-  height: 250px;
-
-  @media screen and (max-width: 900px) {
-    width: calc(50% - 10px);
-  }
-
-  @media screen and (max-width: 600px) {
-    width: 100%;
-  }
-
-  .cross {
-    transition: 0.2s all;
-  }
-
-  .check {
-    transition: 0.2s all;
-  }
-
-  .cross:hover {
-    color: tomato;
-    transform: scale(1.5);
-    cursor: pointer;
-  }
-
-  .check:hover {
-    color: green;
-    transform: scale(1.5);
-    cursor: pointer;
-  }
+  justify-content: space-between;
 `;
 
-const DetailText = styled.p`
-  margin-top: 10px;
-  font-size: 18px;
-  flex: 1;
-  -webkit-text-fit: contain; /* for Safari */
-  text-fit: contain;
-`;
-
-const ButtonsContainer = styled.div`
-  font-size: 40px;
-  flex: 1;
+const RightContainer = styled.div`
   display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
+  margin-left: auto;
+  flex-direction: column;
+  justify-content: center;
 `;
 
-const UsernameText = styled.h2`
-  margin: 0;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-size: 25px;
-  flex: 1;
-  -webkit-text-fit: contain; /* for Safari */
-  text-fit: contain;
+const Image = styled.img`
+  width: 150px;
+  border-radius: 5px;
+  margin-right: 15px;
+  object-fit: cover;
 `;

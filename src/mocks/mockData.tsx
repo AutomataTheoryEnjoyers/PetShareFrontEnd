@@ -1,4 +1,5 @@
 import { Announcement } from "../types/announcement";
+import { Application } from "../types/application";
 
 export const mockAddresses = [
   {
@@ -187,4 +188,4 @@ export const mockApplications = [
     user: mockUsers[0],
     announcement: mockAnnouncements[2],
   },
-];
+] as Application[];
