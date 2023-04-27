@@ -17,7 +17,9 @@ export const ApplicationListElement = ({ application }: Props) => {
         <LeftContainer>
           <Title>{application.announcement.title}</Title>
           <BottomText>
-            Bottom Text
+            {application.announcement.pet.name}, {application.announcement.pet.breed},{" "}
+            {new Date().getFullYear() - application.announcement.pet.birthday.getFullYear()}{" "}
+            years old
           </BottomText>
         </LeftContainer>
         <RightContainer>
