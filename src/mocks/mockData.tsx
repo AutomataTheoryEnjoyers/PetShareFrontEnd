@@ -1,3 +1,5 @@
+import { Announcement } from "../types/announcement";
+
 export const mockAddresses = [
   {
     id: "4231",
@@ -158,7 +160,7 @@ export const mockAnnouncements = [
     idPet: mockPets[2].id,
     pet: mockPets[2],
   },
-];
+] as Announcement[];
 
 export const mockApplications = [
   {

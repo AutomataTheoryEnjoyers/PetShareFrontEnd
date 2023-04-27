@@ -5,8 +5,8 @@ import { renderWithRouter } from "../testUtils/functions";
 
 describe("AnnouncementDetailsElement", () => {
   it("renders the announcement details", () => {
-    const { getByText } = renderWithRouter(
-      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} />
+    const { getByText, getByTestId } = renderWithRouter(
+      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} isShelter={true} />
     );
 
     expect(
@@ -17,7 +17,16 @@ describe("AnnouncementDetailsElement", () => {
         `Last Update: ${mockAnnouncements[0].lastUpdateDate.toDateString()}`
       )
     ).toBeInTheDocument();
-    expect(getByText(mockAnnouncements[0].title)).toBeInTheDocument();
-    expect(getByText(mockAnnouncements[0].description)).toBeInTheDocument();
+    expect(getByText(mockAnnouncements[0].title!)).toBeInTheDocument();
+    expect(getByText(mockAnnouncements[0].description!)).toBeInTheDocument();
+    expect(getByTestId("followIcon")).toBeInTheDocument();
+  });
+
+  it("does not render follow button when the view is for a shelter", () => {
+    const { getByTestId } = renderWithRouter(
+      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} isShelter={false} />
+    );
+
+    expect(getByTestId("followIcon")).not.toBeInTheDocument();
   });
 });
