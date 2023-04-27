@@ -8,6 +8,7 @@ export const Navbar = () => {
       <Links>
         <Link name="Announcements" path="/user/announcements" />
         <Link name="Followed" path="/user/followed-annoucements" />
+        <Link name="My Applications" path="/user/my-applications" />
       </Links>
     </Bar>
   );

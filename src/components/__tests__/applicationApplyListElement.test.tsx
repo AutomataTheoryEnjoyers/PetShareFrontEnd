@@ -1,12 +1,12 @@
 import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { mockApplications } from "../../mocks/mockData";
-import { ApplicationContainerElement } from "../applicationListElement";
+import { ApplicationApplyListElement } from "../applicationApplyListElement";
 import { renderWithRouter } from "../testUtils/functions";
 
-test("renders AnnouncementListElement component", async () => {
-  const {} = renderWithRouter(
-    <ApplicationContainerElement application={mockApplications[0]} />
+test("renders ApplicationApplyListElement component", async () => {
+  const { } = renderWithRouter(
+    <ApplicationApplyListElement application={mockApplications[0]} />
   );
 
   expect(

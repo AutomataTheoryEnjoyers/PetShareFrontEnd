@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { ImageElement } from "../../../components/ImageElement";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
-import { ApplicationListElement } from "../../../components/applicationList";
+import { ApplicationApplyList } from "../../../components/applicationApplyList";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
 
@@ -36,7 +36,7 @@ export const AnnouncementDetails = () => {
             <AnnouncementDetailsElement announcement={currentAnnouncement} isShelter={true} />
           </div>
           <div id="userlist">
-            <ApplicationListElement
+            <ApplicationApplyList
               announcement={currentAnnouncement}
               applications={applications.data}
             />
