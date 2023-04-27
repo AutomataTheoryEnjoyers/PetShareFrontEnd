@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";

@@ -1,6 +1,7 @@
-import { faCross, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { AnimatePresence, motion, Variants } from "framer-motion";
+import { ReactNode, useState } from "react";
 import styled from "styled-components";
 
 export type FilterState = {
@@ -53,125 +54,165 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
         </AgeCategoryContainer>
         <CategoryContainer>
           <CategoryTitle>City</CategoryTitle>
-          {filters.location.map((location) => (
-            <Item
-              key={location}
-            >{location} <FontAwesomeIcon icon={faCross} /></Item>
-          ))}
-          <NewPositionContainer>
-            <Input
-              maxLength={15}
-              type="text"
-              placeholder="City name"
-              value={currentCity}
-              onChange={(e) => setCurrentCity(e.target.value)}
-              required
-            />
-            <AddButton onClick={() => {
-              if (currentCity.length === 0) return;
-              onChange({ location: [...filters.location, currentCity] })
-              setCurrentCity("");
-            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
-          </NewPositionContainer>
+          <AnimatePresence>
+            {filters.location.map((location) => (
+              <Item
+                key={location}
+                onClick={() => {
+                  onChange({ location: filters.location.filter((el) => el !== location) })
+                }}
+                layout
+              >{location}</Item>
+            ))}
+            <NewPositionContainer layout>
+              <Input
+                maxLength={15}
+                type="text"
+                placeholder="City name"
+                value={currentCity}
+                onChange={(e) => setCurrentCity(e.target.value)}
+                required
+                layout
+              />
+              <AddButton onClick={() => {
+                if (currentCity.length === 0 || filters.location.includes(currentCity)) return;
+                onChange({ location: [...filters.location, currentCity] })
+                setCurrentCity("");
+              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            </NewPositionContainer>
+          </AnimatePresence>
         </CategoryContainer>
         <CategoryContainer>
           <CategoryTitle>Species</CategoryTitle>
-          {filters.species.map((species) => (
-            <Item
-              key={species}
-            >{species} <FontAwesomeIcon icon={faCross} /></Item>
-          ))}
-          <NewPositionContainer>
-            <Input
-              maxLength={15}
-              type="text"
-              placeholder="Species name"
-              value={currentSpecies}
-              onChange={(e) => setCurrentSpecies(e.target.value)}
-              required
-            />
-            <AddButton onClick={() => {
-              if (currentSpecies.length === 0) return;
-              onChange({ species: [...filters.species, currentSpecies] })
-              setCurrentSpecies("");
-            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
-          </NewPositionContainer>
+          <AnimatePresence>
+            {filters.species.map((species) => (
+              <Item
+                key={species}
+                onClick={() => {
+                  onChange({ species: filters.species.filter((el) => el !== species) })
+                }}
+                layout
+              >{species}</Item>
+            ))}
+            <NewPositionContainer layout>
+              <Input
+                maxLength={15}
+                type="text"
+                placeholder="Species name"
+                value={currentSpecies}
+                onChange={(e) => setCurrentSpecies(e.target.value)}
+                layout
+                required
+              />
+              <AddButton onClick={() => {
+                if (currentSpecies.length === 0 || filters.species.includes(currentSpecies)) return;
+                onChange({ species: [...filters.species, currentSpecies] })
+                setCurrentSpecies("");
+              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            </NewPositionContainer>
+          </AnimatePresence>
         </CategoryContainer>
         <CategoryContainer>
           <CategoryTitle>Breed</CategoryTitle>
-          {filters.breed.map((breed) => (
-            <Item
-              key={breed}
-            >{breed} <FontAwesomeIcon icon={faCross} /></Item>
-          ))}
-          <NewPositionContainer>
-            <Input
-              maxLength={15}
-              type="text"
-              placeholder="Breed name"
-              value={currentBreed}
-              onChange={(e) => setCurrentBreed(e.target.value)}
-              required
-            />
-            <AddButton onClick={() => {
-              if (currentBreed.length === 0) return;
-              onChange({ breed: [...filters.breed, currentBreed] })
-              setCurrentBreed("");
-            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
-          </NewPositionContainer>
+          <AnimatePresence>
+            {filters.breed.map((breed) => (
+              <Item
+                key={breed}
+                onClick={() => {
+                  onChange({ breed: filters.breed.filter((el) => el !== breed) })
+                }}
+                layout
+              >{breed}</Item>
+            ))}
+            <NewPositionContainer layout>
+              <Input
+                maxLength={15}
+                type="text"
+                placeholder="Breed name"
+                value={currentBreed}
+                onChange={(e) => setCurrentBreed(e.target.value)}
+                layout
+                required
+              />
+              <AddButton onClick={() => {
+                if (currentBreed.length === 0 || filters.breed.includes(currentBreed)) return;
+                onChange({ breed: [...filters.breed, currentBreed] })
+                setCurrentBreed("");
+              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            </NewPositionContainer>
+          </AnimatePresence>
         </CategoryContainer>
         <CategoryContainer>
           <CategoryTitle>Shelter</CategoryTitle>
-          {filters.shelter.map((shelter) => (
-            <Item
-              key={shelter}
-            >{shelter} <FontAwesomeIcon icon={faCross} /></Item>
-          ))}
-          <NewPositionContainer>
-            <Input
-              maxLength={15}
-              type="text"
-              placeholder="Shelter name"
-              value={currentShelter}
-              onChange={(e) => setCurrentShelter(e.target.value)}
-              required
-            />
-            <AddButton onClick={() => {
-              if (currentShelter.length === 0) return;
-              onChange({ shelter: [...filters.shelter, currentShelter] })
-              setCurrentShelter("");
-            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
-          </NewPositionContainer>
+          <AnimatePresence>
+            <NewPositionContainer layout>
+              <Input
+                maxLength={15}
+                type="text"
+                placeholder="Shelter name"
+                value={currentShelter}
+                onChange={(e) => setCurrentShelter(e.target.value)}
+                required
+                layout
+              />
+              <AddButton onClick={() => {
+                if (currentShelter.length === 0 || filters.shelter.includes(currentShelter)) return;
+                onChange({ shelter: [currentShelter, ...filters.shelter] })
+                setCurrentShelter("");
+              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            </NewPositionContainer>
+            {filters.shelter.map((shelter) => (
+              <Item
+                key={shelter}
+                onClick={() => {
+                  onChange({ shelter: filters.shelter.filter((el) => el !== shelter) })
+                }}
+                layout
+              >{shelter}</Item>
+            ))}
+          </AnimatePresence>
         </CategoryContainer>
       </FieldsContainer>
-      <FormButton></FormButton>
     </FormContainer >
   );
 }
 
-const NewPositionContainer = styled.div`
+const NewPositionContainer = styled(motion.div)`
   display: flex;
   gap: 3px;
   flex: 1;
 `
 
-const FormContainer = styled.div`
+const Item = styled(motion.div)`
+  flex: 1;
+  background-color: ${(props) => props.theme.colors.powderWhite};
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  min-height: 40px;
+  max-height: 40px;
+  font-size: 25px;
+  display: grid;
+  place-items: center;
+  :hover{
+    color: red;
+    text-decoration-line: line-through;
+    background-color: ${(props) => props.theme.colors.lightTomato};
+  }
+`
+
+const FormContainer = styled(motion.div)`
   display: flex;
   gap: 10px;
   flex-direction: column;
+  margin-bottom: 10px;
 `
 
-const Item = styled.div`
-  flex: 1;
-  background-color: grey;
-  min-height: 40px;
-`
-
-const Input = styled.input`
+const Input = styled(motion.input)`
   width: 100%;
   padding: 6px 10px;
   border: 1px solid #ddd;
   box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 5px;
   display: block;
@@ -202,13 +243,21 @@ const NumberInput = styled.input`
 `
 
 const AddButton = styled.div`
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  background-color: green;
+  background-color: ${(props) => props.theme.colors.main};
   flex: 1;
   color: white;
   display: grid;
   place-items: center;
-  height: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  transition: 0.2s all;
+  :hover {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    background-color: ${(props) => props.theme.colors.darkGreen};
+  }
 `
 
 const AgeCategoryContainer = styled.div`
@@ -219,12 +268,13 @@ const AgeCategoryContainer = styled.div`
   flex-direction: column;
 `
 
-const CategoryContainer = styled.div`
+const CategoryContainer = styled(motion.div)`
   flex: 2;
   gap: 5px;
   text-align: center;
   display: flex;
   flex-direction: column;
+  transition: 2s all;
 `
 
 const CategoryTitle = styled.h3`
@@ -236,10 +286,3 @@ const FieldsContainer = styled.div`
   flex-direction: row;
   gap: 15px;
 `
-
-const FormButton = styled.div`
-  background-color: red;
-  height: 50px;
-  width: 200px;
-`
-
