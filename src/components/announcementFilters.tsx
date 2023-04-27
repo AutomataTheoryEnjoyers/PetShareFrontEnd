@@ -1,15 +1,23 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCross, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import styled from "styled-components";
 
 export type FilterState = {
-  minAge: string,
-  maxAge: string,
+  minAge?: string,
+  maxAge?: string,
   location: string[],
   breed: string[],
   species: string[],
   shelter: string[]
 }
+
+export const DefaultFilterState = {
+  location: [],
+  breed: [],
+  shelter: [],
+  species: []
+} as FilterState;
 
 type Props = {
   filters: FilterState,
@@ -17,6 +25,10 @@ type Props = {
 }
 
 export const AnnouncementFilters = ({ filters, onChange }: Props) => {
+  const [currentCity, setCurrentCity] = useState("");
+  const [currentSpecies, setCurrentSpecies] = useState("");
+  const [currentBreed, setCurrentBreed] = useState("");
+  const [currentShelter, setCurrentShelter] = useState("");
   return (
     <FormContainer>
       <FieldsContainer>
@@ -24,7 +36,7 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
           <CategoryTitle>Age</CategoryTitle>
           <NumberInput
             maxLength={2}
-            type="number"
+            type="text"
             placeholder="min age"
             value={filters.minAge}
             onChange={(e) => onChange({ minAge: e.target.value })}
@@ -32,7 +44,7 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
           />
           <NumberInput
             maxLength={2}
-            type="number"
+            type="text"
             placeholder="max age"
             value={filters.maxAge}
             onChange={(e) => onChange({ maxAge: e.target.value })}
@@ -41,67 +53,118 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
         </AgeCategoryContainer>
         <CategoryContainer>
           <CategoryTitle>City</CategoryTitle>
+          {filters.location.map((location) => (
+            <Item
+              key={location}
+            >{location} <FontAwesomeIcon icon={faCross} /></Item>
+          ))}
           <NewPositionContainer>
             <Input
               maxLength={15}
               type="text"
               placeholder="City name"
+              value={currentCity}
+              onChange={(e) => setCurrentCity(e.target.value)}
               required
             />
-            <AddButton><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            <AddButton onClick={() => {
+              if (currentCity.length === 0) return;
+              onChange({ location: [...filters.location, currentCity] })
+              setCurrentCity("");
+            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
           </NewPositionContainer>
         </CategoryContainer>
         <CategoryContainer>
           <CategoryTitle>Species</CategoryTitle>
+          {filters.species.map((species) => (
+            <Item
+              key={species}
+            >{species} <FontAwesomeIcon icon={faCross} /></Item>
+          ))}
           <NewPositionContainer>
             <Input
               maxLength={15}
               type="text"
               placeholder="Species name"
+              value={currentSpecies}
+              onChange={(e) => setCurrentSpecies(e.target.value)}
               required
             />
-            <AddButton><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            <AddButton onClick={() => {
+              if (currentSpecies.length === 0) return;
+              onChange({ species: [...filters.species, currentSpecies] })
+              setCurrentSpecies("");
+            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
           </NewPositionContainer>
         </CategoryContainer>
         <CategoryContainer>
           <CategoryTitle>Breed</CategoryTitle>
+          {filters.breed.map((breed) => (
+            <Item
+              key={breed}
+            >{breed} <FontAwesomeIcon icon={faCross} /></Item>
+          ))}
           <NewPositionContainer>
             <Input
               maxLength={15}
               type="text"
               placeholder="Breed name"
+              value={currentBreed}
+              onChange={(e) => setCurrentBreed(e.target.value)}
               required
             />
-            <AddButton><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            <AddButton onClick={() => {
+              if (currentBreed.length === 0) return;
+              onChange({ breed: [...filters.breed, currentBreed] })
+              setCurrentBreed("");
+            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
           </NewPositionContainer>
         </CategoryContainer>
         <CategoryContainer>
           <CategoryTitle>Shelter</CategoryTitle>
+          {filters.shelter.map((shelter) => (
+            <Item
+              key={shelter}
+            >{shelter} <FontAwesomeIcon icon={faCross} /></Item>
+          ))}
           <NewPositionContainer>
             <Input
-              maxLength={2}
+              maxLength={15}
               type="text"
               placeholder="Shelter name"
+              value={currentShelter}
+              onChange={(e) => setCurrentShelter(e.target.value)}
               required
             />
-            <AddButton><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            <AddButton onClick={() => {
+              if (currentShelter.length === 0) return;
+              onChange({ shelter: [...filters.shelter, currentShelter] })
+              setCurrentShelter("");
+            }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
           </NewPositionContainer>
         </CategoryContainer>
       </FieldsContainer>
       <FormButton></FormButton>
-    </FormContainer>
+    </FormContainer >
   );
 }
 
 const NewPositionContainer = styled.div`
   display: flex;
   gap: 3px;
+  flex: 1;
 `
 
 const FormContainer = styled.div`
   display: flex;
   gap: 10px;
   flex-direction: column;
+`
+
+const Item = styled.div`
+  flex: 1;
+  background-color: grey;
+  min-height: 40px;
 `
 
 const Input = styled.input`
@@ -112,7 +175,6 @@ const Input = styled.input`
   border-radius: 5px;
   padding: 5px;
   display: block;
-  height: 30px;
   font-size: 20px;
   font-weight: 400;
   text-align: center;
@@ -144,8 +206,9 @@ const AddButton = styled.div`
   background-color: green;
   flex: 1;
   color: white;
-  text-align: center;
-  vertical-align: middle;
+  display: grid;
+  place-items: center;
+  height: 40px;
 `
 
 const AgeCategoryContainer = styled.div`
