@@ -29,7 +29,7 @@ export const AnnouncementDetailsElement = ({ announcement, isFollowed, isShelter
             onMouseOver={() => setOverFollow(true)}
             onMouseLeave={() => setOverFollow(false)}
             onClick={() => { /*function for following*/ }}
-          ><FontAwesomeIcon icon={faHeart} style={{ transform: `scale(${overFollow ? 1.15 : 1})` }} font-size={25} color={isFollowed ? "red" : overFollow ? "red" : "black"} className="followIcon"></FontAwesomeIcon></FollowContainer>}
+          ><FontAwesomeIcon icon={faHeart} data-testid="followIcon" style={{ transform: `scale(${overFollow ? 1.15 : 1})` }} font-size={25} color={isFollowed ? "red" : overFollow ? "red" : "black"} className="followIcon"></FontAwesomeIcon></FollowContainer>}
         </TopContainerRight>
       </TopContainer>
       <Title>{announcement.title && announcement.title}</Title>
