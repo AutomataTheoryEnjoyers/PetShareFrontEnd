@@ -8,12 +8,8 @@ import { UserContextType } from "../../../types/userContextType";
 import { UserContext } from "../../../components/userContext";
 import jwt from "jwt-decode";
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
-const namespace = process.env.REACT_APP_AUTH0_ACCESSTOKEN_NAMESPACE as string;
-
 export const Callback = () => {
     const {
-        user,
         isLoading,
         error,
         getAccessTokenSilently,
@@ -23,37 +19,53 @@ export const Callback = () => {
 
     useEffect(() => {
         const getUserMetadata = async () => {
-
-            if (user?.sub == null) return;
+            if(error || isLoading || userData !== null) return;
 
             try {
-                const accessToken = await getAccessTokenSilently();
-                const accessTokenDecoded = jwt(accessToken) as any;
-                console.log(accessTokenDecoded);
-                setUserData(
-                    {
-                        userIdAuth0: accessTokenDecoded["sub"],
-                        userIdDB: accessTokenDecoded[`${namespace}/db_id`],
-                        role: accessTokenDecoded[`${namespace}/role`],
-                        accessToken: accessToken,
+                await getAccessTokenSilently().then(
+                    (accessToken) => {
+                        const accessTokenDecoded = jwt(accessToken) as any;
+                        console.log(accessTokenDecoded);
+                        setUserData(
+                            {
+                                userIdAuth0: accessTokenDecoded["sub"],
+                                userIdDB: accessTokenDecoded["db_id"],
+                                role: accessTokenDecoded["role"],
+                                accessToken: accessToken,
+                            }
+                        )
+                        console.log(userData);                        
                     }
-                )
+                );
             } catch (e) {
                 console.log('Error:', e);
             }
         };
 
         getUserMetadata();
-    }, [getAccessTokenSilently, user]);
+    }, [getAccessTokenSilently, isLoading]);
 
     return (
         <AnimatedPage>
             {/* <h1> Auth0 callback page</h1> */}
-            {error && <Navigate to="/announcements" />}
-            {!error && isLoading && <ClipLoader />}
-            {!error && !isLoading && userData && userData.role === "unassigned" && <Navigate to="/register" />}
-            {!error && !isLoading && userData && userData.role === "adopter" && <Navigate to="/user/announcements" />}
-            {!error && !isLoading && userData && userData.role === "shelter" && <Navigate to="/shelter/my-announcements" />}
+            { !userData || isLoading
+            ? (<CenteredBox>
+                <ClipLoader />
+              </CenteredBox>)
+              :
+            (error) ? <Navigate to="/announcements"/>
+            : (userData.role === "adopter") ? <Navigate to="/user/announcements" />
+            : (userData && userData.role === "shelter") ? <Navigate to="/shelter/my-announcements"/>
+            : <Navigate to="/register" />
+            }
         </AnimatedPage>
     );
 };
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+`;

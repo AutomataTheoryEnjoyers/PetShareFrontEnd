@@ -11,7 +11,7 @@ import { UserData } from "./types/userData";
 // Auth0Provider variables
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
-const audience = `https://${domain}/api/v2/`;
+const audience = process.env.REACT_APP_AUTH0_AUDIENCE as string;
 const scope = "openid profile email userinfo read:users read:current_user update:users update:users_app_metadata read:user_idp_tokens";
 
 function App() {

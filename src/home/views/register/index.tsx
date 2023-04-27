@@ -50,7 +50,7 @@ export const RegistrationPage = () => {
     setValidPostalCode(result);
   }, [postalCode]);
 
-  const useHandleSubmit = () => {
+  const useHandleSubmit = async () => {
     let newUser = null;
 
     if (selectedRole === "adopter") {
