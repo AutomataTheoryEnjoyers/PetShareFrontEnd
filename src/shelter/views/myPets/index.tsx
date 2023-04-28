@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { PetListElement } from "../../../components/petListElement";
 import { Header } from "../../../components/header";
-import { useMyPets } from "../../queries/myPets";
+//import { useMyPets } from "../../queries/myPets";
 import { mockPets } from "../../../mocks/mockData";
 export const MyPets = () => {
     //const { data } = useMyPets();

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMyPets } from "../../queries/myPets";
+//import { useMyPets } from "../../queries/myPets";
 import { Pet } from "../../../types/pet";
 import { useParams } from "react-router-dom";
 import { ImageElement } from "../../../components/ImageElement";
