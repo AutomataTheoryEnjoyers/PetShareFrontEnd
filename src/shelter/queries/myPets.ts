@@ -4,7 +4,7 @@ import { Pet } from "../../types/pet";
 
 export const useMyPets = (): UseQueryResult<Pet[], unknown> => {
   const query = useQuery<Pet[]>("my-pets", () =>
-    fetch(BACKEND_URL + "pet", {
+    fetch(BACKEND_URL + "shelter/pets", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
