@@ -2,16 +2,15 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { PetListElement } from "../../../components/petListElement";
 import { Header } from "../../../components/header";
-//import { useMyPets } from "../../queries/myPets";
-import { mockPets } from "../../../mocks/mockData";
+import { useMyPets } from "../../queries/myPets";
+
 export const MyPets = () => {
-    //const { data } = useMyPets();
-    const pets = mockPets;
+    const { data } = useMyPets();
     return (
         <AnimatedPage>
             <Header>My Pets</Header>
             <List>
-                {pets.map((pet) => (
+                {data?.map((pet) => (
                     <PetListElement
                         key={pet.id}
                         pet={pet}

@@ -1,19 +1,18 @@
 import styled from "styled-components";
-//import { usePets } from "../../queries/pets";
+import { usePets } from "../../queries/pets";
 import { Pet } from "../../../types/pet";
 import { useParams } from "react-router-dom";
 import { ImageElement } from "../../../components/ImageElement";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { mockPets } from "../../../mocks/mockData";
+
 
 export const PetDetails = () => {
     const { id } = useParams();
 
-    //const pets = useMyPets();
-    const pets = mockPets;
-    const currentPet = pets.find(
+    const pets = usePets();
+    const currentPet = pets.data?.find(
         (pet) => pet.id === id
     ) as Pet;
 
