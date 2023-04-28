@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TextDetails } from "../styles/global";
-import { Announcement } from "../types/announcement";
+import { Shelter } from "../types/shelter";
 import {
   faPhone,
   faEnvelope,
@@ -9,12 +9,13 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode } from "react";
 
+
+
 type Props = {
-  announcement: Announcement;
+    shelter: Shelter;
 };
 
-export const ShelterDetailsElement = ({ announcement }: Props) => {
-  const shelter = announcement.pet.shelter;
+export const ShelterDetailsElement = ({ shelter }: Props) => {
   return (
     <ShelterDetailsContainer>
       <TileTitle>

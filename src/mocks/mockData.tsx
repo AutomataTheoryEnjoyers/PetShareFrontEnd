@@ -83,6 +83,7 @@ export const mockPets = [
   {
     id: "1111-1111-1111",
     name: "fifik1",
+    sex: "Female",
     species: "kotowaty",
     breed: "kot",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
@@ -96,6 +97,7 @@ export const mockPets = [
   {
     id: "22111-1111-1111",
     name: "alex",
+    sex: "Female",
     species: "pieski",
     breed: "piesek",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
@@ -109,6 +111,7 @@ export const mockPets = [
   {
     id: "33111-1111-1111",
     name: "borys",
+    sex: "Male",
     species: "maupa",
     breed: "szympans",
     birthday: new Date("2018-02-28T16:41:41.090Z"),

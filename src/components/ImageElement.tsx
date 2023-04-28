@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { Announcement } from "../types/announcement";
+import { Pet } from "../types/pet";
 
 type ImageProps = {
-  announcement: Announcement;
+  pet: Pet;
 };
 
-export const ImageElement = ({ announcement }: ImageProps) => {
-  const imageUrl = announcement.pet.photo;
+export const ImageElement = ({ pet }: ImageProps) => {
+  const imageUrl = pet.photo;
   return (
     <ImageContainer>
       <Image src={imageUrl} />
