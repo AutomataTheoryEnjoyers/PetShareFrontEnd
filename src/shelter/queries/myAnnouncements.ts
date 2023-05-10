@@ -4,7 +4,7 @@ import { Announcement } from "../../types/announcement";
 
 export const useMyAnnouncements = () => {
   const query = useQuery<Announcement[]>("my-announcements", () =>
-    fetch(BACKEND_URL + "announcements", {
+    fetch(BACKEND_URL + "shelter/announcements", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
