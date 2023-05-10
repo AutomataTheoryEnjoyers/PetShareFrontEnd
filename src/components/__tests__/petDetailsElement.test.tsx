@@ -5,8 +5,8 @@ import { renderWithRouter } from "../testUtils/functions";
 import { mockAnnouncements } from "../../mocks/mockData";
 
 test("renders PetDetailsElement component", () => {
-  const {} = renderWithRouter(
-    <PetDetailsElement announcement={mockAnnouncements[0]} />
+    const { } = renderWithRouter(
+        <PetDetailsElement pet={mockAnnouncements[0].pet} />
   );
 
   expect(screen.getByText(mockAnnouncements[0].pet.name)).toBeInTheDocument();
