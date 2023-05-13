@@ -84,26 +84,5 @@ describe("NewPet", () => {
         });
     });
 
-    // it("disables the submit button when the form is invalid", () => {
-    //   // mock useMyPets to return some pets
-    //   useMyPets.mockReturnValue({ data: pets });
-
-    //   renderWithRouterAndQueryProvider(<NewAnnouncement />);
-
-    //   const titleInput = screen.getByLabelText("Title:");
-    //   const descriptionInput = screen.getByLabelText("Description:");
-    //   const petSelect = screen.getByLabelText("Pet:");
-    //   const submitButton = screen.getByText("Submit");
-
-    //   // fill in the form with invalid values
-    //   fireEvent.change(titleInput, { target: { value: "" } });
-    //   fireEvent.change(descriptionInput, { target: { value: "" } });
-    //   fireEvent.change(petSelect, { target: { value: "" } });
-
-    //   // submit the form
-    //   fireEvent.click(submitButton);
-
-    //   expect(usePostAnnouncement).not.toHaveBeenCalled();
-    //   expect(submitButton).toBeDisabled();
-    // });
+    
 });
