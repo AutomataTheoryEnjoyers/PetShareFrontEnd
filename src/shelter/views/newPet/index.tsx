@@ -13,6 +13,15 @@ export const NewPet = () => {
     const [description, setDescription] = useState("");
     const [photoUrl, setPhotoUrl] = useState("");
 
+    const handleBirthdayInputChange = (event: { target: { value: any; }; }) => {
+        const inputBirthday = event.target.value;
+        // Validate if the input value can be parsed as a date
+        const isValid = !isNaN(Date.parse(inputBirthday));
+        if (isValid) {
+            setBirthday(new Date(inputBirthday));
+        }
+    }
+
     const useHandleSubmit = () => {
         usePostPet({
             Name: name,
@@ -30,8 +39,9 @@ export const NewPet = () => {
             <Container>
                 <Header>New Pet</Header>
                 <div id="name">
-                    <Label>Name:</Label>
+                    <Label htmlFor="name-input">Name:</Label>
                     <Input
+                        id="name-input"
                         maxLength={60}
                         type="text"
                         value={name}
@@ -40,8 +50,8 @@ export const NewPet = () => {
                     />
                 </div>
                 <div id="sex">
-                    <Label>Sex:</Label>
-                        <Select value={sex} onChange={(e) => setSex(e.target.value)}>
+                    <Label htmlFor="sex-input">Sex:</Label>
+                    <Select value={sex} onChange={(e) => setSex(e.target.value)} id="sex-input">
                             <Option value="Unknown">Unknown</Option>
                             <Option value="Male">Male</Option>
                             <Option value="Female">Female</Option>
@@ -50,8 +60,9 @@ export const NewPet = () => {
                     
                 </div>
                 <div id="species">
-                    <Label>Species:</Label>
+                    <Label htmlFor="species-input">Species:</Label>
                     <Input
+                        id="species-input"
                         maxLength={60}
                         type="text"
                         value={species}
@@ -60,8 +71,9 @@ export const NewPet = () => {
                     />
                 </div>
                 <div id="breed">
-                    <Label>Breed:</Label>
+                    <Label htmlFor="breed-input">Breed:</Label>
                     <Input
+                        id="breed-input"
                         maxLength={60}
                         type="text"
                         value={breed}
@@ -69,18 +81,21 @@ export const NewPet = () => {
                         required
                     />
                 </div>
+                
                 <div id="birthday">
-                    <Label>Birthday:</Label>
+                    <Label htmlFor="birthday-input">Birthday:</Label>
                     <Input
+                        id="birthday-input"
                         type="date"
                         value={birthday ? birthday.toISOString().substr(0, 10) : ''}
-                        onChange={(e) => setBirthday(new Date(e.target.value))}
+                        onChange={handleBirthdayInputChange}
                         required
                     />
                 </div>
                 <div id="description">
-                    <Label>Description:</Label>
+                    <Label htmlFor="description-input">Description:</Label>
                     <DescriptionArea
+                        id="description-input"
                         maxLength={400}
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
@@ -88,8 +103,9 @@ export const NewPet = () => {
                     />
                 </div>
                 <div id="photoUrl">
-                    <Label>Photo URL:</Label>
+                    <Label htmlFor="photoUrl-input">Photo URL:</Label>
                     <Input
+                        id="photoUrl-input"
                         maxLength={200}
                         type="text"
                         value={photoUrl}
