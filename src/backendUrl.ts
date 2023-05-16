@@ -1,3 +1,4 @@
-export const BACKEND_URL = "https://mini-pet-share.azurewebsites.net/";
+export const BACKEND_URL = "https://petshare.azurewebsites.net/";
+
 // for local developement
 // export const BACKEND_URL = "https://localhost:5000/";

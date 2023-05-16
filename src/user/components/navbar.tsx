@@ -6,7 +6,7 @@ export const Navbar = () => {
     <Bar>
       <Header>PetShare-User</Header>
       <Links>
-        <Link name="Announcements" path="/user/announcements" />
+              <Link name="Announcements" path="/user/announcements" />
       </Links>
     </Bar>
   );
