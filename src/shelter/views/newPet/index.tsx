@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostPet } from "../../mutations/postPet";
@@ -13,6 +13,7 @@ export const NewPet = () => {
     const [description, setDescription] = useState("");
     const [photoUrl, setPhotoUrl] = useState("");
 
+    const [isFormValid, setIsFormValid] = useState(false);
     const postPet = usePostPet();
 
     const handleBirthdayInputChange = (event: { target: { value: any; }; }) => {
@@ -23,6 +24,11 @@ export const NewPet = () => {
             setBirthday(new Date(inputBirthday));
         }
     }
+    useEffect(() => {
+        const fields = [name, species, breed, description, photoUrl];
+        const isFormValid = fields.every((field) => field.trim() !== "");
+        setIsFormValid(isFormValid);
+    }, [name, species, breed, description, photoUrl]);
 
     const useHandleSubmit = async () => {
         
@@ -118,7 +124,7 @@ export const NewPet = () => {
                     />
                 </div>
                 <div id="submit">
-                    <SubmitButton onClick={useHandleSubmit}>Submit</SubmitButton>
+                    <SubmitButton onClick={useHandleSubmit} disabled={!isFormValid}>Submit</SubmitButton>
                 </div>
             </Container>
         </AnimatedPage>
@@ -256,5 +262,8 @@ const SubmitButton = styled.button`
   transition: 0.5s all;
   :hover {
     background: ${(props) => props.theme.colors.darkGreen};
+  }
+  :disabled {
+    background: ${(props) => props.theme.colors.darkgrey};
   }
 `;
