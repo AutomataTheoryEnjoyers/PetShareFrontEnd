@@ -13,7 +13,7 @@ export const NewPet = () => {
     const [description, setDescription] = useState("");
     const [photoUrl, setPhotoUrl] = useState("");
 
-    
+    const postPet = usePostPet();
 
     const handleBirthdayInputChange = (event: { target: { value: any; }; }) => {
         const inputBirthday = event.target.value;
@@ -35,7 +35,7 @@ export const NewPet = () => {
             Description: description,
             PhotoUrl: photoUrl,
         };
-        await (usePostPet()(newPetData));
+        await postPet(newPetData);
     };
 
     return (
