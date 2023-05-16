@@ -1,32 +1,31 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
+import { BACKEND_URL } from "../../backendUrl";
+import { NewAdopter } from "../../types/NewAdopter";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 
-const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
-
-export const usePatchAuth0 = () => {
+export const usePostNewAdopter = () => {
     const { userData } = useContext<UserContextType>(UserContext);
 
     const { mutateAsync } = useMutation(
-        () => fetch(`https://${domain}/api/v2/users/user_id`, {
-            method: "PATCH",
+        (adopter: NewAdopter) => fetch(BACKEND_URL + "adopter", {
+            method: "POST",
+            body: JSON.stringify(adopter),
             headers: {
                 "authorization": `Bearer ${userData?.accessToken}`,
-                "content-type": "application/json",
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ "app_metadata": { "role": userData?.role, "db_id": userData?.userIdDB } })
-        }
-        ),
+        }),
         {
             onSuccess: async (data) => {
-                console.log("Auth0 patch successful " + JSON.stringify(await data.json()));
+                console.log("Shelter successfully added: " + JSON.stringify(await data.json()));
             },
             onError: (error) => {
                 console.log(error);
             },
         }
-    );
+    )
 
     return mutateAsync;
 };

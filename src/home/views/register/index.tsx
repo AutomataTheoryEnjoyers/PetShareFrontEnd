@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { Navigate } from "react-router-dom";
-import { ClipLoader } from "react-spinners";
 import { useContext, useEffect, useState } from "react";
 import { UserContextType } from "../../../types/userContextType";
 import { UserContext } from "../../../components/userContext";
-import { usePostNewUser } from "../../mutations/usePostNewUser";
+import { usePostNewShelter } from "../../mutations/PostNewShelter";
+import { usePostNewAdopter } from "../../mutations/PostNewAdopter";
 import { UserData } from "../../../types/userData";
-import { usePatchAuth0 } from "../../mutations/usePatchAuth0";
 import { NewShelter } from "../../../types/newShelter";
 import { NewAdopter } from "../../../types/NewAdopter";
+import { usePatchAuth0 } from "../../mutations/usePatchAuth0";
 
-const REGEX_POSTALCODE = /^[0-9]{2}[-]{1}[0-9]{3}$/;
-const REGEX_EMAIL = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const REGEX_PHONENUMBER = /^[0-9]{9}$/ as RegExp;
+const REGEX_POSTALCODE = /^[0-9]{2}[-]{1}[0-9]{3}$/ as RegExp;
+const REGEX_EMAIL = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/ as RegExp;
 
 export const RegistrationPage = () => {
 
@@ -28,9 +28,23 @@ export const RegistrationPage = () => {
   const [province, setProvince] = useState<string>("");
   const [postalCode, setPostalCode] = useState<string>("");
   const [country, setCountry] = useState<string>("");
+  const [validPhoneNumber, setValidPhoneNumber] = useState<boolean>(true);
   const [validEmail, setValidEmail] = useState<boolean>(true);
   const [validPostalCode, setValidPostalCode] = useState<boolean>(true);
   const [isLoadingRegister, setLoadingRegister] = useState<boolean>(false);
+
+  const mutateNewAdopter = usePostNewAdopter();
+  const mutateNewShelter = usePostNewShelter();
+  const mutatePatchAuth0 = usePatchAuth0();
+
+  useEffect(() => {
+    if (phoneNumber === "") {
+      setValidPhoneNumber(true);
+      return;
+    }
+    const result = REGEX_PHONENUMBER.test(phoneNumber);
+    setValidPhoneNumber(result);
+  }, [phoneNumber]);
 
   useEffect(() => {
     if (email === "") {
@@ -51,51 +65,69 @@ export const RegistrationPage = () => {
   }, [postalCode]);
 
   const useHandleSubmit = async () => {
-    let newUser = null;
-
     if (selectedRole === "adopter") {
-      newUser = {
-        userName: userName,
-        fullShelterName: fullShelterName,
-        phoneNumber: phoneNumber,
-        email: email,
-        address: {
-          country: country,
-          province: province,
-          city: city,
-          street: street,
-          postalCode: postalCode,
-        }
-      } as NewAdopter;
+      HandleAdopter();
     }
     else {
-      newUser = {
-        userName: userName,
-        fullShelterName: fullShelterName,
-        phoneNumber: phoneNumber,
-        email: email,
-        address: {
-          country: country,
-          province: province,
-          city: city,
-          street: street,
-          postalCode: postalCode,
-        }
-      } as NewShelter;
+      HandleShelter();
     }
+  }
+
+  const HandleShelter = async () => {
+    const newShelter = {
+      userName: userName,
+      fullShelterName: fullShelterName,
+      phoneNumber: phoneNumber,
+      email: email,
+      address: {
+        country: country,
+        province: province,
+        city: city,
+        street: street,
+        postalCode: postalCode,
+      }
+    } as NewShelter;
 
     setLoadingRegister(true);
-    const queryPostShelter = usePostNewUser(newUser, selectedRole);
-    const updatedUserData = {
-      ...userData,
-      userIdDB: queryPostShelter.data.id,
-      role: selectedRole,
-    } as UserData;
-    setUserData(updatedUserData);
-    const queryAuth0 = usePatchAuth0();
-    if (queryAuth0?.status === "success") console.log("Successful auth0 patch");
-    setLoadingRegister(false);
-    return queryAuth0;
+    mutateNewShelter(newShelter, { onSettled: () => { setLoadingRegister(false); } }).then(
+      (response: any) => {
+        const updatedUserData = {
+          ...userData,
+          userIdDB: response.data.id,
+          role: selectedRole,
+        } as UserData;
+        setUserData(updatedUserData);
+        mutatePatchAuth0();
+      }
+    );
+  }
+
+  const HandleAdopter = async () => {
+    const newAdopter = {
+      userName: userName,
+      phoneNumber: phoneNumber,
+      email: email,
+      address: {
+        country: country,
+        province: province,
+        city: city,
+        street: street,
+        postalCode: postalCode,
+      }
+    } as NewAdopter;
+
+    setLoadingRegister(true);
+    mutateNewAdopter(newAdopter, { onSettled: () => { setLoadingRegister(false); } }).then(
+      (response: any) => {
+        const updatedUserData = {
+          ...userData,
+          userIdDB: response.data.id,
+          role: selectedRole,
+        } as UserData;
+        setUserData(updatedUserData);
+        mutatePatchAuth0();
+      }
+    );
   }
 
   return (
@@ -139,12 +171,6 @@ export const RegistrationPage = () => {
             />
           </>
         }
-        <Title>Phone number:</Title>
-        <DescriptionArea
-          maxLength={255}
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-        />
         <RowContainer>
           <Title>E-Mail:</Title>
           {!validEmail &&
@@ -154,6 +180,17 @@ export const RegistrationPage = () => {
           maxLength={255}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+        <RowContainer>
+          <Title>Phone number:</Title>
+          {!validPhoneNumber &&
+            <WarningText>Invalid Phone Number</WarningText>}
+        </RowContainer>
+        <DescriptionArea
+          maxLength={255}
+          value={phoneNumber}
+          placeholder="only numbers, e.g.: 123456789"
+          onChange={(e) => setPhoneNumber(e.target.value)}
         />
         <>
           <Title>Address*:</Title>
@@ -197,7 +234,7 @@ export const RegistrationPage = () => {
         </>
         <SubmitButton
           onClick={useHandleSubmit}
-          disabled={!validEmail || !validPostalCode || isLoadingRegister}
+          disabled={!validPhoneNumber || !validEmail || !validPostalCode || isLoadingRegister}
         >
           Submit
         </SubmitButton>
@@ -231,11 +268,6 @@ const Header = styled.h1`
   margin: 3px;
   font-weight: 400;
 `;
-const Label = styled.label`
-  text-align: left;
-  display: block;
-  margin: 5px;
-`;
 
 const Title = styled.h1`
   margin: 0;
@@ -247,12 +279,6 @@ const TextDetails = styled.p`
   margin: 0;
   padding: 1px;
   font-size: 15px;
-`;
-
-const DescriptionText = styled.p`
-  margin: 0;
-  padding: 5px;
-  font-size: 14px;
 `;
 
 const WarningText = styled.p`
