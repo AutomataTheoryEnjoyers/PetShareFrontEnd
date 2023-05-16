@@ -5,7 +5,6 @@ import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
 import { Announcements } from "./views/announcements";
-import { PetDetails } from "./views/petDetails";
 export const Router = () => {
     const location = useLocation();
     return (
