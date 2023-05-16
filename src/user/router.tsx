@@ -6,7 +6,6 @@ import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
 import { Announcements } from "./views/announcements";
 import { PetDetails } from "./views/petDetails";
-import { Pets } from "./views/pets";
 export const Router = () => {
     const location = useLocation();
     return (
@@ -20,11 +19,6 @@ export const Router = () => {
                             <Route
                                 path="announcements/:id"
                                 element={<AnnouncementDetails />}
-                            />
-                            <Route path="pets" element={<Pets />} />
-                            <Route
-                                path="pets/:id"
-                                element={<PetDetails />}
                             />
                             <Route path="*" element={<PageNotFound />} />
                         </Routes>

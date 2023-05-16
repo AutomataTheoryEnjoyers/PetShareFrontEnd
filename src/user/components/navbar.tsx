@@ -7,7 +7,6 @@ export const Navbar = () => {
       <Header>PetShare-User</Header>
       <Links>
               <Link name="Announcements" path="/user/announcements" />
-              <Link name="Pets" path="/user/pets" />
       </Links>
     </Bar>
   );
