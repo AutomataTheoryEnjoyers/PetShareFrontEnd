@@ -13,6 +13,8 @@ export const NewPet = () => {
     const [description, setDescription] = useState("");
     const [photoUrl, setPhotoUrl] = useState("");
 
+    const postPet = usePostPet();
+
     const handleBirthdayInputChange = (event: { target: { value: any; }; }) => {
         const inputBirthday = event.target.value;
         // Validate if the input value can be parsed as a date
@@ -23,7 +25,8 @@ export const NewPet = () => {
     }
 
     const useHandleSubmit = () => {
-        usePostPet({
+        
+        const newPetData = {
             Name: name,
             Sex: sex,
             Species: species,
@@ -31,7 +34,8 @@ export const NewPet = () => {
             Birthday: birthday,
             Description: description,
             PhotoUrl: photoUrl,
-        });
+        };
+        postPet(newPetData);
     };
 
     return (
