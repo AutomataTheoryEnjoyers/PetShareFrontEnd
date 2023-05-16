@@ -13,7 +13,7 @@ export const NewPet = () => {
     const [description, setDescription] = useState("");
     const [photoUrl, setPhotoUrl] = useState("");
 
-    const postPet = usePostPet();
+    
 
     const handleBirthdayInputChange = (event: { target: { value: any; }; }) => {
         const inputBirthday = event.target.value;
@@ -24,7 +24,7 @@ export const NewPet = () => {
         }
     }
 
-    const useHandleSubmit = () => {
+    const useHandleSubmit = async () => {
         
         const newPetData = {
             Name: name,
@@ -35,7 +35,7 @@ export const NewPet = () => {
             Description: description,
             PhotoUrl: photoUrl,
         };
-        postPet(newPetData);
+        await (usePostPet()(newPetData));
     };
 
     return (

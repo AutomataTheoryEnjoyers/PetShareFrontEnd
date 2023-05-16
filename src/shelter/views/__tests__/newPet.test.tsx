@@ -1,9 +1,10 @@
 import "@testing-library/jest-dom";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent, waitFor } from "@testing-library/react";
 import { useMyPets } from "../../queries/myPets";
 import { usePostPet } from "../../mutations/postPet";
 import { NewPet } from "../newPet";
 import { renderWithRouterAndQueryProvider } from "../../../components/testUtils/functions";
+
 
 // mock useMyPets hook
 jest.mock("../../queries/myPets", () => ({
@@ -15,7 +16,7 @@ jest.mock("../../mutations/postPet", () => ({
     usePostPet: jest.fn(),
 }));
 
-describe("NewPet", () => {
+describe("NewPet",  ()  => {
     const pets = [
         { id: "1", name: "Cat" },
         { id: "2", name: "Dog" },
@@ -26,7 +27,7 @@ describe("NewPet", () => {
         // reset mocks before each test
         jest.clearAllMocks();
     });
-
+    
     it("renders a form for creating a new announcement", () => {
         // mock useMyPets to return some pets
         useMyPets.mockReturnValue({ data: pets });
@@ -44,13 +45,12 @@ describe("NewPet", () => {
         expect(screen.getByText("Submit")).toBeInTheDocument();
     });
 
-    it("calls usePostPet when the form is submitted", () => {
+    it("calls usePostPet when the form is submitted", async () => {
         // mock useMyPets to return some pets
         useMyPets.mockReturnValue({ data: pets });
+        const mockPostPet = jest.fn().mockResolvedValue('Success');
 
-        // mock usePostAnnouncement to do nothing
-        usePostPet.mockReturnValue({});
-
+        usePostPet.mockReturnValue(mockPostPet);
         renderWithRouterAndQueryProvider(<NewPet />);
 
         const nameInput = screen.getByLabelText("Name:");
@@ -72,8 +72,7 @@ describe("NewPet", () => {
         fireEvent.change(birthdayInput, { target: { value: '1990-05-13' } });
         fireEvent.change(photoUrlInput, { target: { value: "photoUrl" } });
         fireEvent.click(submitButton);
-
-        expect(usePostPet).toHaveBeenCalledWith({
+        await waitFor(()=>expect(mockPostPet).toHaveBeenCalledWith({
             Name: "New Pet",
             Description: "This is a new pet",
             Sex: "Female",
@@ -81,7 +80,7 @@ describe("NewPet", () => {
             Breed: "testBreed",
             Birthday: new Date('1990-05-13'),
             PhotoUrl : "photoUrl",
-        });
+        }));
     });
 
     
