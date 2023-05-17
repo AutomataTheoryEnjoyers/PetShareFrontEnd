@@ -6,7 +6,7 @@ import { mockAnnouncements } from "../../mocks/mockData";
 
 test("renders image component", () => {
   const {} = renderWithRouter(
-    <ImageElement announcement={mockAnnouncements[0]} />
+    <ImageElement pet={mockAnnouncements[0].pet} />
   );
 
   const image = screen.getByRole("img");

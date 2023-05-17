@@ -24,13 +24,13 @@ export const AnnouncementDetails = () => {
       <AnimatedPage>
         <Container>
           <div id="image">
-            <ImageElement announcement={currentAnnouncement} />
+            <ImageElement pet={currentAnnouncement.pet} />
           </div>
           <div id="pet">
-            <PetDetailsElement announcement={currentAnnouncement} />
+            <PetDetailsElement pet={currentAnnouncement.pet} />
           </div>
           <div id="shelter">
-            <ShelterDetailsElement announcement={currentAnnouncement} />
+            <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
           </div>
           <div id="details">
             <AnnouncementDetailsElement announcement={currentAnnouncement} isShelter={true} />
