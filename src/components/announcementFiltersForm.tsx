@@ -1,31 +1,24 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { AnimatePresence, motion, Variants } from "framer-motion";
-import { ReactNode, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
+import { AnnouncementFilters } from "../types/announcementFilter";
 
-export type FilterState = {
-  minAge?: string,
-  maxAge?: string,
-  location: string[],
-  breed: string[],
-  species: string[],
-  shelter: string[]
-}
 
 export const DefaultFilterState = {
   location: [],
   breed: [],
   shelter: [],
   species: []
-} as FilterState;
+} as AnnouncementFilters;
 
 type Props = {
-  filters: FilterState,
-  onChange: (arg: Partial<FilterState>) => void
+  filters: AnnouncementFilters,
+  onChange: (arg: Partial<AnnouncementFilters>) => void
 }
 
-export const AnnouncementFilters = ({ filters, onChange }: Props) => {
+export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
   const [currentCity, setCurrentCity] = useState("");
   const [currentSpecies, setCurrentSpecies] = useState("");
   const [currentBreed, setCurrentBreed] = useState("");
@@ -52,7 +45,7 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
             required
           />
         </AgeCategoryContainer>
-        <CategoryContainer>
+        <CategoryContainer layoutId="city">
           <CategoryTitle>City</CategoryTitle>
           <AnimatePresence>
             {filters.location.map((location) => (
@@ -64,7 +57,7 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
                 layout
               >{location}</Item>
             ))}
-            <NewPositionContainer layout>
+            <NewPositionContainer layout >
               <Input
                 maxLength={15}
                 type="text"
@@ -72,7 +65,6 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
                 value={currentCity}
                 onChange={(e) => setCurrentCity(e.target.value)}
                 required
-                layout
               />
               <AddButton onClick={() => {
                 if (currentCity.length === 0 || filters.location.includes(currentCity)) return;
@@ -82,7 +74,7 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
-        <CategoryContainer>
+        <CategoryContainer layoutId="species">
           <CategoryTitle>Species</CategoryTitle>
           <AnimatePresence>
             {filters.species.map((species) => (
@@ -101,7 +93,6 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
                 placeholder="Species name"
                 value={currentSpecies}
                 onChange={(e) => setCurrentSpecies(e.target.value)}
-                layout
                 required
               />
               <AddButton onClick={() => {
@@ -112,7 +103,7 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
-        <CategoryContainer>
+        <CategoryContainer layoutId="breed">
           <CategoryTitle>Breed</CategoryTitle>
           <AnimatePresence>
             {filters.breed.map((breed) => (
@@ -131,7 +122,6 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
                 placeholder="Breed name"
                 value={currentBreed}
                 onChange={(e) => setCurrentBreed(e.target.value)}
-                layout
                 required
               />
               <AddButton onClick={() => {
@@ -142,10 +132,10 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
-        <CategoryContainer>
+        <CategoryContainer layoutId="shelter">
           <CategoryTitle>Shelter</CategoryTitle>
           <AnimatePresence>
-            <NewPositionContainer layout>
+            <NewPositionContainer layout layoutId="a">
               <Input
                 maxLength={15}
                 type="text"
@@ -153,7 +143,6 @@ export const AnnouncementFilters = ({ filters, onChange }: Props) => {
                 value={currentShelter}
                 onChange={(e) => setCurrentShelter(e.target.value)}
                 required
-                layout
               />
               <AddButton onClick={() => {
                 if (currentShelter.length === 0 || filters.shelter.includes(currentShelter)) return;
@@ -181,6 +170,7 @@ const NewPositionContainer = styled(motion.div)`
   display: flex;
   gap: 3px;
   flex: 1;
+  max-height: 40px;
 `
 
 const Item = styled(motion.div)`
@@ -190,7 +180,7 @@ const Item = styled(motion.div)`
   border-radius: 5px;
   min-height: 40px;
   max-height: 40px;
-  font-size: 25px;
+  font-size: 20px;
   display: grid;
   place-items: center;
   :hover{
@@ -205,9 +195,10 @@ const FormContainer = styled(motion.div)`
   gap: 10px;
   flex-direction: column;
   margin-bottom: 10px;
+  height: auto;
 `
 
-const Input = styled(motion.input)`
+const Input = styled.input`
   width: 100%;
   padding: 6px 10px;
   border: 1px solid #ddd;

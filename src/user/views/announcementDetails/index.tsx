@@ -5,14 +5,14 @@ import { ImageElement } from "../../../components/ImageElement";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
-import { useAnnouncements } from "../../queries/announcements";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { useState } from "react";
+import { useAnnouncements } from "../../../queries/announcements";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  const [isApplicable, _] = useState(false);
-  const announcements = useAnnouncements();
+  const [isApplicable, _] = useState(true);
+  const announcements = useAnnouncements(null);
   const currentAnnouncement = announcements.data?.find(
     (announcement) => announcement.id === id
   ) as Announcement;
