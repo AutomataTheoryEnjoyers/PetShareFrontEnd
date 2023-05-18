@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useMyAnnouncements } from "../../queries/myAnnouncements";
 import { useMyApplications } from "../../queries/myApplications";
 import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
@@ -9,11 +8,12 @@ import { AnnouncementDetailsElement } from "../../../components/announcementDeta
 import { ApplicationApplyList } from "../../../components/applicationApplyList";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
+import { useAnnouncements } from "../../../queries/announcements";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
 
-  const announcements = useMyAnnouncements();
+  const announcements = useAnnouncements(null);
   const currentAnnouncement = announcements.data?.find(
     (announcement) => announcement.id === id
   ) as Announcement;
