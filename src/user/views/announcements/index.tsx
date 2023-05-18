@@ -7,8 +7,8 @@ import { AnnouncementFilters } from "../../../types/announcementFilter";
 import { useAnnouncements } from "../../../queries/announcements";
 
 export const Announcements = () => {
-  const { data } = useAnnouncements(null);
   const [formState, setFormState] = useState<AnnouncementFilters>(DefaultFilterState);
+  const { data } = useAnnouncements(formState);
   return (
     <AnimatedPage>
       <Header>My Announcements</Header>
