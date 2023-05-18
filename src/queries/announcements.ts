@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { BACKEND_URL } from "../backendUrl";
-import { mockAnnouncements } from "../mocks/mockData";
 import { Announcement } from "../types/announcement";
 import { AnnouncementFilters } from "../types/announcementFilter";
 

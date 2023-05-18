@@ -135,21 +135,6 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
         <CategoryContainer layoutId="shelter">
           <CategoryTitle>Shelter</CategoryTitle>
           <AnimatePresence>
-            <NewPositionContainer layout layoutId="a">
-              <Input
-                maxLength={15}
-                type="text"
-                placeholder="Shelter name"
-                value={currentShelter}
-                onChange={(e) => setCurrentShelter(e.target.value)}
-                required
-              />
-              <AddButton onClick={() => {
-                if (currentShelter.length === 0 || filters.shelter.includes(currentShelter)) return;
-                onChange({ shelter: [currentShelter, ...filters.shelter] })
-                setCurrentShelter("");
-              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
-            </NewPositionContainer>
             {filters.shelter.map((shelter) => (
               <Item
                 key={shelter}
@@ -159,6 +144,22 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
                 layout
               >{shelter}</Item>
             ))}
+            <NewPositionContainer layout layoutId="a">
+              <Input
+                maxLength={15}
+                type="text"
+                placeholder="Shelter name"
+                value={currentShelter}
+                onChange={(e) => setCurrentShelter(e.target.value)}
+                required
+              />
+              <AddButton
+                onClick={() => {
+                  if (currentShelter.length === 0 || filters.shelter.includes(currentShelter)) return;
+                  onChange({ shelter: [currentShelter, ...filters.shelter] })
+                  setCurrentShelter("");
+                }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+            </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
       </FieldsContainer>
