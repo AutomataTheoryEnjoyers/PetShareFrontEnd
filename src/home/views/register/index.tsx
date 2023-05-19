@@ -140,7 +140,9 @@ export const RegistrationPage = () => {
       },
     }).then((response: any) => {
       const updatedUserData = {
-        ...userData,
+        ...response,
+        userIdAuth0: userData?.userIdAuth0,
+        accessToken: userData?.accessToken,
         userIdDB: response.data.id,
         role: selectedRole,
       } as UserData;
