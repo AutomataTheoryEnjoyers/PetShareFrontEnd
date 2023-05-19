@@ -2,19 +2,19 @@ import { faCake, faDog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ReactNode } from "react";
 import styled from "styled-components";
-import { Announcement } from "../types/announcement";
+import { Pet } from "../types/pet";
 
 type PetProps = {
-  announcement: Announcement;
+  pet: Pet;
 };
 
-export const PetDetailsElement = ({ announcement }: PetProps) => {
-  const pet = announcement.pet;
+export const PetDetailsElement = ({ pet }: PetProps) => {
   return (
     <PetDetailsContainer>
       <TileTitle>
         {pet.name} <FontAwesomeIcon icon={faDog} />{" "}
       </TileTitle>
+      <DetailsSection prompt={pet.sex}>Sex: {pet.sex}</DetailsSection>
       <DetailsSection prompt={pet.species}>
         Species: {pet.species}
       </DetailsSection>

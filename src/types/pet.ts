@@ -5,6 +5,7 @@ export type Pet = {
   shelterId: string;
   shelter: Shelter;
   name?: string;
+  sex: string;
   species?: string;
   breed?: string;
   birthday: Date;

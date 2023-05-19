@@ -8,7 +8,7 @@ export const defaultTheme = {
     darkGreen: "#29754b",
     lightTomato: "#fcc2b8",
     highlight: "#85af98",
-    opposite: "#c34c8e",
+    opposite: "#f9edf3",
     darkgrey: "#545454",
     main: "#3cb371",
   },

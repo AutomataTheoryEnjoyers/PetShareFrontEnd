@@ -24,27 +24,33 @@ export const NewAnnouncement = () => {
       <Container>
         <Header>New Announcement</Header>
         <div id="title">
-          <Label>Title:</Label>
+          <Label htmlFor="title-input">Title:</Label>
           <Input
             maxLength={60}
             type="text"
+            id="title-input"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
         <div id="description">
-          <Label>Description:</Label>
+          <Label htmlFor="description-input">Description:</Label>
           <DescriptionArea
             maxLength={400}
+            id="description-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
           />
         </div>
         <div id="pet">
-          <Label>Pet:</Label>
-          <Select value={petID} onChange={(e) => setPetID(e.target.value)}>
+          <Label htmlFor="pet-input">Pet:</Label>
+          <Select
+            id="pet-input"
+            value={petID}
+            onChange={(e) => setPetID(e.target.value)}
+          >
             {data?.map((pet) => (
               <Option key={pet.id} value={pet.id}>
                 {pet.name + " (" + pet.id + ")"}
@@ -137,7 +143,7 @@ const Select = styled.select`
 
 const Option = styled.option`
   height: 40px;
-`
+`;
 
 const SubmitButton = styled.button`
   background: ${(props) => props.theme.colors.main};

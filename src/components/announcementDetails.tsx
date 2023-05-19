@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { TextDetails, Title } from "../styles/global";
 import { Announcement } from "../types/announcement";
 
 type Props = {
@@ -18,15 +17,17 @@ export const AnnouncementDetailsElement = ({ announcement }: Props) => {
             Last Update: {announcement.lastUpdateDate.toDateString()}
           </TextDetails>
         </AnnouncementDetailsContainerDatesLeft>
-        {// Commented for now, will be refactored so it's visible for a shelter and invisible to adopter after implementing auth
-        /* <AnnouncementDetailsContainerDatesRight>
+        {
+          // Commented for now, will be refactored so it's visible for a shelter and invisible to adopter after implementing auth
+          /* <AnnouncementDetailsContainerDatesRight>
           <TextDetails>Status: {announcement.status}</TextDetails>
           {announcement.closingDate != null && (
             <TextDetails>
               Closing date: {announcement.closingDate.toDateString()}
             </TextDetails>
           )}
-        </AnnouncementDetailsContainerDatesRight> */}
+        </AnnouncementDetailsContainerDatesRight> */
+        }
       </AnnouncementDetailsContainerDates>
       <Title>{announcement.title && announcement.title}</Title>
       <DescriptionText>
@@ -66,12 +67,6 @@ const AnnouncementDetailsContainerDatesLeft = styled.div`
 //   align-items: flex-end;
 // `;
 
-const DescriptionText = styled.p`
-  margin: 0;
-  padding: 5px;
-  font-size: 14px;
-`;
-
 const BottomContainer = styled.div``;
 
 const Separator = styled.hr`
@@ -85,4 +80,22 @@ const AnnouncementIdContainer = styled.div`
   padding: 5px;
   float: left;
   font-size: 10px;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
+`;
+
+const TextDetails = styled.p`
+  margin: 0;
+  padding: 2px;
+  font-size: 15px;
+`;
+
+const DescriptionText = styled.p`
+  margin: 0;
+  padding: 5px;
+  font-size: 14px;
 `;
