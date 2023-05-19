@@ -1,21 +1,26 @@
 import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { mockApplications } from "../../mocks/mockData";
-import { ApplicationContainerElement } from "../applicationListElement";
 import { renderWithRouter } from "../testUtils/functions";
+import { ApplicationListElement } from "../applicationListElement";
 
-test("renders AnnouncementListElement component", async () => {
+test("renders applicationListElement component", async () => {
   const {} = renderWithRouter(
-    <ApplicationContainerElement application={mockApplications[0]} />
+    <ApplicationListElement application={mockApplications[0]} />
   );
 
+  expect(screen.getByRole("img")).toBeInTheDocument();
+  expect(screen.getByRole("heading")).toHaveTextContent(
+    mockApplications[0].announcement.title as string
+  );
   expect(
-    screen.getByText(mockApplications[0].user.userName, { exact: false })
+    screen.getByText(mockApplications[0].announcement.pet.name as string, {
+      exact: false,
+    })
   ).toBeInTheDocument();
   expect(
-    screen.getByText(mockApplications[0].user.phoneNumber, { exact: false })
-  ).toBeInTheDocument();
-  expect(
-    screen.getByText(mockApplications[0].user.email, { exact: false })
+    screen.getByText(mockApplications[0].announcement.pet.breed as string, {
+      exact: false,
+    })
   ).toBeInTheDocument();
 });

@@ -156,7 +156,7 @@ export const RegistrationPage = () => {
         <Header>Please fill in the missing info about yourself</Header>
         <ColumnContainer>
           <TextDetails>*required fields</TextDetails>
-          <div id="role">
+          <ColumnContainerInside id="role">
             <Title>Select a role for your account*:</Title>
             <RadioButtonRowContainer id="role-radio-button-adopter">
               <Input
@@ -182,8 +182,8 @@ export const RegistrationPage = () => {
                 Shelter
               </TextDetails>
             </RadioButtonRowContainer>
-          </div>
-          <div id="username">
+          </ColumnContainerInside>
+          <ColumnContainerInside id="username">
             <Title htmlFor="username-input">Username:</Title>
             <DescriptionArea
               rows={1}
@@ -192,7 +192,7 @@ export const RegistrationPage = () => {
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
             />
-          </div>
+          </ColumnContainerInside>
           {selectedRole === "shelter" && (
             <MovingGroup
               id="shelter"
@@ -215,7 +215,7 @@ export const RegistrationPage = () => {
             </MovingGroup>
           )}
           <MovingGroup layout>
-            <div id="email">
+            <ColumnContainerInside id="email">
               <RowContainer>
                 <Title htmlFor="email-input">E-Mail:</Title>
                 {!validEmail && (
@@ -229,8 +229,8 @@ export const RegistrationPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </div>
-            <div id="phone-number">
+            </ColumnContainerInside>
+            <ColumnContainerInside id="phone-number">
               <RowContainer>
                 <Title htmlFor="phone-number-input">Phone number:</Title>
                 {!validPhoneNumber && (
@@ -245,8 +245,8 @@ export const RegistrationPage = () => {
                 placeholder="only numbers, e.g.: 123456789"
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
-            </div>
-            <div id="address">
+            </ColumnContainerInside>
+            <ColumnContainerInside id="address">
               <RowContainer>
                 <Title htmlFor="address-input">Address*:</Title>
                 {!requiredFilled && (
@@ -301,16 +301,16 @@ export const RegistrationPage = () => {
               {!validPostalCode && (
                 <WarningText>Invalid Postal Code</WarningText>
               )}
-            </div>
+            </ColumnContainerInside>
             <Separator />
-            <div id="submit">
+            <ColumnContainerInside id="submit">
               <SubmitButton
                 onClick={useHandleSubmit}
                 disabled={!validForm || isLoadingRegister}
               >
                 Submit
               </SubmitButton>
-            </div>
+            </ColumnContainerInside>
           </MovingGroup>
         </ColumnContainer>
       </Container>
@@ -359,6 +359,16 @@ const ColumnContainer = styled.div`
   justify-content: space-evenly;
   align-content: space-around;
   width: 60%;
+`;
+
+const ColumnContainerInside = styled.div`
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  align-content: space-around;
+  width: 100%;
 `;
 
 const MovingGroup = styled(motion.div)`

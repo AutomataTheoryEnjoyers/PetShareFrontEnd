@@ -40,6 +40,12 @@ const LinkStyled = styled(Link)`
   color: black;
 `;
 
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
+`;
+
 const Container = styled.div<{ isWithdrawed: boolean }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -65,12 +71,6 @@ const Container = styled.div<{ isWithdrawed: boolean }>`
       opacity: 1;
       margin-right: 0;
     }
-`;
-
-const Title = styled.h1`
-  margin: 0;
-  padding: 5px;
-  font-size: 20px;
 `;
 
 const BottomText = styled.p`
