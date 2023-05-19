@@ -1,19 +1,19 @@
 import styled from "styled-components";
-import { useMyAnnouncements } from "../../queries/myAnnouncements";
 import { useMyApplications } from "../../queries/myApplications";
 import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElement } from "../../../components/ImageElement";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
-import { ApplicationListElement } from "../../../components/applicationList";
+import { ApplicationApplyList } from "../../../components/applicationApplyList";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
+import { useAnnouncements } from "../../../queries/announcements";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
 
-  const announcements = useMyAnnouncements();
+  const announcements = useAnnouncements(null);
   const currentAnnouncement = announcements.data?.find(
     (announcement) => announcement.id === id
   ) as Announcement;
@@ -33,10 +33,10 @@ export const AnnouncementDetails = () => {
             <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
           </div>
           <div id="details">
-            <AnnouncementDetailsElement announcement={currentAnnouncement} />
+            <AnnouncementDetailsElement announcement={currentAnnouncement} isShelter={true} />
           </div>
           <div id="userlist">
-            <ApplicationListElement
+            <ApplicationApplyList
               announcement={currentAnnouncement}
               applications={applications.data}
             />

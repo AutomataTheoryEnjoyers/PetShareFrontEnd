@@ -1,3 +1,6 @@
+import { Announcement } from "../types/announcement";
+import { Application } from "../types/application";
+
 export const mockAddresses = [
   {
     id: "4231",
@@ -161,7 +164,7 @@ export const mockAnnouncements = [
     idPet: mockPets[2].id,
     pet: mockPets[2],
   },
-];
+] as Announcement[];
 
 export const mockApplications = [
   {
@@ -188,4 +191,4 @@ export const mockApplications = [
     user: mockUsers[0],
     announcement: mockAnnouncements[2],
   },
-];
+] as Application[];

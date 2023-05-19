@@ -7,6 +7,7 @@ export const defaultTheme = {
     lightGreen: "#d8f4bc",
     darkGreen: "#29754b",
     lightTomato: "#fcc2b8",
+    darkTomato: "#c14732",
     highlight: "#85af98",
     opposite: "#c34c8e",
     darkgrey: "#545454",

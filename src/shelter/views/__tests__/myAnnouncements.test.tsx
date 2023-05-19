@@ -1,15 +1,15 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
-import { useMyAnnouncements } from "../../queries/myAnnouncements";
 import { MyAnnouncements } from "../myAnnouncements";
 import { mockAnnouncements } from "../../../mocks/mockData";
 import { renderWithRouterAndQueryProvider } from "../../../components/testUtils/functions";
+import { useAnnouncements } from "../../../queries/announcements";
 
-jest.mock("../../queries/myAnnouncements");
+jest.mock("../../../queries/announcements");
 
 describe("MyAnnouncements component", () => {
   beforeEach(() => {
-    useMyAnnouncements.mockReturnValue({
+    useAnnouncements.mockReturnValue({
       data: mockAnnouncements,
       isLoading: false,
       error: null,

@@ -4,6 +4,7 @@ import { Announcement } from "../types/announcement";
 import { Title } from "../styles/global";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { motion } from "framer-motion";
 
 type Props = {
   announcement: Announcement;
@@ -39,7 +40,7 @@ const LinkStyled = styled(Link)`
   color: black;
 `;
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
@@ -61,7 +62,6 @@ const Container = styled.div`
       opacity: 1;
       margin-right: 0;
     }
-    background-color: ${(props) => props.theme.colors.lightGreen};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 `;
