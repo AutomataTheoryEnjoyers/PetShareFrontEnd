@@ -1,26 +1,14 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
-import {
-  AnnouncementFiltersForm,
-  DefaultFilterState,
-} from "../../../components/announcementFiltersForm";
 import { AnnouncementListElement } from "../../../components/announcementListElement";
 import { Header } from "../../../components/header";
-import { AnnouncementFilters } from "../../../types/announcementFilter";
 import { useAnnouncements } from "../../../queries/announcements";
-
-export const Announcements = () => {
-  const [formState, setFormState] =
-    useState<AnnouncementFilters>(DefaultFilterState);
-  const { data } = useAnnouncements(formState);
+export const FollowedAnnouncements = () => {
+  // we have to replace this call with one that actually fetches data for the followed stuff ASAP
+  const { data } = useAnnouncements(null);
   return (
     <AnimatedPage>
-      <Header>My Announcements</Header>
-      <AnnouncementFiltersForm
-        filters={formState}
-        onChange={(arg) => setFormState({ ...formState, ...arg })}
-      />
+      <Header>Followed Announcements</Header>
       <List>
         {data?.map((announcement) => (
           <AnnouncementListElement

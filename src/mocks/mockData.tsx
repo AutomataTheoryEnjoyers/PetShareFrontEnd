@@ -1,3 +1,6 @@
+import { Announcement } from "../types/announcement";
+import { Application } from "../types/application";
+
 export const mockAddresses = [
   {
     id: "4231",
@@ -30,21 +33,21 @@ export const mockUsers = [
     userName: "KononowiczKrzysztof",
     phoneNumber: "325232675",
     email: "warmianin@katolik.com",
-    isAuthorized: true,
+    status: 0,
     address: mockAddresses[0],
   },
   {
     userName: "Meksikano",
     phoneNumber: "343232675",
     email: "natret@bialystok.com",
-    isAuthorized: true,
+    status: 0,
     address: mockAddresses[1],
   },
   {
     userName: "MajorSuchek",
     phoneNumber: "343232675",
     email: "majorek@nitro.com",
-    isAuthorized: false,
+    status: 0,
     address: mockAddresses[2],
   },
 ];
@@ -63,14 +66,14 @@ export const mockShelters = [
     id: "2",
     fullShelterName: "Even Cuter and Funnier Shelter",
     phoneNumber: "928762322",
-    email: "GimmeShelter@RS.com",
+    email: "GimmeShelterer@RS.com",
     address: mockAddresses[1],
     addressId: mockAddresses[1].id,
     isAuthorized: true,
   },
   {
     id: "3",
-    fullShelterName: "Kentucky Fired Chicken",
+    fullShelterName: "Kentucky Fried Chicken",
     phoneNumber: "929252322",
     email: "KFC@RS.com",
     address: mockAddresses[2],
@@ -161,7 +164,7 @@ export const mockAnnouncements = [
     idPet: mockPets[2].id,
     pet: mockPets[2],
   },
-];
+] as Announcement[];
 
 export const mockApplications = [
   {
@@ -188,4 +191,4 @@ export const mockApplications = [
     user: mockUsers[0],
     announcement: mockAnnouncements[2],
   },
-];
+] as Application[];

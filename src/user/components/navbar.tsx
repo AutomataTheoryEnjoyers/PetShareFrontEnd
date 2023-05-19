@@ -8,6 +8,8 @@ export const Navbar = () => {
       <Header>PetShare-User</Header>
       <Links>
         <Link name="Announcements" path="/user/announcements" />
+        <Link name="Followed" path="/user/followed-annoucements" />
+        <Link name="My Applications" path="/user/my-applications" />
         <LogoutButton />
       </Links>
     </Bar>

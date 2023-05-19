@@ -108,7 +108,9 @@ export const RegistrationPage = () => {
       },
     }).then((response: any) => {
       const updatedUserData = {
-        ...userData,
+        ...response,
+        userIdAuth0: userData?.userIdAuth0,
+        accessToken: userData?.accessToken,
         userIdDB: response.data.id,
         role: selectedRole,
       } as UserData;
@@ -155,28 +157,30 @@ export const RegistrationPage = () => {
         <ColumnContainer>
           <TextDetails>*required fields</TextDetails>
           <div id="role">
-            <Title htmlFor="role-radio-button">
-              Select a role for your account*:
-            </Title>
+            <Title>Select a role for your account*:</Title>
             <RadioButtonRowContainer id="role-radio-button-adopter">
               <Input
                 type="radio"
                 value="adopter"
-                id="role-radio-button-adopter"
+                id="role-radio-button-adopter-input"
                 checked={selectedRole === "adopter"}
                 onChange={(e) => setSelectedRole(e.target.value)}
               />
-              <TextDetails>Adopter</TextDetails>
+              <TextDetails htmlFor="role-radio-button-adopter-input">
+                Adopter
+              </TextDetails>
             </RadioButtonRowContainer>
             <RadioButtonRowContainer id="role-radio-button-shelter">
               <Input
                 type="radio"
                 value="shelter"
-                id="role-radio-button-shelter"
+                id="role-radio-button-shelter-input"
                 checked={selectedRole === "shelter"}
                 onChange={(e) => setSelectedRole(e.target.value)}
               />
-              <TextDetails>Shelter</TextDetails>
+              <TextDetails htmlFor="role-radio-button-shelter-input">
+                Shelter
+              </TextDetails>
             </RadioButtonRowContainer>
           </div>
           <div id="username">
@@ -380,7 +384,7 @@ const Title = styled.label`
   font-size: 18px;
 `;
 
-const TextDetails = styled.p`
+const TextDetails = styled.label`
   margin: 2px;
   font-size: 15px;
 `;
