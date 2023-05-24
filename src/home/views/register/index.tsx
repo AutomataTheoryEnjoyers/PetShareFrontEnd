@@ -1,23 +1,18 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { motion } from "framer-motion";
-import { useContext, useEffect, useState } from "react";
-import { UserContextType } from "../../../types/userContextType";
-import { UserContext } from "../../../components/userContext";
+import { useEffect, useState } from "react";
 import { usePostNewShelter } from "../../mutations/PostNewShelter";
 import { usePostNewAdopter } from "../../mutations/PostNewAdopter";
-import { UserData } from "../../../types/userData";
 import { NewShelter } from "../../../types/newShelter";
 import { NewAdopter } from "../../../types/NewAdopter";
-import { usePatchAuth0 } from "../../mutations/usePatchAuth0";
+import { Navigate } from "react-router-dom";
 
 const REGEX_PHONENUMBER = /^[0-9]{9}$/ as RegExp;
 const REGEX_POSTALCODE = /^[0-9]{2}[-]{1}[0-9]{3}$/ as RegExp;
 const REGEX_EMAIL = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/ as RegExp;
 
 export const RegistrationPage = () => {
-  const { userData, setUserData } = useContext<UserContextType>(UserContext);
-
   const [selectedRole, setSelectedRole] = useState<string>("adopter");
   const [userName, setUserName] = useState<string>("");
   const [fullShelterName, setFullShelterName] = useState<string>("");
@@ -35,9 +30,10 @@ export const RegistrationPage = () => {
   const [validForm, setValidForm] = useState<boolean>(false);
   const [isLoadingRegister, setLoadingRegister] = useState<boolean>(false);
 
-  const mutateNewAdopter = usePostNewAdopter();
-  const mutateNewShelter = usePostNewShelter();
-  const mutatePatchAuth0 = usePatchAuth0();
+  const { mutateNewAdopter, isSuccessAdopter, isErrorAdopter } =
+    usePostNewAdopter();
+  const { mutateNewShelter, isSuccessShelter, isErrorShelter } =
+    usePostNewShelter();
 
   useEffect(() => {
     if (phoneNumber === "") {
@@ -106,16 +102,6 @@ export const RegistrationPage = () => {
       onSettled: () => {
         setLoadingRegister(false);
       },
-    }).then((response: any) => {
-      const updatedUserData = {
-        ...response,
-        userIdAuth0: userData?.userIdAuth0,
-        accessToken: userData?.accessToken,
-        userIdDB: response.data.id,
-        role: selectedRole,
-      } as UserData;
-      setUserData(updatedUserData);
-      mutatePatchAuth0();
     });
   };
 
@@ -138,26 +124,25 @@ export const RegistrationPage = () => {
       onSettled: () => {
         setLoadingRegister(false);
       },
-    }).then((response: any) => {
-      const updatedUserData = {
-        ...response,
-        userIdAuth0: userData?.userIdAuth0,
-        accessToken: userData?.accessToken,
-        userIdDB: response.data.id,
-        role: selectedRole,
-      } as UserData;
-      setUserData(updatedUserData);
-      mutatePatchAuth0();
     });
   };
 
   return (
     <AnimatedPage>
+      {isSuccessAdopter && <Navigate to="/user/announcements" />}
+      {isSuccessShelter && <Navigate to="/shelter/my-announcements" />}
       <Container>
         <Header>Looks like it's your first time in our app</Header>
         <Header>Please fill in the missing info about yourself</Header>
         <ColumnContainer>
           <TextDetails>*required fields</TextDetails>
+          {isErrorAdopter ||
+            (isErrorShelter && (
+              <WarningText>
+                Looks like there's been an error while processing your info.
+                Please try submitting the form again
+              </WarningText>
+            ))}
           <ColumnContainerInside id="role">
             <Title>Select a role for your account*:</Title>
             <RadioButtonRowContainer id="role-radio-button-adopter">

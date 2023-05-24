@@ -27,7 +27,6 @@ export const Callback = () => {
             role: accessTokenDecoded["role"],
             accessToken: accessToken,
           });
-          //console.log(userData);
         });
       } catch (e) {
         console.log("Error:", e);

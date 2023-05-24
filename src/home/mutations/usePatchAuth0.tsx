@@ -9,11 +9,11 @@ export const usePatchAuth0 = () => {
   const { userData } = useContext<UserContextType>(UserContext);
 
   const { mutateAsync } = useMutation(
-    () =>
-      fetch(`https://${domain}/api/v2/users/user_id`, {
+    (accessToken: string) =>
+      fetch(`https://${domain}/api/v2/users/${userData?.userIdAuth0}`, {
         method: "PATCH",
         headers: {
-          authorization: `Bearer ${userData?.accessToken}`,
+          authorization: `Bearer ${accessToken}`,
           "content-type": "application/json",
         },
         body: JSON.stringify({
