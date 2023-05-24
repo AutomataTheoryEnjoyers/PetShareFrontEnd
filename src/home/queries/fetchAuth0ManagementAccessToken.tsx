@@ -8,11 +8,6 @@ const fetchAuth0ManagementAccessToken = async () => {
     headers: {
       "content-type": "application/x-www-form-urlencoded",
       mode: "cors",
-      "access-control-allow-credentials": "true",
-      "access-control-allow-origin": "*",
-      "access-control-allow-headers":
-        "Origin, Content-Type, Accept, X-Requested-With, Authorization, Auth0-Client, X-Request-Language",
-      "access-control-allow-methods": "PATCH, OPTIONS",
     },
     body: JSON.stringify({
       grant_type: "client_credentials",
