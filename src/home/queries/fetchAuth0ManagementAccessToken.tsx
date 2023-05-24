@@ -7,6 +7,7 @@ const fetchAuth0ManagementAccessToken = async () => {
     method: "POST",
     headers: {
       "content-type": "application/x-www-form-urlencoded",
+      mode: "cors",
     },
     body: JSON.stringify({
       grant_type: "client_credentials",
