@@ -1,6 +1,6 @@
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
-const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
-const clientSecret = process.env.REACT_APP_AUTH0_CLIENT_SECRET as string;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID_2 as string;
+const clientSecret = process.env.REACT_APP_AUTH0_CLIENT_SECRET_2 as string;
 
 const fetchAuth0ManagementAccessToken = async () => {
   const response = await fetch("https://" + domain + "/oauth/token", {
@@ -18,7 +18,7 @@ const fetchAuth0ManagementAccessToken = async () => {
   });
   const responseDecoded = await response.json();
   console.log(responseDecoded);
-  return responseDecoded.accessToken;
+  return responseDecoded.access_token;
 };
 
 export default fetchAuth0ManagementAccessToken;
