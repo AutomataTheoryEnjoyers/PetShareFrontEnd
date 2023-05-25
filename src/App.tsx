@@ -12,8 +12,7 @@ import { UserData } from "./types/userData";
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
 const audience = process.env.REACT_APP_AUTH0_AUDIENCE as string;
-const scope =
-  "openid read:current_user update:current_user_metadata update:users_app_metadata";
+const scope = "openid profile email";
 
 function App() {
   // User context
