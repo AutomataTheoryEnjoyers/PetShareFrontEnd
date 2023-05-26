@@ -11,8 +11,7 @@ import { UserData } from "./types/userData";
 // Auth0Provider variables
 const domain = process.env.REACT_APP_AUTH0_DOMAIN as string;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID as string;
-const audience = process.env.REACT_APP_AUTH0_AUDIENCE as string;
-const scope = "openid profile email";
+const scope = "read:current_user update:current_user_metadata";
 
 function App() {
   // User context
@@ -24,7 +23,7 @@ function App() {
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin + "/callback",
-        audience: audience,
+        audience: `https://${domain}/api/v2/`,
         scope: scope,
       }}
     >

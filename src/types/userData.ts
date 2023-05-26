@@ -1,6 +1,7 @@
 export type UserData = {
   userIdAuth0: string;
   userIdDB: string;
-  accessToken: string;
+  accessTokenAuth0: string;
+  accessTokenDB: string;
   role: string;
 };

@@ -10,7 +10,7 @@ import { Navigate } from "react-router-dom";
 
 const REGEX_PHONENUMBER = /^[0-9]{9}$/ as RegExp;
 const REGEX_POSTALCODE = /^[0-9]{2}[-]{1}[0-9]{3}$/ as RegExp;
-const REGEX_EMAIL = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/ as RegExp;
+const REGEX_EMAIL = /.+@.+\..+/ as RegExp;
 
 export const RegistrationPage = () => {
   const [selectedRole, setSelectedRole] = useState<string>("adopter");

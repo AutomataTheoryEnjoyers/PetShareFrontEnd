@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { UserData } from "../../types/userData";
-import fetchAuth0ManagementAccessToken from "../queries/fetchAuth0ManagementAccessToken";
 import { usePatchAuth0 } from "./usePatchAuth0";
 
 export const usePostNewAdopter = () => {
@@ -18,7 +17,7 @@ export const usePostNewAdopter = () => {
         method: "POST",
         body: JSON.stringify(adopter),
         headers: {
-          authorization: `Bearer ${userData?.accessToken}`,
+          authorization: `Bearer ${userData?.accessTokenDB}`,
           "Content-Type": "application/json",
         },
       }),
@@ -31,15 +30,13 @@ export const usePostNewAdopter = () => {
         );
         const updatedUserData = {
           userIdAuth0: userData?.userIdAuth0,
-          accessToken: userData?.accessToken,
+          accessTokenDB: userData?.accessTokenDB,
+          accessTokenAuth0: userData?.accessTokenAuth0,
           userIdDB: responseDecoded.id,
           role: "adopter",
         } as UserData;
         setUserData(updatedUserData);
-        fetchAuth0ManagementAccessToken().then((accessToken) => {
-          console.log(`Auth0 token: ${accessToken}`);
-          mutatePatchAuth0(accessToken);
-        });
+        mutatePatchAuth0(userData?.accessTokenAuth0 as string);
       },
       onError: (error) => {
         console.log(error);

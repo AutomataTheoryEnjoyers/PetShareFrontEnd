@@ -14,7 +14,7 @@ export const usePostPet = () => {
         method: "POST",
         body: JSON.stringify(pet),
         headers: {
-          authorization: `Bearer ${userData?.accessToken}`,
+          authorization: `Bearer ${userData?.accessTokenDB}`,
           "Content-Type": "application/json",
         },
       }),

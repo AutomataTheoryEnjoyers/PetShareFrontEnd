@@ -6,7 +6,6 @@ import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { usePatchAuth0 } from "./usePatchAuth0";
 import { UserData } from "../../types/userData";
-import fetchAuth0ManagementAccessToken from "../queries/fetchAuth0ManagementAccessToken";
 import { Navigate } from "react-router-dom";
 
 export const usePostNewShelter = () => {
@@ -19,7 +18,7 @@ export const usePostNewShelter = () => {
         method: "POST",
         body: JSON.stringify(shelter),
         headers: {
-          authorization: `Bearer ${userData?.accessToken}`,
+          authorization: `Bearer ${userData?.accessTokenDB}`,
           "Content-Type": "application/json",
         },
       }),
@@ -32,15 +31,13 @@ export const usePostNewShelter = () => {
         );
         const updatedUserData = {
           userIdAuth0: userData?.userIdAuth0,
-          accessToken: userData?.accessToken,
+          accessTokenDB: userData?.accessTokenDB,
+          accessTokenAuth0: userData?.accessTokenAuth0,
           userIdDB: responseDecoded.id,
           role: "shelter",
         } as UserData;
         setUserData(updatedUserData);
-        fetchAuth0ManagementAccessToken().then((accessToken) => {
-          console.log(`Auth0 token: ${accessToken}`);
-          mutatePatchAuth0(accessToken);
-        });
+        mutatePatchAuth0(userData?.accessTokenAuth0 as string);
 
         return (
           <>
