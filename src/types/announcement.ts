@@ -8,6 +8,5 @@ export type Announcement = {
   closingDate?: Date;
   status: number;
   lastUpdateDate: Date;
-  idPet: string;
   pet: Pet;
 };

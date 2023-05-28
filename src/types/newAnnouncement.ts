@@ -1,5 +1,5 @@
-export type NewAnouncement = {
-  Title: string;
-  Description: string;
-  IDPet: string;
+export type NewAnnouncement = {
+  title: string;
+  description: string;
+  petId: string;
 };

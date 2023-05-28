@@ -62,60 +62,59 @@ describe("NewAdopter", () => {
     expect(radioInput).toBeChecked();
   });
 
-  // it("calls usePostAdopter when the form is submitted for an Adopter", async () => {
-  //   const mockPostNewAdopter = jest
-  //     .fn()
-  //     .mockResolvedValue({ response: { data: { id: "nigga" } } });
-  //   const mockSetLoadingRegister = jest.fn();
-  //   usePostNewAdopter.mockReturnValue(mockPostNewAdopter);
-  //   renderWithRouterAndQueryProvider(<RegistrationPage />);
+  it("calls usePostAdopter when the form is submitted for an Adopter", async () => {
+    const mockPostNewAdopter = jest
+      .fn()
+      .mockResolvedValue({ response: { data: { id: "asbcd" } } });
+    const mockSetLoadingRegister = jest.fn();
+    renderWithRouterAndQueryProvider(<RegistrationPage />);
 
-  //   const usernameInput = screen.getByLabelText("Username:");
-  //   const emailInput = screen.getByLabelText("E-Mail:");
-  //   const streetInput = screen.queryByPlaceholderText("Street") as HTMLElement;
-  //   const cityInput = screen.queryByPlaceholderText("City") as HTMLElement;
-  //   const provinceInput = screen.queryByPlaceholderText(
-  //     "Province"
-  //   ) as HTMLElement;
-  //   const postalCodeInput = screen.queryByPlaceholderText(
-  //     "Postal Code (XX-XXX)"
-  //   ) as HTMLElement;
-  //   const countryInput = screen.queryByPlaceholderText(
-  //     "Country"
-  //   ) as HTMLElement;
-  //   const submitButton = screen.getByText("Submit");
+    const usernameInput = screen.getByLabelText("Username:");
+    const emailInput = screen.getByLabelText("E-Mail:");
+    const streetInput = screen.queryByPlaceholderText("Street") as HTMLElement;
+    const cityInput = screen.queryByPlaceholderText("City") as HTMLElement;
+    const provinceInput = screen.queryByPlaceholderText(
+      "Province"
+    ) as HTMLElement;
+    const postalCodeInput = screen.queryByPlaceholderText(
+      "Postal Code (XX-XXX)"
+    ) as HTMLElement;
+    const countryInput = screen.queryByPlaceholderText(
+      "Country"
+    ) as HTMLElement;
+    const submitButton = screen.getByText("Submit");
 
-  //   fireEvent.change(usernameInput, { target: { value: "Shub-Niggurath" } });
-  //   fireEvent.change(emailInput, {
-  //     target: { value: "thegoat@ofthewoods.com" },
-  //   });
-  //   fireEvent.change(streetInput, { target: { value: "Street" } });
-  //   fireEvent.change(cityInput, { target: { value: "City" } });
-  //   fireEvent.change(provinceInput, { target: { value: "Province" } });
-  //   fireEvent.change(postalCodeInput, { target: { value: "00-000" } });
-  //   fireEvent.change(countryInput, { target: { value: "Country" } });
-  //   fireEvent.click(submitButton);
+    fireEvent.change(usernameInput, { target: { value: "Shub-Niggurath" } });
+    fireEvent.change(emailInput, {
+      target: { value: "thegoat@ofthewoods.com" },
+    });
+    fireEvent.change(streetInput, { target: { value: "Street" } });
+    fireEvent.change(cityInput, { target: { value: "City" } });
+    fireEvent.change(provinceInput, { target: { value: "Province" } });
+    fireEvent.change(postalCodeInput, { target: { value: "00-000" } });
+    fireEvent.change(countryInput, { target: { value: "Country" } });
+    fireEvent.click(submitButton);
 
-  //   await waitFor(() =>
-  //     expect(mockPostNewAdopter).toHaveBeenCalledWith(
-  //       {
-  //         userName: "Shub-Niggurath",
-  //         phoneNumber: "",
-  //         email: "thegoat@ofthewoods.com",
-  //         address: {
-  //           street: "Street",
-  //           city: "City",
-  //           province: "Province",
-  //           postalCode: "00-000",
-  //           country: "Country",
-  //         },
-  //       },
-  //       {
-  //         onSettled: () => {
-  //           jest.fn();
-  //         },
-  //       }
-  //     )
-  //   );
-  // });
+    await waitFor(() =>
+      expect(mockPostNewAdopter).toHaveBeenCalledWith(
+        {
+          userName: "Shub-Niggurath",
+          phoneNumber: "",
+          email: "thegoat@ofthewoods.com",
+          address: {
+            street: "Street",
+            city: "City",
+            province: "Province",
+            postalCode: "00-000",
+            country: "Country",
+          },
+        },
+        {
+          onSettled: () => {
+            jest.fn();
+          },
+        }
+      )
+    );
+  });
 });

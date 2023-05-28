@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { screen, fireEvent } from "@testing-library/react";
+import { screen, fireEvent, renderHook } from "@testing-library/react";
 import { useMyPets } from "../../queries/myPets";
 import { usePostAnnouncement } from "../../mutations/postAnnouncement";
 import { NewAnnouncement } from "../newAnnouncement";
@@ -45,7 +45,7 @@ describe("NewAnnouncement", () => {
     useMyPets.mockReturnValue({ data: pets });
 
     // mock usePostAnnouncement to do nothing
-    usePostAnnouncement.mockReturnValue({});
+    const { result } = renderHook(() => usePostAnnouncement());
 
     renderWithRouterAndQueryProvider(<NewAnnouncement />);
 
@@ -61,10 +61,10 @@ describe("NewAnnouncement", () => {
     fireEvent.change(petSelect, { target: { value: "1" } });
     fireEvent.click(submitButton);
 
-    expect(usePostAnnouncement).toHaveBeenCalledWith({
-      Title: "New Announcement",
-      Description: "This is a new announcement",
-      IDPet: "1",
+    expect(result.current).toHaveBeenCalledWith({
+      title: "New Announcement",
+      description: "This is a new announcement",
+      petId: "1",
     });
   });
 

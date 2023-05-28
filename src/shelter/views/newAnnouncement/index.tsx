@@ -6,16 +6,17 @@ import { useMyPets } from "../../queries/myPets";
 
 export const NewAnnouncement = () => {
   const { data } = useMyPets();
+  const mutatePostAnnouncement = usePostAnnouncement();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [petID, setPetID] = useState(data ? data[0].id : "");
 
   const useHandleSubmit = () => {
-    usePostAnnouncement({
-      Description: description,
-      Title: title,
-      IDPet: petID,
+    mutatePostAnnouncement({
+      description: description,
+      title: title,
+      petId: petID,
     });
   };
 

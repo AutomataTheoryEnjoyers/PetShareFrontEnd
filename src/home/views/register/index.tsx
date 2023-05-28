@@ -1,18 +1,27 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { usePostNewShelter } from "../../mutations/PostNewShelter";
 import { usePostNewAdopter } from "../../mutations/PostNewAdopter";
 import { NewShelter } from "../../../types/newShelter";
 import { NewAdopter } from "../../../types/NewAdopter";
 import { Navigate } from "react-router-dom";
+import { UserContextType } from "../../../types/userContextType";
+import { UserContext } from "../../../components/userContext";
+import { MutationContextType } from "../../../types/mutationContext";
+import { MutationContext } from "../../../components/mutationContext";
+import { ClipLoader } from "react-spinners";
 
 const REGEX_PHONENUMBER = /^[0-9]{9}$/ as RegExp;
 const REGEX_POSTALCODE = /^[0-9]{2}[-]{1}[0-9]{3}$/ as RegExp;
 const REGEX_EMAIL = /.+@.+\..+/ as RegExp;
 
 export const RegistrationPage = () => {
+  const { userData } = useContext<UserContextType>(UserContext);
+  const { mutationData, setMutationData } =
+    useContext<MutationContextType>(MutationContext);
+
   const [selectedRole, setSelectedRole] = useState<string>("adopter");
   const [userName, setUserName] = useState<string>("");
   const [fullShelterName, setFullShelterName] = useState<string>("");
@@ -30,10 +39,8 @@ export const RegistrationPage = () => {
   const [validForm, setValidForm] = useState<boolean>(false);
   const [isLoadingRegister, setLoadingRegister] = useState<boolean>(false);
 
-  const { mutateNewAdopter, isSuccessAdopter, isErrorAdopter } =
-    usePostNewAdopter();
-  const { mutateNewShelter, isSuccessShelter, isErrorShelter } =
-    usePostNewShelter();
+  const { mutateNewAdopter, isErrorAdopter } = usePostNewAdopter();
+  const { mutateNewShelter, isErrorShelter } = usePostNewShelter();
 
   useEffect(() => {
     if (phoneNumber === "") {
@@ -75,6 +82,7 @@ export const RegistrationPage = () => {
   }, [requiredFilled, validPhoneNumber, validEmail, validPostalCode]);
 
   const useHandleSubmit = async () => {
+    setMutationData({ mutationSuccessful: false });
     if (selectedRole === "adopter") {
       HandleAdopter();
     } else {
@@ -129,8 +137,11 @@ export const RegistrationPage = () => {
 
   return (
     <AnimatedPage>
-      {isSuccessAdopter && <Navigate to="/user/announcements" />}
-      {isSuccessShelter && <Navigate to="/shelter/my-announcements" />}
+      {/* mutationSuccessful is false throughout the registration process, only being set to 'true', when the Auth0 PATCH goes through */}
+      {mutationData?.mutationSuccessful &&
+        (userData?.role === "adopter" || userData?.role === "shelter") && (
+          <Navigate to="/accountSuccessfullyCreated" />
+        )}
       <Container>
         <Header>Looks like it's your first time in our app</Header>
         <Header>Please fill in the missing info about yourself</Header>
@@ -191,6 +202,7 @@ export const RegistrationPage = () => {
                 visible,
               }}
             >
+              <Separator />
               <Title htmlFor="shelter-input">Full Shelter Name:</Title>
               <DescriptionArea
                 rows={1}
@@ -295,7 +307,7 @@ export const RegistrationPage = () => {
                 onClick={useHandleSubmit}
                 disabled={!validForm || isLoadingRegister}
               >
-                Submit
+                {isLoadingRegister ? <ClipLoader /> : <>Submit</>}
               </SubmitButton>
             </ColumnContainerInside>
           </MovingGroup>
@@ -426,6 +438,7 @@ const SubmitButton = styled.button`
   outline: none;
   margin-top: auto;
   height: 50px;
+  width: 100px;
   font-size: 25px;
   font-weight: 700;
   transition: 0.5s all;

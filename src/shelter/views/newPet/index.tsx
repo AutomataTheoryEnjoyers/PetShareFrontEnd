@@ -2,133 +2,136 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostPet } from "../../mutations/postPet";
+import { NewPet } from "../../../types/newPet";
 
-export const NewPet = () => {
+export const NewPetForm = () => {
+  const [name, setName] = useState("");
+  const [sex, setSex] = useState("Unknown");
+  const [species, setSpecies] = useState("");
+  const [breed, setBreed] = useState("");
+  const [birthday, setBirthday] = useState(new Date());
+  const [description, setDescription] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
 
-    const [name, setName] = useState("");
-    const [sex, setSex] = useState("Unknown");
-    const [species, setSpecies] = useState("");
-    const [breed, setBreed] = useState("");
-    const [birthday, setBirthday] = useState(new Date());
-    const [description, setDescription] = useState("");
-    const [photoUrl, setPhotoUrl] = useState("");
+  const [isFormValid, setIsFormValid] = useState(false);
+  const postPet = usePostPet();
 
-    const [isFormValid, setIsFormValid] = useState(false);
-    const postPet = usePostPet();
-
-    const handleBirthdayInputChange = (event: { target: { value: any; }; }) => {
-        const inputBirthday = event.target.value;
-        // Validate if the input value can be parsed as a date
-        const isValid = !isNaN(Date.parse(inputBirthday));
-        if (isValid) {
-            setBirthday(new Date(inputBirthday));
-        }
+  const handleBirthdayInputChange = (event: { target: { value: any } }) => {
+    const inputBirthday = event.target.value;
+    // Validate if the input value can be parsed as a date
+    const isValid = !isNaN(Date.parse(inputBirthday));
+    if (isValid) {
+      setBirthday(new Date(inputBirthday));
     }
-    useEffect(() => {
-        const fields = [name, species, breed, description, photoUrl];
-        const isFormValid = fields.every((field) => field.trim() !== "");
-        setIsFormValid(isFormValid);
-    }, [name, species, breed, description, photoUrl]);
+  };
+  useEffect(() => {
+    const fields = [name, species, breed, description, photoUrl];
+    const isFormValid = fields.every((field) => field.trim() !== "");
+    setIsFormValid(isFormValid);
+  }, [name, species, breed, description, photoUrl]);
 
-    const useHandleSubmit = async () => {
-        
-        const newPetData = {
-            Name: name,
-            Sex: sex,
-            Species: species,
-            Breed: breed,
-            Birthday: birthday,
-            Description: description,
-            PhotoUrl: photoUrl,
-        };
-        await postPet(newPetData);
-    };
+  const useHandleSubmit = async () => {
+    const newPetData = {
+      Name: name,
+      Sex: sex,
+      Species: species,
+      Breed: breed,
+      Birthday: birthday,
+      Description: description,
+    } as NewPet;
+    postPet({ petData: newPetData, petPhotoUrl: photoUrl });
+  };
 
-    return (
-        <AnimatedPage>
-            <Container>
-                <Header>New Pet</Header>
-                <div id="name">
-                    <Label htmlFor="name-input">Name:</Label>
-                    <Input
-                        id="name-input"
-                        maxLength={60}
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div id="sex">
-                    <Label htmlFor="sex-input">Sex:</Label>
-                    <Select value={sex} onChange={(e) => setSex(e.target.value)} id="sex-input">
-                            <Option value="Unknown">Unknown</Option>
-                            <Option value="Male">Male</Option>
-                            <Option value="Female">Female</Option>
-                            <Option value="DoesNotApply">Does not apply</Option>
-                        </Select>
-                    
-                </div>
-                <div id="species">
-                    <Label htmlFor="species-input">Species:</Label>
-                    <Input
-                        id="species-input"
-                        maxLength={60}
-                        type="text"
-                        value={species}
-                        onChange={(e) => setSpecies(e.target.value)}
-                        required
-                    />
-                </div>
-                <div id="breed">
-                    <Label htmlFor="breed-input">Breed:</Label>
-                    <Input
-                        id="breed-input"
-                        maxLength={60}
-                        type="text"
-                        value={breed}
-                        onChange={(e) => setBreed(e.target.value)}
-                        required
-                    />
-                </div>
-                
-                <div id="birthday">
-                    <Label htmlFor="birthday-input">Birthday:</Label>
-                    <Input
-                        id="birthday-input"
-                        type="date"
-                        value={birthday ? birthday.toISOString().substr(0, 10) : ''}
-                        onChange={handleBirthdayInputChange}
-                        required
-                    />
-                </div>
-                <div id="description">
-                    <Label htmlFor="description-input">Description:</Label>
-                    <DescriptionArea
-                        id="description-input"
-                        maxLength={400}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        required
-                    />
-                </div>
-                <div id="photoUrl">
-                    <Label htmlFor="photoUrl-input">Photo URL:</Label>
-                    <Input
-                        id="photoUrl-input"
-                        maxLength={200}
-                        type="text"
-                        value={photoUrl}
-                        onChange={(e) => setPhotoUrl(e.target.value)}
-                        required
-                    />
-                </div>
-                <div id="submit">
-                    <SubmitButton onClick={useHandleSubmit} disabled={!isFormValid}>Submit</SubmitButton>
-                </div>
-            </Container>
-        </AnimatedPage>
-    );
+  return (
+    <AnimatedPage>
+      <Container>
+        <Header>New Pet</Header>
+        <div id="name">
+          <Label htmlFor="name-input">Name:</Label>
+          <Input
+            id="name-input"
+            maxLength={60}
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div id="sex">
+          <Label htmlFor="sex-input">Sex:</Label>
+          <Select
+            value={sex}
+            onChange={(e) => setSex(e.target.value)}
+            id="sex-input"
+          >
+            <Option value="Unknown">Unknown</Option>
+            <Option value="Male">Male</Option>
+            <Option value="Female">Female</Option>
+            <Option value="DoesNotApply">Does not apply</Option>
+          </Select>
+        </div>
+        <div id="species">
+          <Label htmlFor="species-input">Species:</Label>
+          <Input
+            id="species-input"
+            maxLength={60}
+            type="text"
+            value={species}
+            onChange={(e) => setSpecies(e.target.value)}
+            required
+          />
+        </div>
+        <div id="breed">
+          <Label htmlFor="breed-input">Breed:</Label>
+          <Input
+            id="breed-input"
+            maxLength={60}
+            type="text"
+            value={breed}
+            onChange={(e) => setBreed(e.target.value)}
+            required
+          />
+        </div>
+
+        <div id="birthday">
+          <Label htmlFor="birthday-input">Birthday:</Label>
+          <Input
+            id="birthday-input"
+            type="date"
+            value={birthday ? birthday.toISOString().substr(0, 10) : ""}
+            onChange={handleBirthdayInputChange}
+            required
+          />
+        </div>
+        <div id="description">
+          <Label htmlFor="description-input">Description:</Label>
+          <DescriptionArea
+            id="description-input"
+            maxLength={400}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div id="photoUrl">
+          <Label htmlFor="photoUrl-input">Photo URL:</Label>
+          <Input
+            id="photoUrl-input"
+            maxLength={200}
+            type="text"
+            value={photoUrl}
+            onChange={(e) => setPhotoUrl(e.target.value)}
+            required
+          />
+        </div>
+        <div id="submit">
+          <SubmitButton onClick={useHandleSubmit} disabled={!isFormValid}>
+            Submit
+          </SubmitButton>
+        </div>
+      </Container>
+    </AnimatedPage>
+  );
 };
 
 const Container = styled.div`
@@ -190,8 +193,6 @@ const Container = styled.div`
   }
 `;
 
-
-
 const Header = styled.h1`
   margin-bottom: 20px;
   margin-top: 0;
@@ -244,8 +245,7 @@ const Select = styled.select`
 
 const Option = styled.option`
   height: 40px;
-  
-`
+`;
 
 const SubmitButton = styled.button`
   background: ${(props) => props.theme.colors.main};

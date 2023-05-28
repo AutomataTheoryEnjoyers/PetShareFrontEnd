@@ -3,13 +3,13 @@ import { screen } from "@testing-library/react";
 import { MyAnnouncements } from "../myAnnouncements";
 import { mockAnnouncements } from "../../../mocks/mockData";
 import { renderWithRouterAndQueryProvider } from "../../../components/testUtils/functions";
-import { useAnnouncements } from "../../../queries/announcements";
+import { useMyAnnouncements } from "../../queries/myAnnouncements";
 
-jest.mock("../../../queries/announcements");
+jest.mock("../../queries/myAnnouncements.ts");
 
 describe("MyAnnouncements component", () => {
   beforeEach(() => {
-    useAnnouncements.mockReturnValue({
+    useMyAnnouncements.mockReturnValue({
       data: mockAnnouncements,
       isLoading: false,
       error: null,

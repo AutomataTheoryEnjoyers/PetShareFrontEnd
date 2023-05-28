@@ -8,7 +8,7 @@ import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
 import { PetDetails } from "./views/petDetails";
 import { MyPets } from "./views/myPets";
-import { NewPet } from "./views/newPet";
+import { NewPetForm } from "./views/newPet";
 export const Router = () => {
   const location = useLocation();
   return (
@@ -26,7 +26,7 @@ export const Router = () => {
               <Route path="new-announcement" element={<NewAnnouncement />} />
               <Route path="my-pets/:id" element={<PetDetails />} />
               <Route path="my-pets" element={<MyPets />} />
-              <Route path="new-pet" element={<NewPet />} />
+              <Route path="new-pet" element={<NewPetForm />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </AnimatePresence>
