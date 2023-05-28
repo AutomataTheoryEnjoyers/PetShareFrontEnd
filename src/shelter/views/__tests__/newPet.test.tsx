@@ -49,7 +49,6 @@ describe("NewPet", () => {
     useMyPets.mockReturnValue({ data: pets });
     const mockPostPet = jest.fn().mockResolvedValue("Success");
 
-    usePostPet.mockReturnValue(mockPostPet);
     renderWithRouterAndQueryProvider(<NewPetForm />);
 
     const nameInput = screen.getByLabelText("Name:");

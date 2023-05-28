@@ -33,7 +33,6 @@ export const usePostNewAdopter = () => {
         } as UserData;
         setUserData(updatedUserData);
         fetchAuth0ManagementAccessToken().then((accessToken) => {
-          console.log(`Auth0 token: ${accessToken}`);
           mutatePatchAuth0(accessToken);
         });
       },

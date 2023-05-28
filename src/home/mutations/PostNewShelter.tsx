@@ -7,7 +7,6 @@ import { UserContext } from "../../components/userContext";
 import { usePatchAuth0 } from "./usePatchAuth0";
 import { UserData } from "../../types/userData";
 import fetchAuth0ManagementAccessToken from "../queries/fetchAuth0ManagementAccessToken";
-import { Navigate } from "react-router-dom";
 
 export const usePostNewShelter = () => {
   const mutatePatchAuth0 = usePatchAuth0();
@@ -34,15 +33,8 @@ export const usePostNewShelter = () => {
         } as UserData;
         setUserData(updatedUserData);
         fetchAuth0ManagementAccessToken().then((accessToken) => {
-          console.log(`Auth0 token: ${accessToken}`);
           mutatePatchAuth0(accessToken);
         });
-
-        return (
-          <>
-            <Navigate to="/shelter/my-announcements" />
-          </>
-        );
       },
       onError: (error) => {
         console.log(error);

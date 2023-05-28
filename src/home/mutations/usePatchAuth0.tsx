@@ -26,10 +26,6 @@ export const usePatchAuth0 = () => {
     {
       onSuccess: async (data) => {
         setMutationData({ mutationSuccessful: true });
-        console.log(
-          "Auth0 patch successful " + JSON.stringify(await data.json())
-        );
-        console.log(userData);
       },
       onError: (error) => {
         console.log(error);
