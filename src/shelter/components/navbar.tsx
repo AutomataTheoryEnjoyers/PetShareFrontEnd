@@ -8,6 +8,8 @@ export const Navbar = () => {
       <Links>
         <Link name="My Announcements" path="/shelter/my-announcements" />
         <Link name="New Announcement" path="/shelter/new-announcement" />
+        <Link name="My Pets" path="/shelter/my-pets" />
+        <Link name="New Pet" path="/shelter/new-pet" />
       </Links>
     </Bar>
   );

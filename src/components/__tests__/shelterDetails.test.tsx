@@ -6,7 +6,7 @@ import { mockAnnouncements } from "../../mocks/mockData";
 
 test("renders PetDetailsElement component", () => {
   const {} = renderWithRouter(
-    <ShelterDetailsElement announcement={mockAnnouncements[0]} />
+    <ShelterDetailsElement shelter={mockAnnouncements[0].pet.shelter} />
   );
 
   expect(

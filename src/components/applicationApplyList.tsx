@@ -1,24 +1,24 @@
 import styled from "styled-components";
 import { Announcement } from "../types/announcement";
 import { Application } from "../types/application";
-import { ApplicationContainerElement } from "./applicationListElement";
+import { ApplicationApplyListElement } from "./applicationApplyListElement";
 
-type UserListProps = {
+type Props = {
   announcement: Announcement;
   applications: Application[];
 };
 
-export const ApplicationListElement = ({
+export const ApplicationApplyList = ({
   announcement,
   applications,
-}: UserListProps) => {
+}: Props) => {
   var usableApplications = applications.filter(
     (application) => application.announcement.id === announcement.id
   );
   return (
     <ApplicationListContainer>
       {usableApplications.map((application) => (
-        <ApplicationContainerElement
+        <ApplicationApplyListElement
           key={application.id}
           application={application}
         />

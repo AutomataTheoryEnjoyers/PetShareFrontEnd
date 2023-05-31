@@ -1,25 +1,24 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Announcement } from "../types/announcement";
+import { Pet } from "../types/pet";
 import { Title } from "../styles/global";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { motion } from "framer-motion";
 
 type Props = {
-  announcement: Announcement;
+  pet: Pet;
 };
 
-export const AnnouncementListElement = ({ announcement }: Props) => {
+export const PetListElement = ({ pet }: Props) => {
   return (
-    <LinkStyled to={`${announcement.id}`}>
+    <LinkStyled to={`${pet.id}`}>
       <Container>
         <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
         <LeftContainer>
-          <Title>{announcement.title}</Title>
+          <Title>{pet.name}</Title>
           <BottomText>
-            {announcement.pet.name}, {announcement.pet.breed},{" "}
-            {new Date().getFullYear() - announcement.pet.birthday.getFullYear()}{" "}
+                      {pet.name}, {pet.sex}, {pet.species}, {pet.breed},{" "}
+            {new Date().getFullYear() - pet.birthday.getFullYear()}{" "}
             years old
           </BottomText>
         </LeftContainer>
@@ -40,7 +39,7 @@ const LinkStyled = styled(Link)`
   color: black;
 `;
 
-const Container = styled(motion.div)`
+const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
@@ -62,6 +61,7 @@ const Container = styled(motion.div)`
       opacity: 1;
       margin-right: 0;
     }
+    background-color: ${(props) => props.theme.colors.lightGreen};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 `;

@@ -1,3 +1,6 @@
+import { Announcement } from "../types/announcement";
+import { Application } from "../types/application";
+
 export const mockAddresses = [
   {
     id: "4231",
@@ -83,6 +86,7 @@ export const mockPets = [
   {
     id: "1111-1111-1111",
     name: "fifik1",
+    sex: "Female",
     species: "kotowaty",
     breed: "kot",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
@@ -96,6 +100,7 @@ export const mockPets = [
   {
     id: "22111-1111-1111",
     name: "alex",
+    sex: "Female",
     species: "pieski",
     breed: "piesek",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
@@ -109,6 +114,7 @@ export const mockPets = [
   {
     id: "33111-1111-1111",
     name: "borys",
+    sex: "Male",
     species: "maupa",
     breed: "szympans",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
@@ -158,7 +164,7 @@ export const mockAnnouncements = [
     idPet: mockPets[2].id,
     pet: mockPets[2],
   },
-];
+] as Announcement[];
 
 export const mockApplications = [
   {
@@ -185,4 +191,4 @@ export const mockApplications = [
     user: mockUsers[0],
     announcement: mockAnnouncements[2],
   },
-];
+] as Application[];
