@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import { User } from "../types/user";
 import {
@@ -5,10 +6,12 @@ import {
     faEnvelope,
     faUser,
     faCheck,
-    faXmark,
+    faTimes,
+    faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../backendUrl";
 
 type HoverState = "None" | "Check" | "Cross";
 
@@ -20,7 +23,11 @@ export const UserDetailsElement = ({ user }: UserProps) => {
     const [hoverState, setHoverState] = useState("None" as HoverState);
 
     return (
-        <ApplicationContainer hoverState={hoverState}>
+        <ApplicationContainer
+            hoverState={hoverState}
+            onMouseEnter={() => setHoverState("Check")}
+            onMouseLeave={() => setHoverState("None")}
+        >
             <UsernameText>
                 {user.userName} <FontAwesomeIcon icon={faUser} />
             </UsernameText>
@@ -32,20 +39,20 @@ export const UserDetailsElement = ({ user }: UserProps) => {
                 <FontAwesomeIcon icon={faEnvelope} />
                 {user.email}
             </DetailText>
-            <ButtonsContainer className="buttonContainer">
-                <FontAwesomeIcon
-                    className="check"
-                    icon={faCheck}
-                    onMouseEnter={() => setHoverState("Check")}
-                    onMouseLeave={() => setHoverState("None")}
-                />
-                <FontAwesomeIcon
-                    className="cross"
-                    icon={faXmark}
-                    onMouseEnter={() => setHoverState("Cross")}
-                    onMouseLeave={() => setHoverState("None")}
-                />
-            </ButtonsContainer>
+            <DetailText>
+                <FontAwesomeIcon icon={faHouse} />
+             
+            </DetailText>
+            <DetailText>
+                
+                {user.address.street}
+            </DetailText>
+            <DetailText>
+                {user.address.postalCode}, {" "} {user.address.city}
+            </DetailText>
+            <DetailText>
+                {user.address?.province}, {" "} {user.address.country} 
+            </DetailText>
         </ApplicationContainer>
     );
 };
@@ -55,17 +62,15 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   border-radius: 5px;
   padding: 10px;
   transition: 0.2s background-color;
-  background-color: ${({ hoverState }) => {
-        if (hoverState === "Check") return (props) => props.theme.colors.lightGreen;
-        if (hoverState === "Cross")
-            return (props) => props.theme.colors.lightTomato;
-        return (props) => props.theme.colors.powderWhite;
-    }};
+  background-color: ${({ hoverState }) =>
+    hoverState === "None" ? "#f5f5f5" : hoverState === "Check" ? "lightblue" : "tomato"};
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   width: calc(33.6% - 10px);
-  height: 250px;
+  height: 450px;
+  margin: 0 auto;
 
   @media screen and (max-width: 900px) {
     width: calc(50% - 10px);
@@ -73,26 +78,6 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
 
   @media screen and (max-width: 600px) {
     width: 100%;
-  }
-
-  .cross {
-    transition: 0.2s all;
-  }
-
-  .check {
-    transition: 0.2s all;
-  }
-
-  .cross:hover {
-    color: tomato;
-    transform: scale(1.5);
-    cursor: pointer;
-  }
-
-  .check:hover {
-    color: green;
-    transform: scale(1.5);
-    cursor: pointer;
   }
 `;
 
@@ -104,14 +89,6 @@ const DetailText = styled.p`
   text-fit: contain;
 `;
 
-const ButtonsContainer = styled.div`
-  font-size: 40px;
-  flex: 1;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 10px;
-`;
-
 const UsernameText = styled.h2`
   margin: 0;
   margin-top: 10px;
@@ -120,4 +97,24 @@ const UsernameText = styled.h2`
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+  text-align: center;
+  a {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #f5f5f5;
+      color: #333;
+      font-size: 16px;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: 0.2s background-color;
+
+      &:hover {
+        background-color: #ccc;
+      }
+    }
+  }
 `;

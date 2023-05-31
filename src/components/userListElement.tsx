@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { User } from "../types/user";
 import { Title } from "../styles/global";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faEnvelope, faHouse, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
@@ -13,21 +13,22 @@ export const UserListElement = ({ user }: Props) => {
     return (
         <LinkStyled to={`${user.id}`}>
             <Container>
-                <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
                 <LeftContainer>
-                    <Title>{user.userName}</Title>
-                    <BottomText>
-                        {user.userName}, {user.email}, {user.phoneNumber}, {user.address.city},{user.address.country},
-                        {user.address.postalCode}
-                        
-                    </BottomText>
+                    <IconContainer>
+                        <FontAwesomeIcon icon={faUser} size="3x" />
+                    </IconContainer>
+                    <TextContainer>
+                        <TitleContainer>
+                            <Title>{user.userName}</Title>
+                        </TitleContainer>
+                        <BottomText><FontAwesomeIcon icon={faEnvelope} /><span>{user.email}{" "}</span>
+                            <FontAwesomeIcon icon={faPhone} />{user.phoneNumber}{" "}{<FontAwesomeIcon icon={faHouse} />}
+                            {user.address.country},{" "} {user.address.city}
+                        </BottomText>
+                    </TextContainer>
                 </LeftContainer>
                 <RightContainer>
-                    <FontAwesomeIcon
-                        className="right-arrow"
-                        fontSize={30}
-                        icon={faArrowRight}
-                    />
+                    <FontAwesomeIcon className="right-arrow" fontSize={30} icon={faArrowRight} />
                 </RightContainer>
             </Container>
         </LinkStyled>
@@ -47,12 +48,14 @@ const Container = styled.div`
   height: 150px;
   display: flex;
   transition: all 0.2s ease-in;
+
   .right-arrow {
     opacity: 0;
     transition: all 0.2s ease-in;
     justify-content: center;
     margin-right: 50px;
   }
+
   :hover {
     top: -10px;
     transform: scale(1.05);
@@ -66,19 +69,37 @@ const Container = styled.div`
   }
 `;
 
+const IconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const TitleContainer = styled.div`
+  margin-top: -10px;
+`;
+
 const BottomText = styled.p`
   margin: 0;
-  align-self: flex-end;
   text-align: left;
-  align-self: flex-start;
   padding: 5px;
   color: ${(props) => props.theme.colors.darkgrey};
+  align-self: flex-end;
+
+  svg {
+    margin-right: 5px; /* Add margin to create space between the envelope icon and email */
+  }
 `;
 
 const LeftContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  align-items: center;
 `;
 
 const RightContainer = styled.div`
@@ -86,11 +107,4 @@ const RightContainer = styled.div`
   margin-left: auto;
   flex-direction: column;
   justify-content: center;
-`;
-
-const Image = styled.img`
-  width: 150px;
-  border-radius: 5px;
-  margin-right: 15px;
-  object-fit: cover;
 `;
