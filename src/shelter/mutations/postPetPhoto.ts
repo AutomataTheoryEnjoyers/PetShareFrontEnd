@@ -8,19 +8,22 @@ export const usePostPetPhoto = () => {
   const { userData } = useContext<UserContextType>(UserContext);
 
   const { mutateAsync } = useMutation(
-    (data: { petId: string; petPhotoUrl: string }) =>
+    (data: { petId: string; formData: FormData }) =>
       fetch(`${BACKEND_URL}pet/${data.petId}/photo`, {
         method: "POST",
-        body: JSON.stringify(data.petPhotoUrl),
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,
-          "Content-Type": "application/json",
+          Accept: "*/*",
+          //"Content-Type": "multipart/form-data",
+          //"Content-Length": `${data.petPhotoData.length}`,
         },
+        body: data.formData,
       }),
     {
-      onSuccess: async (data) => {
+      onSuccess: async (response) => {
         console.log(
-          "Pet's photo successfully added: " + JSON.stringify(await data.json())
+          "Pet's photo successfully added: " +
+            JSON.stringify(await response.json())
         );
       },
       onError: (error) => {

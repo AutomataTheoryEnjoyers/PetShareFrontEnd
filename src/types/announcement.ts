@@ -6,7 +6,7 @@ export type Announcement = {
   description?: string;
   creationDate: Date;
   closingDate?: Date;
-  status: number;
   lastUpdateDate: Date;
+  status: string;
   pet: Pet;
 };

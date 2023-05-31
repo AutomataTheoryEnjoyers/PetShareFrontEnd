@@ -2,13 +2,13 @@ import { Shelter } from "./shelter";
 
 export type Pet = {
   id: string;
-  shelterId: string;
-  shelter: Shelter;
-  name?: string;
+  name: string;
   sex: string;
-  species?: string;
-  breed?: string;
+  species: string;
+  breed: string;
   birthday: Date;
-  description?: string;
-  photo?: string;
+  description: string;
+  photoUrl: string;
+  status: string;
+  shelter: Shelter;
 };

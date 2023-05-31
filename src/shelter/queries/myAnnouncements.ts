@@ -19,6 +19,7 @@ export const useMyAnnouncements = () => {
       .then((res) => res.json())
       .then((res) =>
         res.map((announcementResponse: any) => ({
+          ...announcementResponse,
           creationDate: new Date(announcementResponse.creationDate),
           lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
           closingDate: new Date(announcementResponse.closingDate),

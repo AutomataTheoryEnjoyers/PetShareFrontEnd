@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostPet } from "../../mutations/postPet";
 import { NewPet } from "../../../types/newPet";
 
 export const NewPetForm = () => {
-  const [name, setName] = useState("");
-  const [sex, setSex] = useState("Unknown");
-  const [species, setSpecies] = useState("");
-  const [breed, setBreed] = useState("");
-  const [birthday, setBirthday] = useState(new Date());
-  const [description, setDescription] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [name, setName] = useState<string>("");
+  const [sex, setSex] = useState<string>("Unknown");
+  const [species, setSpecies] = useState<string>("");
+  const [breed, setBreed] = useState<string>("");
+  const [birthday, setBirthday] = useState<Date>(new Date());
+  const [description, setDescription] = useState<string>("");
+  const [photoData, setPhotoData] = useState<File | null>(null);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const postPet = usePostPet();
@@ -24,11 +24,19 @@ export const NewPetForm = () => {
       setBirthday(new Date(inputBirthday));
     }
   };
+
+  const onImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const img = event.target.files[0] as File;
+      setPhotoData(img);
+    }
+  };
+
   useEffect(() => {
-    const fields = [name, species, breed, description, photoUrl];
+    const fields = [name, species, breed, description];
     const isFormValid = fields.every((field) => field.trim() !== "");
     setIsFormValid(isFormValid);
-  }, [name, species, breed, description, photoUrl]);
+  }, [name, species, breed, description, photoData]);
 
   const useHandleSubmit = async () => {
     const newPetData = {
@@ -39,7 +47,7 @@ export const NewPetForm = () => {
       Birthday: birthday,
       Description: description,
     } as NewPet;
-    postPet({ petData: newPetData, petPhotoUrl: photoUrl });
+    postPet({ petData: newPetData, petPhotoData: photoData });
   };
 
   return (
@@ -113,14 +121,13 @@ export const NewPetForm = () => {
             required
           />
         </div>
-        <div id="photoUrl">
-          <Label htmlFor="photoUrl-input">Photo URL:</Label>
+        <div id="photoData">
+          <Label htmlFor="photoData-input">Photo:</Label>
           <Input
-            id="photoUrl-input"
-            maxLength={200}
-            type="text"
-            value={photoUrl}
-            onChange={(e) => setPhotoUrl(e.target.value)}
+            id="photoData-input"
+            type="file"
+            accept=".png, .jpg, .jpeg"
+            onChange={(e) => onImageChange(e)}
             required
           />
         </div>
@@ -140,8 +147,8 @@ const Container = styled.div`
   gap: 10px;
   height: 100%;
   height: min(60vh, 600px);
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto auto auto auto auto auto auto auto auto;
+  grid-template-columns: 2fr 3fr;
 
   > div {
     display: flex;
@@ -173,7 +180,7 @@ const Container = styled.div`
     grid-column: 1 / 2;
   }
 
-  #photoUrl {
+  #photoData {
     grid-row: 7 / 8;
     grid-column: 1 / 2;
   }
@@ -186,7 +193,7 @@ const Container = styled.div`
   #submit {
     grid-row: 9 / 10;
     grid-column: 1 / 3;
-    align-self: end;
+    align-self: space-evenly;
     width: 150px;
     height: 40px;
     margin: auto;

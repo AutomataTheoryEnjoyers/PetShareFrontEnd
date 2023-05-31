@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
-import { ImageElement } from "../../../components/ImageElement";
+import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
@@ -21,7 +21,7 @@ export const AnnouncementDetails = () => {
       <AnimatedPage>
         <Container>
           <div id="image">
-            <ImageElement pet={currentAnnouncement.pet} />
+            <ImageElementDetails pet={currentAnnouncement.pet} />
           </div>
           <div id="pet">
             <PetDetailsElement pet={currentAnnouncement.pet} />

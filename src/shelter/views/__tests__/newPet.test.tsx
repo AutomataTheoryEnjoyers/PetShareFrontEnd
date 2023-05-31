@@ -39,7 +39,7 @@ describe("NewPet", () => {
     expect(screen.getByLabelText("Species:")).toBeInTheDocument();
     expect(screen.getByLabelText("Breed:")).toBeInTheDocument();
     expect(screen.getByLabelText("Birthday:")).toBeInTheDocument();
-    expect(screen.getByLabelText("Photo URL:")).toBeInTheDocument();
+    expect(screen.getByLabelText("Photo:")).toBeInTheDocument();
     expect(screen.getByLabelText("Description:")).toBeInTheDocument();
     expect(screen.getByText("Submit")).toBeInTheDocument();
   });
@@ -56,7 +56,7 @@ describe("NewPet", () => {
     const speciesInput = screen.getByLabelText("Species:");
     const breedInput = screen.getByLabelText("Breed:");
     const birthdayInput = screen.getByLabelText("Birthday:");
-    const photoUrlInput = screen.getByLabelText("Photo URL:");
+    const photoDataInput = screen.getByLabelText("Photo:");
     const descriptionInput = screen.getByLabelText("Description:");
     const submitButton = screen.getByText("Submit");
 
@@ -68,7 +68,7 @@ describe("NewPet", () => {
     fireEvent.change(speciesInput, { target: { value: "testSpecies" } });
     fireEvent.change(breedInput, { target: { value: "testBreed" } });
     fireEvent.change(birthdayInput, { target: { value: "1990-05-13" } });
-    fireEvent.change(photoUrlInput, { target: { value: "photoUrl" } });
+    fireEvent.change(photoDataInput, { target: { value: "" } });
     fireEvent.click(submitButton);
     await waitFor(() =>
       expect(mockPostPet).toHaveBeenCalledWith({
@@ -80,7 +80,7 @@ describe("NewPet", () => {
           Breed: "testBreed",
           Birthday: new Date("1990-05-13"),
         },
-        petPhotoUrl: "photoUrl",
+        petPhotoData: "",
       })
     );
   });

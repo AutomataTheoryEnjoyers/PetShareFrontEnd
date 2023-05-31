@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { AnimatedPage } from "../../components/animatedPage";
+import { Navbar } from "../components/navbar";
 
 export const PageNotFound = () => {
   return (
     <AnimatedPage>
       <Container>
+        <Navbar />
         <h1>Error 404</h1>
         <h3>Page was not found</h3>
         <img
