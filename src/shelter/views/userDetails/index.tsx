@@ -21,7 +21,7 @@ export const UserDetails = () => {
             <AnimatedPage>
                 <Container>
                     
-                    <div id="pet">
+                    <div id="user">
                         <UserDetailsElement user={currentUser} />
                     </div>
                     
@@ -38,36 +38,14 @@ const Container = styled.div`
   height: 100%;
   height: min(60vh, 600px);
   grid-template-areas:
-    "title title title"
-    "image image pet"
-    "image image shelter"
-    "details details details"
-    "details details details"
-    "user user user";
+    
+    "user";
 
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr
 
-  #title {
-    grid-area: title;
-  }
+  
 
-  #image {
-    grid-area: image;
-  }
-
-  #pet {
-    grid-area: pet;
-  }
-
-  #shelter {
-    grid-area: shelter;
-  }
-
-  #details {
-    grid-area: details;
-  }
-
-  #userlist {
+  #user {
     grid-area: user;
   }
 `;

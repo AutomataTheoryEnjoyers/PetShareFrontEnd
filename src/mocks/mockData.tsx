@@ -29,21 +29,24 @@ export const mockAddresses = [
 ];
 
 export const mockUsers = [
-  {
+    {
+    id: "1",
     userName: "KononowiczKrzysztof",
     phoneNumber: "325232675",
     email: "warmianin@katolik.com",
     isAuthorized: true,
     address: mockAddresses[0],
   },
-  {
+    {
+    id: "2",
     userName: "Meksikano",
     phoneNumber: "343232675",
     email: "natret@bialystok.com",
     isAuthorized: true,
     address: mockAddresses[1],
   },
-  {
+    {
+    id: "3",
     userName: "MajorSuchek",
     phoneNumber: "343232675",
     email: "majorek@nitro.com",

@@ -5,10 +5,12 @@ import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
 import { PetDetails } from "./views/petDetails";
+import { UserDetails } from "./views/userDetails";
 import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
 import { MyPets } from "./views/myPets";
 import { NewPet } from "./views/newPet";
+import { Users } from "./views/users";
 import { SignUp } from "./views/signup";
 export const Router = () => {
     const location = useLocation();
@@ -32,6 +34,11 @@ export const Router = () => {
                             />
                             <Route path="my-pets" element={<MyPets />} />
                             <Route path="new-pet" element={<NewPet />} />
+                            <Route
+                                path="users/:id"
+                                element={<UserDetails />}
+                            />
+                            <Route path="users" element={<Users />} />
                             <Route path="*" element={<PageNotFound />} />
                         </Routes>
                     </AnimatePresence>
