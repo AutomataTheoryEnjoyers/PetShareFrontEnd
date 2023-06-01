@@ -4,6 +4,7 @@ import { Announcement } from "../types/announcement";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ImageElement } from "./ImageElement";
+import { motion } from "framer-motion";
 
 type Props = {
   announcement: Announcement;

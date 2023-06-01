@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { AnnouncementListElement } from "../../../components/announcementListElement";

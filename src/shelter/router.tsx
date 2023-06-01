@@ -7,7 +7,6 @@ import { AnnouncementDetails } from "./views/announcementDetails";
 import { PetDetails } from "./views/petDetails";
 import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
-import { PetDetails } from "./views/petDetails";
 import { MyPets } from "./views/myPets";
 import { NewPetForm } from "./views/newPet";
 export const Router = () => {
