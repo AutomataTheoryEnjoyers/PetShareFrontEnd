@@ -1,5 +1,6 @@
 import { Announcement } from "../types/announcement";
 import { Application } from "../types/application";
+import { Report } from "../types/report";
 
 export const mockAddresses = [
   {
@@ -195,3 +196,22 @@ export const mockApplications = [
     announcement: mockAnnouncements[2],
   },
 ] as Application[];
+
+export const mockReports = [
+    {
+        id: "1",
+        reason: "He tormented his cat",
+        adopterId: mockUsers[0].id,
+    },
+    {
+        id: "2",
+        reason: "This announcement is for a non existing dog",
+        announcementId: mockAnnouncements[0],
+        shelterId: mockShelters[0].id
+    },
+    {
+        id: "3",
+        reason: "This shelter seems to neglect their animals",
+        shelterId: mockShelters[1].id,
+    },
+] as Report[];
