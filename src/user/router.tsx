@@ -17,7 +17,10 @@ export const Router = () => {
           <AnimatePresence mode="wait">
             <Routes key={location.pathname} location={location}>
               <Route path="announcements" element={<Announcements />} />
-              <Route path="followed-annoucements" element={<FollowedAnnouncements />} />
+              <Route
+                path="followed-annoucements"
+                element={<FollowedAnnouncements />}
+              />
               <Route path="my-applications" element={<MyApplications />} />
               <Route
                 path="announcements/:id"

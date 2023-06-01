@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { TextDetails } from "../styles/global";
 import { Shelter } from "../types/shelter";
 import {
   faPhone,
@@ -12,7 +11,7 @@ import { ReactNode } from "react";
 
 
 type Props = {
-    shelter: Shelter;
+  shelter: Shelter;
 };
 
 export const ShelterDetailsElement = ({ shelter }: Props) => {
@@ -66,6 +65,12 @@ const TileDetails = styled.h4`
 
 const Separator = styled.hr`
   width: 100%;
+`;
+
+const TextDetails = styled.p`
+  margin: 0;
+  padding: 2px;
+  font-size: 15px;
 `;
 
 const ShelterDetailsContainer = styled.div`

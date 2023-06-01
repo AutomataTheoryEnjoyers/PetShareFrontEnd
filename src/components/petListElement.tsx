@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Pet } from "../types/pet";
-import { Title } from "../styles/global";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ImageElement } from "./ImageElement";
 
 type Props = {
   pet: Pet;
@@ -13,13 +13,12 @@ export const PetListElement = ({ pet }: Props) => {
   return (
     <LinkStyled to={`${pet.id}`}>
       <Container>
-        <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
+        <ImageElement pet={pet} />
         <LeftContainer>
           <Title>{pet.name}</Title>
           <BottomText>
-                      {pet.name}, {pet.sex}, {pet.species}, {pet.breed},{" "}
-            {new Date().getFullYear() - pet.birthday.getFullYear()}{" "}
-            years old
+            {pet.name}, {pet.sex}, {pet.species}, {pet.breed},{" "}
+            {new Date().getFullYear() - pet.birthday.getFullYear()} years old
           </BottomText>
         </LeftContainer>
         <RightContainer>
@@ -66,6 +65,12 @@ const Container = styled.div`
   }
 `;
 
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
+`;
+
 const BottomText = styled.p`
   margin: 0;
   align-self: flex-end;
@@ -86,11 +91,4 @@ const RightContainer = styled.div`
   margin-left: auto;
   flex-direction: column;
   justify-content: center;
-`;
-
-const Image = styled.img`
-  width: 150px;
-  border-radius: 5px;
-  margin-right: 15px;
-  object-fit: cover;
 `;

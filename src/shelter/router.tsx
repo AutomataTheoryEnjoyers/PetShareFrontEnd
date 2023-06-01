@@ -8,37 +8,32 @@ import { PetDetails } from "./views/petDetails";
 import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
 import { MyPets } from "./views/myPets";
-import { NewPet } from "./views/newPet";
-import { SignUp } from "./views/signup";
+import { NewPetForm } from "./views/newPet";
 export const Router = () => {
-    const location = useLocation();
-    return (
-        <Container>
-            <Navbar />
-            <Content>
-                <View>
-                    <AnimatePresence mode="wait">
-                        <Routes key={location.pathname} location={location}>
-                            <Route path="home" element={<SignUp />} />
-                            <Route
-                                path="my-announcements/:id"
-                                element={<AnnouncementDetails />}
-                            />
-                            <Route path="my-announcements" element={<MyAnnouncements />} />
-                            <Route path="new-announcement" element={<NewAnnouncement />} />
-                            <Route
-                                path="my-pets/:id"
-                                element={<PetDetails />}
-                            />
-                            <Route path="my-pets" element={<MyPets />} />
-                            <Route path="new-pet" element={<NewPet />} />
-                            <Route path="*" element={<PageNotFound />} />
-                        </Routes>
-                    </AnimatePresence>
-                </View>
-            </Content>
-        </Container>
-    );
+  const location = useLocation();
+  return (
+    <Container>
+      <Navbar />
+      <Content>
+        <View>
+          <AnimatePresence mode="wait">
+            <Routes key={location.pathname} location={location}>
+              <Route
+                path="my-announcements/:id"
+                element={<AnnouncementDetails />}
+              />
+              <Route path="my-announcements" element={<MyAnnouncements />} />
+              <Route path="new-announcement" element={<NewAnnouncement />} />
+              <Route path="my-pets/:id" element={<PetDetails />} />
+              <Route path="my-pets" element={<MyPets />} />
+              <Route path="new-pet" element={<NewPetForm />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </AnimatePresence>
+        </View>
+      </Content>
+    </Container>
+  );
 };
 
 const Content = styled.div`

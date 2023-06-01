@@ -1,16 +1,35 @@
-import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
-import { NewAnouncement } from "../../types/newAnnouncement";
+import { NewAnnouncement } from "../../types/newAnnouncement";
+import { useContext } from "react";
+import { UserContextType } from "../../types/userContextType";
+import { UserContext } from "../../components/userContext";
 
-export const usePostAnnouncement = (announcement: NewAnouncement) => {
-  const query = useQuery("new-announcements", () =>
-    fetch(BACKEND_URL + "announcements", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+export const usePostAnnouncement = () => {
+  const { userData } = useContext<UserContextType>(UserContext);
+
+  const { mutateAsync } = useMutation(
+    (announcement: NewAnnouncement) =>
+      fetch(BACKEND_URL + "announcements", {
+        method: "POST",
+        body: JSON.stringify(announcement),
+        headers: {
+          authorization: `Bearer ${userData?.accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }),
+    {
+      onSuccess: async (response) => {
+        const responseData = await response.json();
+        console.log(
+          "Announcement successfully added: " + JSON.stringify(responseData)
+        );
       },
-      body: JSON.stringify(announcement),
-    }).then((res) => res.json())
+      onError: (error) => {
+        console.log(error);
+      },
+    }
   );
-  return query;
+
+  return mutateAsync;
 };

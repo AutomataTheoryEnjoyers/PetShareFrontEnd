@@ -5,18 +5,17 @@ import { useState } from "react";
 import styled from "styled-components";
 import { AnnouncementFilters } from "../types/announcementFilter";
 
-
 export const DefaultFilterState = {
   location: [],
   breed: [],
   shelter: [],
-  species: []
+  species: [],
 } as AnnouncementFilters;
 
 type Props = {
-  filters: AnnouncementFilters,
-  onChange: (arg: Partial<AnnouncementFilters>) => void
-}
+  filters: AnnouncementFilters;
+  onChange: (arg: Partial<AnnouncementFilters>) => void;
+};
 
 export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
   const [currentCity, setCurrentCity] = useState("");
@@ -52,12 +51,16 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
               <Item
                 key={location}
                 onClick={() => {
-                  onChange({ location: filters.location.filter((el) => el !== location) })
+                  onChange({
+                    location: filters.location.filter((el) => el !== location),
+                  });
                 }}
                 layout
-              >{location}</Item>
+              >
+                {location}
+              </Item>
             ))}
-            <NewPositionContainer layout >
+            <NewPositionContainer layout>
               <Input
                 maxLength={15}
                 type="text"
@@ -66,11 +69,19 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
                 onChange={(e) => setCurrentCity(e.target.value)}
                 required
               />
-              <AddButton onClick={() => {
-                if (currentCity.length === 0 || filters.location.includes(currentCity)) return;
-                onChange({ location: [...filters.location, currentCity] })
-                setCurrentCity("");
-              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+              <AddButton
+                onClick={() => {
+                  if (
+                    currentCity.length === 0 ||
+                    filters.location.includes(currentCity)
+                  )
+                    return;
+                  onChange({ location: [...filters.location, currentCity] });
+                  setCurrentCity("");
+                }}
+              >
+                <FontAwesomeIcon fontSize={30} icon={faPlus} />
+              </AddButton>
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
@@ -81,10 +92,14 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
               <Item
                 key={species}
                 onClick={() => {
-                  onChange({ species: filters.species.filter((el) => el !== species) })
+                  onChange({
+                    species: filters.species.filter((el) => el !== species),
+                  });
                 }}
                 layout
-              >{species}</Item>
+              >
+                {species}
+              </Item>
             ))}
             <NewPositionContainer layout>
               <Input
@@ -95,11 +110,19 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
                 onChange={(e) => setCurrentSpecies(e.target.value)}
                 required
               />
-              <AddButton onClick={() => {
-                if (currentSpecies.length === 0 || filters.species.includes(currentSpecies)) return;
-                onChange({ species: [...filters.species, currentSpecies] })
-                setCurrentSpecies("");
-              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+              <AddButton
+                onClick={() => {
+                  if (
+                    currentSpecies.length === 0 ||
+                    filters.species.includes(currentSpecies)
+                  )
+                    return;
+                  onChange({ species: [...filters.species, currentSpecies] });
+                  setCurrentSpecies("");
+                }}
+              >
+                <FontAwesomeIcon fontSize={30} icon={faPlus} />
+              </AddButton>
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
@@ -110,10 +133,14 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
               <Item
                 key={breed}
                 onClick={() => {
-                  onChange({ breed: filters.breed.filter((el) => el !== breed) })
+                  onChange({
+                    breed: filters.breed.filter((el) => el !== breed),
+                  });
                 }}
                 layout
-              >{breed}</Item>
+              >
+                {breed}
+              </Item>
             ))}
             <NewPositionContainer layout>
               <Input
@@ -124,11 +151,19 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
                 onChange={(e) => setCurrentBreed(e.target.value)}
                 required
               />
-              <AddButton onClick={() => {
-                if (currentBreed.length === 0 || filters.breed.includes(currentBreed)) return;
-                onChange({ breed: [...filters.breed, currentBreed] })
-                setCurrentBreed("");
-              }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+              <AddButton
+                onClick={() => {
+                  if (
+                    currentBreed.length === 0 ||
+                    filters.breed.includes(currentBreed)
+                  )
+                    return;
+                  onChange({ breed: [...filters.breed, currentBreed] });
+                  setCurrentBreed("");
+                }}
+              >
+                <FontAwesomeIcon fontSize={30} icon={faPlus} />
+              </AddButton>
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
@@ -139,10 +174,14 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
               <Item
                 key={shelter}
                 onClick={() => {
-                  onChange({ shelter: filters.shelter.filter((el) => el !== shelter) })
+                  onChange({
+                    shelter: filters.shelter.filter((el) => el !== shelter),
+                  });
                 }}
                 layout
-              >{shelter}</Item>
+              >
+                {shelter}
+              </Item>
             ))}
             <NewPositionContainer layout layoutId="a">
               <Input
@@ -155,24 +194,31 @@ export const AnnouncementFiltersForm = ({ filters, onChange }: Props) => {
               />
               <AddButton
                 onClick={() => {
-                  if (currentShelter.length === 0 || filters.shelter.includes(currentShelter)) return;
-                  onChange({ shelter: [currentShelter, ...filters.shelter] })
+                  if (
+                    currentShelter.length === 0 ||
+                    filters.shelter.includes(currentShelter)
+                  )
+                    return;
+                  onChange({ shelter: [currentShelter, ...filters.shelter] });
                   setCurrentShelter("");
-                }}><FontAwesomeIcon fontSize={30} icon={faPlus} /></AddButton>
+                }}
+              >
+                <FontAwesomeIcon fontSize={30} icon={faPlus} />
+              </AddButton>
             </NewPositionContainer>
           </AnimatePresence>
         </CategoryContainer>
       </FieldsContainer>
-    </FormContainer >
+    </FormContainer>
   );
-}
+};
 
 const NewPositionContainer = styled(motion.div)`
   display: flex;
   gap: 3px;
   flex: 1;
   max-height: 40px;
-`
+`;
 
 const Item = styled(motion.div)`
   flex: 1;
@@ -184,12 +230,12 @@ const Item = styled(motion.div)`
   font-size: 20px;
   display: grid;
   place-items: center;
-  :hover{
+  :hover {
     color: red;
     text-decoration-line: line-through;
     background-color: ${(props) => props.theme.colors.lightTomato};
   }
-`
+`;
 
 const FormContainer = styled(motion.div)`
   display: flex;
@@ -197,7 +243,7 @@ const FormContainer = styled(motion.div)`
   flex-direction: column;
   margin-bottom: 10px;
   height: auto;
-`
+`;
 
 const Input = styled.input`
   width: 100%;
@@ -232,7 +278,7 @@ const NumberInput = styled.input`
   -webkit-appearance: none;
   margin: 0;
   height: 40px;
-`
+`;
 
 const AddButton = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -250,7 +296,7 @@ const AddButton = styled.div`
     cursor: pointer;
     background-color: ${(props) => props.theme.colors.darkGreen};
   }
-`
+`;
 
 const AgeCategoryContainer = styled.div`
   flex: 1;
@@ -258,7 +304,7 @@ const AgeCategoryContainer = styled.div`
   display: flex;
   gap: 5px;
   flex-direction: column;
-`
+`;
 
 const CategoryContainer = styled(motion.div)`
   flex: 2;
@@ -267,14 +313,14 @@ const CategoryContainer = styled(motion.div)`
   display: flex;
   flex-direction: column;
   transition: 2s all;
-`
+`;
 
 const CategoryTitle = styled.h3`
   margin: 0;
-`
+`;
 
 const FieldsContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 15px;
-`
+`;

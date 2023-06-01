@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "../../components/navbarLink";
+import { LogoutButton } from "../../components/logoutButton";
 
 export const Navbar = () => {
   return (
@@ -9,6 +10,7 @@ export const Navbar = () => {
         <Link name="Announcements" path="/user/announcements" />
         <Link name="Followed" path="/user/followed-annoucements" />
         <Link name="My Applications" path="/user/my-applications" />
+        <LogoutButton />
       </Links>
     </Bar>
   );

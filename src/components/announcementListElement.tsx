@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Announcement } from "../types/announcement";
-import { Title } from "../styles/global";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ImageElement } from "./ImageElement";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -14,7 +14,7 @@ export const AnnouncementListElement = ({ announcement }: Props) => {
   return (
     <LinkStyled to={`${announcement.id}`}>
       <Container>
-        <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
+        <ImageElement pet={announcement.pet} />
         <LeftContainer>
           <Title>{announcement.title}</Title>
           <BottomText>
@@ -62,6 +62,7 @@ const Container = styled(motion.div)`
       opacity: 1;
       margin-right: 0;
     }
+    background-color: ${(props) => props.theme.colors.lightGreen};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 `;
@@ -88,9 +89,8 @@ const RightContainer = styled.div`
   justify-content: center;
 `;
 
-const Image = styled.img`
-  width: 150px;
-  border-radius: 5px;
-  margin-right: 15px;
-  object-fit: cover;
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
 `;

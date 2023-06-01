@@ -13,11 +13,10 @@ export const PetDetailsElement = ({ pet }: PetProps) => {
     <PetDetailsContainer>
       <TileTitle>
         {pet.name} <FontAwesomeIcon icon={faDog} />{" "}
-          </TileTitle>
-          <DetailsSection prompt={pet.sex}>Sex: {pet.sex}</DetailsSection>
+      </TileTitle>
+      <DetailsSection prompt={pet.sex}>Sex: {pet.sex}</DetailsSection>
       <DetailsSection prompt={pet.species}>
         Species: {pet.species}
-             
       </DetailsSection>
       <DetailsSection prompt={pet.breed}>Breed: {pet.breed}</DetailsSection>
       <DetailsSection prompt={pet.birthday}>

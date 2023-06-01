@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { ApplicationListElement } from "../../../components/applicationListElement";
 import { Header } from "../../../components/header";
-import { useMyApplications } from "../../queries/myApplications";
+import { useMyApplicationsAdopter } from "../../queries/myApplicationsAdopter";
 export const MyApplications = () => {
   // change for actual my applications data
-  const { data } = useMyApplications();
+  const { data } = useMyApplicationsAdopter();
   return (
     <AnimatedPage>
       <Header>My Applications</Header>
