@@ -9,9 +9,12 @@ type Props = {
 };
 
 export const ApplicationApplyList = ({ announcement, applications }: Props) => {
-  var usableApplications = applications.filter(
-    (application) => application.announcement.id === announcement.id
-  );
+  var usableApplications =
+    applications !== undefined
+      ? applications.filter(
+          (application) => application.announcement.id === announcement.id
+        )
+      : [];
   return (
     <ApplicationListContainer>
       {usableApplications.map((application) => (

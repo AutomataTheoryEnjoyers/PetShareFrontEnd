@@ -3,14 +3,16 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
+import { Pet } from "../../../types/pet";
 
 export const NewAnnouncement = () => {
   const { data } = useMyPets();
+  const pets = data === undefined ? ([] as Pet[]) : (data as Pet[]);
   const mutatePostAnnouncement = usePostAnnouncement();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [petID, setPetID] = useState(data ? data[0].id : "");
+  const [petID, setPetID] = useState(pets.length > 0 ? pets[0].id : "");
 
   const useHandleSubmit = () => {
     mutatePostAnnouncement({

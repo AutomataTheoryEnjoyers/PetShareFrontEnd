@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { LoginButton } from "../../components/loginButton";
 import { LogoutButton } from "../../components/logoutButton";
+import { Link } from "../../components/navbarLink";
 
 export const Navbar = () => {
   return (
     <Bar>
       <Header>PetShare</Header>
       <Links>
+        <Link name="Announcements" path="/announcements" />
         <LoginButton />
         <LogoutButton />
       </Links>

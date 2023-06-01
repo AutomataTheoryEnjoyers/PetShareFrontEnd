@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useMyApplicationsShelter } from "../../queries/myApplicationsShelter";
+//import { useMyApplicationsShelter } from "../../queries/myApplicationsShelter";
 import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElementDetails } from "../../../components/ImageElementDetails";
@@ -13,12 +13,11 @@ import { useMyAnnouncements } from "../../queries/myAnnouncements";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-
   const announcements = useMyAnnouncements();
   const currentAnnouncement = announcements.data?.find(
     (announcement) => announcement.id === id
   ) as Announcement;
-  const applications = useMyApplicationsShelter(id as string);
+  const applications = { data: [] as Application[] }; //useMyApplicationsShelter(id as string);
 
   return (
     currentAnnouncement && (

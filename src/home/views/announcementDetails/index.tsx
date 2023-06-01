@@ -10,7 +10,6 @@ import { useAnnouncements } from "../../../queries/announcements";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  // const [isApplicable, _] = useState(true); //enpoint z auth
   const announcements = useAnnouncements(null);
   const currentAnnouncement = announcements.data?.find(
     (announcement) => announcement.id === id
