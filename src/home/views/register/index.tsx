@@ -35,7 +35,8 @@ export const RegistrationPage = () => {
   const [validPhoneNumber, setValidPhoneNumber] = useState<boolean>(true);
   const [validEmail, setValidEmail] = useState<boolean>(true);
   const [validPostalCode, setValidPostalCode] = useState<boolean>(true);
-  const [requiredFilled, setRequiredFiled] = useState<boolean>(false);
+  const [addressFilled, setAddressFilled] = useState<boolean>(false);
+  const [requiredFilled, setRequiredFilled] = useState<boolean>(false);
   const [validForm, setValidForm] = useState<boolean>(false);
   const [isLoadingRegister, setLoadingRegister] = useState<boolean>(false);
 
@@ -70,10 +71,45 @@ export const RegistrationPage = () => {
   }, [postalCode]);
 
   useEffect(() => {
-    const fields = [country, province, city, street, postalCode];
+    const fields = [] as String[];
+    const fieldsAddress = [
+      country,
+      province,
+      city,
+      street,
+      postalCode,
+    ] as String[];
+    if (selectedRole === "adopter") {
+      fields.push(userName, email);
+    } else {
+      fields.push(
+        userName,
+        fullShelterName,
+        email,
+        phoneNumber,
+        country,
+        province,
+        city,
+        street,
+        postalCode
+      );
+    }
     const isRequiredFilled = fields.every((field) => field.trim() !== "");
-    setRequiredFiled(isRequiredFilled);
-  }, [country, province, city, street, postalCode]);
+    const isAddressFilled = fieldsAddress.every((field) => field.trim() !== "");
+    setRequiredFilled(isRequiredFilled);
+    setAddressFilled(isAddressFilled);
+  }, [
+    selectedRole,
+    userName,
+    fullShelterName,
+    email,
+    phoneNumber,
+    country,
+    province,
+    city,
+    street,
+    postalCode,
+  ]);
 
   useEffect(() => {
     const isValidForm =
@@ -146,7 +182,6 @@ export const RegistrationPage = () => {
         <Header>Looks like it's your first time in our app</Header>
         <Header>Please fill in the missing info about yourself</Header>
         <ColumnContainer>
-          <TextDetails>*required fields</TextDetails>
           {isErrorAdopter ||
             (isErrorShelter && (
               <WarningText>
@@ -155,7 +190,7 @@ export const RegistrationPage = () => {
               </WarningText>
             ))}
           <ColumnContainerInside id="role">
-            <Title>Select a role for your account*:</Title>
+            <Title>Select a role for your account:</Title>
             <RadioButtonRowContainer id="role-radio-button-adopter">
               <Input
                 type="radio"
@@ -182,7 +217,12 @@ export const RegistrationPage = () => {
             </RadioButtonRowContainer>
           </ColumnContainerInside>
           <ColumnContainerInside id="username">
-            <Title htmlFor="username-input">Username:</Title>
+            <RowContainer>
+              <Title htmlFor="username-input">Username:</Title>
+              {userName.trim() === "" && (
+                <WarningText>Field required</WarningText>
+              )}
+            </RowContainer>
             <DescriptionArea
               rows={1}
               maxLength={100}
@@ -203,7 +243,13 @@ export const RegistrationPage = () => {
               }}
             >
               <Separator />
-              <Title htmlFor="shelter-input">Full Shelter Name:</Title>
+              <RowContainer>
+                <Title htmlFor="shelter-input">Full Shelter Name:</Title>
+                {selectedRole === "shelter" &&
+                  fullShelterName.trim() === "" && (
+                    <WarningText>Field required for a shelter</WarningText>
+                  )}
+              </RowContainer>
               <DescriptionArea
                 rows={1}
                 maxLength={255}
@@ -217,6 +263,9 @@ export const RegistrationPage = () => {
             <ColumnContainerInside id="email">
               <RowContainer>
                 <Title htmlFor="email-input">E-Mail:</Title>
+                {email.trim() === "" && (
+                  <WarningText>Field required</WarningText>
+                )}
                 {!validEmail && (
                   <WarningText>Invalid E-Mail address</WarningText>
                 )}
@@ -232,6 +281,9 @@ export const RegistrationPage = () => {
             <ColumnContainerInside id="phone-number">
               <RowContainer>
                 <Title htmlFor="phone-number-input">Phone number:</Title>
+                {selectedRole === "shelter" && phoneNumber.trim() === "" && (
+                  <WarningText>Field required for a shelter</WarningText>
+                )}
                 {!validPhoneNumber && (
                   <WarningText>Invalid Phone Number</WarningText>
                 )}
@@ -247,9 +299,12 @@ export const RegistrationPage = () => {
             </ColumnContainerInside>
             <ColumnContainerInside id="address">
               <RowContainer>
-                <Title htmlFor="address-input">Address*:</Title>
-                {!requiredFilled && (
-                  <WarningText>Required fields missing</WarningText>
+                <Title htmlFor="address-input">Address:</Title>
+                {selectedRole === "shelter" && !addressFilled && (
+                  <WarningText>Address is required for a shelter</WarningText>
+                )}
+                {!validPostalCode && (
+                  <WarningText>Invalid Postal Code</WarningText>
                 )}
               </RowContainer>
               <DescriptionArea
@@ -297,19 +352,16 @@ export const RegistrationPage = () => {
                 placeholder="Country"
                 required
               />
-              {!validPostalCode && (
-                <WarningText>Invalid Postal Code</WarningText>
-              )}
             </ColumnContainerInside>
             <Separator />
-            <ColumnContainerInside id="submit">
+            <ColumnContainerSubmit id="submit">
               <SubmitButton
                 onClick={useHandleSubmit}
                 disabled={!validForm || isLoadingRegister}
               >
                 {isLoadingRegister ? <ClipLoader /> : <>Submit</>}
               </SubmitButton>
-            </ColumnContainerInside>
+            </ColumnContainerSubmit>
           </MovingGroup>
         </ColumnContainer>
       </Container>
@@ -365,6 +417,16 @@ const ColumnContainerInside = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-evenly;
+  align-content: space-around;
+  width: 100%;
+`;
+
+const ColumnContainerSubmit = styled.div`
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: space-evenly;
   align-content: space-around;
   width: 100%;
