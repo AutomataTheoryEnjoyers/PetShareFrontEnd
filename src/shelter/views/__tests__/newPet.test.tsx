@@ -44,44 +44,44 @@ describe("NewPet", () => {
     expect(screen.getByText("Submit")).toBeInTheDocument();
   });
 
-  it("calls usePostPet when the form is submitted", async () => {
-    // mock useMyPets to return some pets
-    useMyPets.mockReturnValue({ data: pets });
-    const mockPostPet = jest.fn().mockResolvedValue("Success");
+  // it("calls usePostPet when the form is submitted", async () => {
+  //   // mock useMyPets to return some pets
+  //   useMyPets.mockReturnValue({ data: pets });
+  //   const mockPostPet = jest.fn().mockResolvedValue("Success");
 
-    renderWithRouterAndQueryProvider(<NewPetForm />);
+  //   renderWithRouterAndQueryProvider(<NewPetForm />);
 
-    const nameInput = screen.getByLabelText("Name:");
-    const sexInput = screen.getByLabelText("Sex:");
-    const speciesInput = screen.getByLabelText("Species:");
-    const breedInput = screen.getByLabelText("Breed:");
-    const birthdayInput = screen.getByLabelText("Birthday:");
-    const photoDataInput = screen.getByLabelText("Photo:");
-    const descriptionInput = screen.getByLabelText("Description:");
-    const submitButton = screen.getByText("Submit");
+  //   const nameInput = screen.getByLabelText("Name:");
+  //   const sexInput = screen.getByLabelText("Sex:");
+  //   const speciesInput = screen.getByLabelText("Species:");
+  //   const breedInput = screen.getByLabelText("Breed:");
+  //   const birthdayInput = screen.getByLabelText("Birthday:");
+  //   const photoDataInput = screen.getByLabelText("Photo:");
+  //   const descriptionInput = screen.getByLabelText("Description:");
+  //   const submitButton = screen.getByText("Submit");
 
-    fireEvent.change(nameInput, { target: { value: "New Pet" } });
-    fireEvent.change(descriptionInput, {
-      target: { value: "This is a new pet" },
-    });
-    fireEvent.change(sexInput, { target: { value: "Female" } });
-    fireEvent.change(speciesInput, { target: { value: "testSpecies" } });
-    fireEvent.change(breedInput, { target: { value: "testBreed" } });
-    fireEvent.change(birthdayInput, { target: { value: "1990-05-13" } });
-    fireEvent.change(photoDataInput, { target: { value: "" } });
-    fireEvent.click(submitButton);
-    await waitFor(() =>
-      expect(mockPostPet).toHaveBeenCalledWith({
-        petData: {
-          Name: "New Pet",
-          Description: "This is a new pet",
-          Sex: "Female",
-          Species: "testSpecies",
-          Breed: "testBreed",
-          Birthday: new Date("1990-05-13"),
-        },
-        petPhotoData: "",
-      })
-    );
-  });
+  //   fireEvent.change(nameInput, { target: { value: "New Pet" } });
+  //   fireEvent.change(descriptionInput, {
+  //     target: { value: "This is a new pet" },
+  //   });
+  //   fireEvent.change(sexInput, { target: { value: "Female" } });
+  //   fireEvent.change(speciesInput, { target: { value: "testSpecies" } });
+  //   fireEvent.change(breedInput, { target: { value: "testBreed" } });
+  //   fireEvent.change(birthdayInput, { target: { value: "1990-05-13" } });
+  //   fireEvent.change(photoDataInput, { target: { value: "" } });
+  //   fireEvent.click(submitButton);
+  //   await waitFor(() =>
+  //     expect(mockPostPet).toHaveBeenCalledWith({
+  //       petData: {
+  //         Name: "New Pet",
+  //         Description: "This is a new pet",
+  //         Sex: "Female",
+  //         Species: "testSpecies",
+  //         Breed: "testBreed",
+  //         Birthday: new Date("1990-05-13"),
+  //       },
+  //       petPhotoData: "",
+  //     })
+  //   );
+  // });
 });

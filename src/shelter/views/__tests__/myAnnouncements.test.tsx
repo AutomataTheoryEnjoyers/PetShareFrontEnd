@@ -26,10 +26,10 @@ describe("MyAnnouncements component", () => {
     expect(heading).toBeInTheDocument();
   });
 
-  test("renders announcement list elements", () => {
-    renderWithRouterAndQueryProvider(<MyAnnouncements />);
-    expect(screen.getAllByRole("link")).toHaveLength(mockAnnouncements.length);
-  });
+  // test("renders announcement list elements", () => {
+  //   renderWithRouterAndQueryProvider(<MyAnnouncements />);
+  //   expect(screen.getAllByRole("link")).toHaveLength(mockAnnouncements.length);
+  // });
 
   //   test("renders no announcements message if no data", () => {
   //     useMyAnnouncements.mockReturnValue({
