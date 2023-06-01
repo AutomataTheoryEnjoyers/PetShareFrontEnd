@@ -16,7 +16,7 @@ export const ReportListElement = ({ report }: Props) => {
                 <LeftContainer>
                     <Title>Report</Title>
                     <BottomText>
-                        {report.announcementId}
+                        {report.reason}
                     </BottomText>
                 </LeftContainer>
                 <RightContainer>
