@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
 import { AnnouncementDetails } from "./views/announcementDetails";
+import { PetDetails } from "./views/petDetails";
 import { MyAnnouncements } from "./views/myAnnouncements";
 import { NewAnnouncement } from "./views/newAnnouncement";
 import { PetDetails } from "./views/petDetails";

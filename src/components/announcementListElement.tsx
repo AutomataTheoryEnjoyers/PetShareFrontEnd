@@ -39,7 +39,7 @@ const LinkStyled = styled(Link)`
   color: black;
 `;
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
