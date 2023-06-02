@@ -5,4 +5,5 @@ export type NewPet = {
   Breed: string;
   Birthday: Date;
   Description: string;
+  photoUrl: string;
 };

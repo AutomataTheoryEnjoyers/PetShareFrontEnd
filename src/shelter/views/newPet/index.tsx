@@ -46,6 +46,7 @@ export const NewPetForm = () => {
       Breed: breed,
       Birthday: birthday,
       Description: description,
+      photoUrl: "https://static.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg"
     } as NewPet;
     postPet({ petData: newPetData, petPhotoData: photoData });
   };
