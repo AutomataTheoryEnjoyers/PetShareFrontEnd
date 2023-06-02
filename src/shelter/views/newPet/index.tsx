@@ -40,12 +40,14 @@ export const NewPetForm = () => {
 
   const useHandleSubmit = async () => {
     const newPetData = {
-      Name: name,
-      Sex: sex,
-      Species: species,
-      Breed: breed,
-      Birthday: birthday,
-      Description: description,
+      name: name,
+      sex: sex,
+      species: species,
+      breed: breed,
+      birthday: birthday,
+      description: description,
+      PhotoUrl:
+        "https://static.vecteezy.com/system/resources/previews/006/470/722/original/pet-shop-logo-design-template-modern-animal-icon-label-for-store-veterinary-clinic-hospital-shelter-business-services-flat-illustration-background-with-dog-cat-and-horse-free-vector.jpg",
     } as NewPet;
     postPet({ petData: newPetData, petPhotoData: photoData });
   };
