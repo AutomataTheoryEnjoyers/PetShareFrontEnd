@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostPet } from "../../mutations/postPet";
 import { NewPet } from "../../../types/newPet";
+import { placeholderUrl } from "../../../placeholderUrl";
 
 export const NewPetForm = () => {
   const [name, setName] = useState<string>("");
@@ -46,8 +47,7 @@ export const NewPetForm = () => {
       breed: breed,
       birthday: birthday,
       description: description,
-      PhotoUrl:
-        "https://static.vecteezy.com/system/resources/previews/006/470/722/original/pet-shop-logo-design-template-modern-animal-icon-label-for-store-veterinary-clinic-hospital-shelter-business-services-flat-illustration-background-with-dog-cat-and-horse-free-vector.jpg",
+      PhotoUrl: placeholderUrl,
     } as NewPet;
     postPet({ petData: newPetData, petPhotoData: photoData });
   };
