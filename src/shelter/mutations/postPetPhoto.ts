@@ -14,16 +14,13 @@ export const usePostPetPhoto = () => {
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,
           Accept: "*/*",
-          //"Content-Type": "multipart/form-data",
-          //"Content-Length": `${data.petPhotoData.length}`,
         },
         body: data.formData,
       }),
     {
       onSuccess: async (response) => {
         console.log(
-          "Pet's photo successfully added: " +
-            JSON.stringify(await response.json())
+          "Pet's photo successfully added"
         );
       },
       onError: (error) => {

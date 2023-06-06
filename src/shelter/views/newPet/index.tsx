@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostPet } from "../../mutations/postPet";
 import { NewPet } from "../../../types/newPet";
+import { placeholderUrl } from "../../../placeholderUrl";
 
 export const NewPetForm = () => {
   const [name, setName] = useState<string>("");
@@ -40,12 +41,13 @@ export const NewPetForm = () => {
 
   const useHandleSubmit = async () => {
     const newPetData = {
-      Name: name,
-      Sex: sex,
-      Species: species,
-      Breed: breed,
-      Birthday: birthday,
-      Description: description,
+      name: name,
+      sex: sex,
+      species: species,
+      breed: breed,
+      birthday: birthday,
+      description: description,
+      photoUrl: placeholderUrl,
     } as NewPet;
     postPet({ petData: newPetData, petPhotoData: photoData });
   };
