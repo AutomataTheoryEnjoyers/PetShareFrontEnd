@@ -47,7 +47,7 @@ export const NewPetForm = () => {
       breed: breed,
       birthday: birthday,
       description: description,
-      PhotoUrl: placeholderUrl,
+      photoUrl: placeholderUrl,
     } as NewPet;
     postPet({ petData: newPetData, petPhotoData: photoData });
   };
