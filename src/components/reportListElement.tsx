@@ -2,33 +2,40 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Report } from "../types/report";
 import { Title } from "../styles/global";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faBullhorn, faUser, faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type Props = {
-    report: Report;
+  report: Report;
 };
 
 export const ReportListElement = ({ report }: Props) => {
-    return (
-        <LinkStyled to={`${report.id}`}>
-            <Container>
-                <LeftContainer>
-                    <Title>Report</Title>
-                    <BottomText>
-                        {report.reason}
-                    </BottomText>
-                </LeftContainer>
-                <RightContainer>
-                    <FontAwesomeIcon
-                        className="right-arrow"
-                        fontSize={30}
-                        icon={faArrowRight}
-                    />
-                </RightContainer>
-            </Container>
-        </LinkStyled>
-    );
+  const renderIcon = () => {
+    if (report.announcementId !== null) {
+      return <FontAwesomeIcon icon={faBullhorn} size="2x"/>;
+    } else if (report.adopterId !== null) {
+        return <FontAwesomeIcon icon={faUser} size="2x" />;
+    } else if (report.shelterId !== null) {
+        return <FontAwesomeIcon icon={faHome} size="2x" />;
+    } else {
+      return null;
+    }
+  };
+
+  return (
+    <LinkStyled to={`${report.id}`}>
+      <Container>
+        <LeftContainer>
+                  <Title>Report ID: {report.id}</Title>
+          <BottomText>{report.reason}</BottomText>
+        </LeftContainer>
+        <RightContainer>
+          {renderIcon()}
+          <FontAwesomeIcon className="right-arrow" fontSize={30} icon={faArrowRight} />
+        </RightContainer>
+      </Container>
+    </LinkStyled>
+  );
 };
 
 const LinkStyled = styled(Link)`
@@ -68,8 +75,9 @@ const BottomText = styled.p`
   align-self: flex-end;
   text-align: left;
   align-self: flex-start;
-  padding: 5px;
+  padding: 2px;
   color: ${(props) => props.theme.colors.darkgrey};
+  overflow: hidden;
 `;
 
 const LeftContainer = styled.div`
@@ -85,9 +93,3 @@ const RightContainer = styled.div`
   justify-content: center;
 `;
 
-const Image = styled.img`
-  width: 150px;
-  border-radius: 5px;
-  margin-right: 15px;
-  object-fit: cover;
-`;

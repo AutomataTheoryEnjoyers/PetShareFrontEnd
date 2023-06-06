@@ -3,17 +3,12 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
-import { AnnouncementDetails } from "./views/announcementDetails";
-import { PetDetails } from "./views/petDetails";
+
 import { UserDetails } from "./views/userDetails";
 import { ReportDetails } from "./views/reportDetails";
-import { MyAnnouncements } from "./views/myAnnouncements";
-import { NewAnnouncement } from "./views/newAnnouncement";
-import { MyPets } from "./views/myPets";
-import { NewPet } from "./views/newPet";
 import { Users } from "./views/users";
-import { SignUp } from "./views/signup";
 import { Reports } from "./views/reports";
+
 export const Router = () => {
     const location = useLocation();
     return (
@@ -23,19 +18,6 @@ export const Router = () => {
                 <View>
                     <AnimatePresence mode="wait">
                         <Routes key={location.pathname} location={location}>
-                            <Route path="home" element={<SignUp />} />
-                            <Route
-                                path="my-announcements/:id"
-                                element={<AnnouncementDetails />}
-                            />
-                            <Route path="my-announcements" element={<MyAnnouncements />} />
-                            <Route path="new-announcement" element={<NewAnnouncement />} />
-                            <Route
-                                path="my-pets/:id"
-                                element={<PetDetails />}
-                            />
-                            <Route path="my-pets" element={<MyPets />} />
-                            <Route path="new-pet" element={<NewPet />} />
                             <Route
                                 path="users/:id"
                                 element={<UserDetails />}

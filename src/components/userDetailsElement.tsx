@@ -32,11 +32,11 @@ export const UserDetailsElement = ({ user }: UserProps) => {
                 {user.userName} <FontAwesomeIcon icon={faUser} />
             </UsernameText>
             <DetailText>
-                <FontAwesomeIcon icon={faPhone} />
+                <FontAwesomeIcon icon={faPhone} />{" "}
                 {user.phoneNumber}
             </DetailText>
             <DetailText>
-                <FontAwesomeIcon icon={faEnvelope} />
+                <FontAwesomeIcon icon={faEnvelope} />{" "}
                 {user.email}
             </DetailText>
             <DetailText>
@@ -68,7 +68,7 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: calc(33.6% - 10px);
+  width: 450px;
   height: 450px;
   margin: 0 auto;
 
