@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useMyApplicationsShelter } from "../../queries/myApplicationsShelter";
-import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
@@ -9,46 +8,85 @@ import { ApplicationApplyList } from "../../../components/applicationApplyList";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { Application } from "../../../types/application";
-import { useMyAnnouncements } from "../../queries/myAnnouncements";
+import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+import { ClipLoader } from "react-spinners";
+import { PaginationParameters } from "../../../types/paginationParameters";
+import { useState } from "react";
+import { Pagination } from "../../../components/pagination";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  const announcements = useMyAnnouncements();
-  const currentAnnouncement = announcements.data?.find(
-    (announcement) => announcement.id === id
-  ) as Announcement;
-  const applications = useMyApplicationsShelter(id as string);
+  const announcement = useGetAnnouncementSingle(id as string);
+  const announcementsPerPage = 5;
+  const [paginationParams, setPaginationParams] =
+    useState<PaginationParameters>({
+      PageNumber: 1,
+      PageCount: announcementsPerPage,
+    });
+  const applications = useMyApplicationsShelter(
+    id as string,
+    paginationParams.PageNumber,
+    paginationParams.PageCount
+  );
+
+  if (announcement.isLoading) {
+    return (
+      <AnimatedPage>
+        <CenteredBox>
+          <ClipLoader />
+        </CenteredBox>
+      </AnimatedPage>
+    );
+  }
 
   return (
-    currentAnnouncement && (
-      <AnimatedPage>
+    <AnimatedPage>
+      {announcement?.data && (
         <Container>
           <div id="image">
-            <ImageElementDetails pet={currentAnnouncement.pet} />
+            <ImageElementDetails pet={announcement?.data.pet} />
           </div>
           <div id="pet">
-            <PetDetailsElement pet={currentAnnouncement.pet} />
+            <PetDetailsElement pet={announcement?.data.pet} />
           </div>
           <div id="shelter">
-            <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
+            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
           </div>
           <div id="details">
-            <AnnouncementDetailsElement
-              announcement={currentAnnouncement}
-              isShelter={true}
-            />
+            <AnnouncementDetailsElement announcement={announcement?.data} />
           </div>
           <div id="userlist">
             <ApplicationApplyList
-              announcement={currentAnnouncement}
-              applications={applications.data as Application[]}
+              announcement={announcement?.data}
+              applications={applications.data?.applications as Application[]}
             />
           </div>
+          <Separator />
+          <Pagination
+            elementCount={applications.data ? applications.data.count : 1}
+            paginationParams={paginationParams}
+            setPaginationParams={setPaginationParams}
+          />
         </Container>
-      </AnimatedPage>
-    )
+      )}
+    </AnimatedPage>
   );
 };
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+`;
+
+const Separator = styled.hr`
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  margin-bottom: 0;
+`;
 
 const Container = styled.div`
   text-align: center;

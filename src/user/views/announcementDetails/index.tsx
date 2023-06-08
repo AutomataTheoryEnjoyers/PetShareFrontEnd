@@ -1,54 +1,155 @@
 import styled from "styled-components";
-import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { useAnnouncements } from "../../../queries/announcements";
+import { usePostApplication } from "../../mutations/postApplication";
+import { usePutApplicationWithdraw } from "../../mutations/putApplicationWithdraw";
+import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+import { useContext, useEffect, useState } from "react";
+import { ClipLoader } from "react-spinners";
+import { ApplicationResponse } from "../../../types/applicationsResponse";
+import { UserContext } from "../../../components/userContext";
+import { UserContextType } from "../../../types/userContextType";
+import { BACKEND_URL } from "../../../backendUrl";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  const isApplicable = true;
-  const announcements = useAnnouncements(null);
-  const currentAnnouncement = announcements.data?.find(
-    (announcement) => announcement.id === id
-  ) as Announcement;
+  const [isApplicable, setIsApplicable] = useState<boolean>(true);
+  const announcement = useGetAnnouncementSingle(id as string);
+  const [applicationsLoading, setApplicationsLoading] =
+    useState<boolean>(false);
+
+  const { userData } = useContext<UserContextType>(UserContext);
+
+  const fetchMyApplicationsAdopter = async (
+    pageNumber: number,
+    pageCount: number
+  ) => {
+    const queryStringArray =
+      [
+        pageNumber &&
+          `PageNumber=${encodeURIComponent(JSON.stringify(pageNumber))}`,
+        pageCount &&
+          `PageCount=${encodeURIComponent(JSON.stringify(pageCount))}`,
+      ].filter((s) => !!s) ?? [];
+
+    const response = await fetch(
+      `${BACKEND_URL}applications?${queryStringArray.join("&")}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${userData?.accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const responseDecoded = await response.json();
+    console.log(responseDecoded);
+    return responseDecoded as ApplicationResponse;
+  };
+
+  useEffect(() => {
+    const checkApplications = async () => {
+      // Skaranie boskie
+      setApplicationsLoading(true);
+      const responseFirst = (await fetchMyApplicationsAdopter(
+        0,
+        100
+      )) as ApplicationResponse;
+      const matchingApplication = responseFirst.applications.filter(
+        (application) => (id === application.announcementId ? true : false)
+      );
+      if (matchingApplication !== null) {
+        setIsApplicable(false);
+      }
+
+      if (matchingApplication === null && responseFirst.count > 100) {
+        for (let i = 1; i < Math.ceil(responseFirst.count / 100); i++) {
+          const response = (await fetchMyApplicationsAdopter(
+            i,
+            100
+          )) as ApplicationResponse;
+          const matchingApplication = response.applications.filter(
+            (application) => (id === application.announcementId ? true : false)
+          );
+          if (matchingApplication !== null) {
+            setIsApplicable(false);
+          }
+        }
+      }
+      setApplicationsLoading(false);
+    };
+
+    checkApplications();
+  }, []);
+
+  const mutateApplicationPost = usePostApplication();
+  const mutateApplicationWithdraw = usePutApplicationWithdraw();
+
+  const useHandlePostApplication = async () => {
+    mutateApplicationPost(id as string);
+  };
+  const useWithdrawApplication = async () => {
+    mutateApplicationWithdraw(id as string);
+  };
+
+  if (announcement.isLoading) {
+    return (
+      <AnimatedPage>
+        <CenteredBox>
+          <ClipLoader />
+        </CenteredBox>
+      </AnimatedPage>
+    );
+  }
 
   return (
-    currentAnnouncement && (
-      <AnimatedPage>
+    <AnimatedPage>
+      {announcement?.data && (
         <Container>
           <div id="image">
-            <ImageElementDetails pet={currentAnnouncement.pet} />
+            <ImageElementDetails pet={announcement?.data.pet} />
           </div>
           <div id="pet">
-            <PetDetailsElement pet={currentAnnouncement.pet} />
+            <PetDetailsElement pet={announcement?.data.pet} />
           </div>
           <div id="shelter">
-            <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
+            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
           </div>
           <div id="details">
-            <AnnouncementDetailsElement announcement={currentAnnouncement} />
+            <AnnouncementDetailsElement announcement={announcement?.data} />
           </div>
           <div id="apply-button">
-            <ApplyButton
-              isApplicable={isApplicable}
-              onClick={() => {
-                /*adopt function*/
-              }}
-            >
-              {isApplicable ? "Adopt!" : "Withdraw"}
-            </ApplyButton>
+            {applicationsLoading ? (
+              <CenteredBox>
+                <ClipLoader />
+              </CenteredBox>
+            ) : (
+              <ApplyButton
+                isApplicable={isApplicable}
+                onClick={
+                  isApplicable
+                    ? useHandlePostApplication
+                    : useWithdrawApplication
+                }
+              >
+                {isApplicable ? "Adopt!" : "Withdraw"}
+              </ApplyButton>
+            )}
           </div>
         </Container>
-      </AnimatedPage>
-    )
+      )}
+    </AnimatedPage>
   );
 };
 
 const ApplyButton = styled.div<{ isApplicable: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: ${(props) =>
     props.isApplicable ? props.theme.colors.main : props.theme.colors.tomato};
   color: #fff;
@@ -62,6 +163,7 @@ const ApplyButton = styled.div<{ isApplicable: boolean }>`
   font-weight: 600;
   letter-spacing: 5px;
   transition: 0.5s all;
+
   :hover {
     background: ${(props) =>
       props.isApplicable
@@ -110,4 +212,12 @@ const Container = styled.div`
   #apply-button {
     grid-area: apply;
   }
+`;
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
 `;

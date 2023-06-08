@@ -165,29 +165,31 @@ export const mockAnnouncements = [
   },
 ] as Announcement[];
 
-export const mockApplications = [
-  {
-    id: "2137",
-    dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-    isWithdrawed: false,
-    lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-    user: mockUsers[0],
-    announcement: mockAnnouncements[0],
-  },
-  {
-    id: "2138",
-    dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-    isWithdrawed: true,
-    lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-    user: mockUsers[1],
-    announcement: mockAnnouncements[1],
-  },
-  {
-    id: "2139",
-    dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-    isWithdrawed: false,
-    lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-    user: mockUsers[0],
-    announcement: mockAnnouncements[2],
-  },
-] as Application[];
+export const mockApplications = [] as Application[];
+
+// export const mockApplications = [
+//   {
+//     id: "2137",
+//     dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
+//     isWithdrawed: false,
+//     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
+//     user: mockUsers[0],
+//     announcement: mockAnnouncements[0],
+//   },
+//   {
+//     id: "2138",
+//     dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
+//     isWithdrawed: true,
+//     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
+//     user: mockUsers[1],
+//     announcement: mockAnnouncements[1],
+//   },
+//   {
+//     id: "2139",
+//     dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
+//     isWithdrawed: false,
+//     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
+//     user: mockUsers[0],
+//     announcement: mockAnnouncements[2],
+//   },
+// ] as Application[];
