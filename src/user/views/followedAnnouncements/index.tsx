@@ -4,7 +4,7 @@ import { AnnouncementListElement } from "../../../components/announcementListEle
 import { Header } from "../../../components/header";
 import { useAnnouncements } from "../../../queries/announcements";
 import { PaginationParameters } from "../../../types/paginationParameters";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Pagination } from "../../../components/pagination";
 import { ClipLoader } from "react-spinners";
 export const FollowedAnnouncements = () => {
@@ -64,6 +64,6 @@ const CenteredBox = styled.div`
 const Separator = styled.hr`
   width: 100%;
   height: 3px;
-  background-color: black;
   margin-bottom: 0;
+  opacity: 0;
 `;

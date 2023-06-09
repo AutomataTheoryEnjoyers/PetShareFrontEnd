@@ -1,4 +1,4 @@
-import { Address } from "./address";
+import { Address, dummyAddress } from "./address";
 
 export type Shelter = {
   id: string;
@@ -9,4 +9,15 @@ export type Shelter = {
   fullShelterName?: string;
   isAuthorized: boolean;
   address: Address;
+};
+
+export const dummyShelter = {
+  id: "",
+  userName: "",
+  phoneNumber: "",
+  email: "",
+  addressId: "",
+  fullShelterName: "",
+  isAuthorized: true,
+  address: dummyAddress,
 };

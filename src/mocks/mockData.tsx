@@ -165,31 +165,29 @@ export const mockAnnouncements = [
   },
 ] as Announcement[];
 
-export const mockApplications = [] as Application[];
-
-// export const mockApplications = [
-//   {
-//     id: "2137",
-//     dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-//     isWithdrawed: false,
-//     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-//     user: mockUsers[0],
-//     announcement: mockAnnouncements[0],
-//   },
-//   {
-//     id: "2138",
-//     dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-//     isWithdrawed: true,
-//     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-//     user: mockUsers[1],
-//     announcement: mockAnnouncements[1],
-//   },
-//   {
-//     id: "2139",
-//     dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-//     isWithdrawed: false,
-//     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-//     user: mockUsers[0],
-//     announcement: mockAnnouncements[2],
-//   },
-// ] as Application[];
+export const mockApplications = [
+  {
+    id: "2137",
+    creationDate: new Date("2018-02-28T16:41:41.090Z"),
+    lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
+    adopter: mockUsers[0],
+    announcementId: mockAnnouncements[0].id,
+    announcement: mockAnnouncements[0],
+  },
+  {
+    id: "2138",
+    creationDate: new Date("2018-02-28T16:41:41.090Z"),
+    lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
+    adopter: mockUsers[1],
+    announcementId: mockAnnouncements[1].id,
+    announcement: mockAnnouncements[1],
+  },
+  {
+    id: "2139",
+    creationDate: new Date("2018-02-28T16:41:41.090Z"),
+    lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
+    adopter: mockUsers[2],
+    announcementId: mockAnnouncements[2].id,
+    announcement: mockAnnouncements[2],
+  },
+] as Application[];

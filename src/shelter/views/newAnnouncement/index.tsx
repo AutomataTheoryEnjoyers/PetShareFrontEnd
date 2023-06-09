@@ -1,25 +1,60 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostAnnouncement } from "../../mutations/postAnnouncement";
 import { useMyPets } from "../../queries/myPets";
-import { Pet } from "../../../types/pet";
+import { Pagination } from "../../../components/pagination";
+import { PaginationParameters } from "../../../types/paginationParameters";
+import { PetListElementNewAnnouncement } from "../../components/petListElementNewAnnouncement";
+import { MutationContext } from "../../../components/mutationContext";
+import { MutationContextType } from "../../../types/mutationContext";
 
 export const NewAnnouncement = () => {
-  const { data } = useMyPets();
-  const pets = data === undefined ? ([] as Pet[]) : (data as Pet[]);
+  const { mutationData, setMutationData } =
+    useContext<MutationContextType>(MutationContext);
+
+  const petsPerPage = 3;
+  const [paginationParams, setPaginationParams] =
+    useState<PaginationParameters>({
+      PageNumber: 0,
+      PageCount: petsPerPage,
+    });
+  const pets = useMyPets(paginationParams);
   const mutatePostAnnouncement = usePostAnnouncement();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [petID, setPetID] = useState(pets.length > 0 ? pets[0].id : "");
+  const [petID, setPetID] = useState(
+    pets.response?.pets
+      ? pets.response?.pets.length > 0
+        ? pets.response?.pets[0].id
+        : ""
+      : ""
+  );
+
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [isPostingAnnouncement, setPostingAnnouncement] = useState(false);
+
+  useEffect(() => {
+    setMutationData({ mutationSuccessful: false });
+  }, [setMutationData]);
+
+  useEffect(() => {
+    const fields = [title, description];
+    const isFormValid = fields.every((field) => field.trim() !== "");
+    setIsFormValid(isFormValid);
+  }, [title, description]);
 
   const useHandleSubmit = () => {
-    mutatePostAnnouncement({
-      description: description,
-      title: title,
-      petId: petID,
-    });
+    setPostingAnnouncement(true);
+    mutatePostAnnouncement(
+      {
+        description: description,
+        title: title,
+        petId: petID,
+      },
+      { onSettled: () => setPostingAnnouncement(false) }
+    );
   };
 
   return (
@@ -49,23 +84,56 @@ export const NewAnnouncement = () => {
         </div>
         <div id="pet">
           <Label htmlFor="pet-input">Pet:</Label>
-          <Select
-            id="pet-input"
-            value={petID}
-            onChange={(e) => setPetID(e.target.value)}
-          >
-            {data?.map((pet) => (
-              <Option key={pet.id} value={pet.id}>
-                {pet.name + " (" + pet.id + ")"}
-              </Option>
+          <List>
+            {pets.response?.pets?.map((pet) => (
+              <div
+                onClick={() => {
+                  setPetID(pet.id);
+                }}
+              >
+                <PetListElementNewAnnouncement
+                  key={pet.id}
+                  pet={pet}
+                  selected={petID === pet.id}
+                />
+              </div>
             ))}
-          </Select>
+          </List>
+          <Separator />
+          <Pagination
+            elementCount={pets.response ? pets.response.count : 1}
+            paginationParams={paginationParams}
+            setPaginationParams={setPaginationParams}
+          />
         </div>
-        <SubmitButton onClick={useHandleSubmit}>Submit</SubmitButton>
+        <CenteredBox id="submit">
+          <SubmitButton
+            onClick={useHandleSubmit}
+            disabled={!isFormValid || isPostingAnnouncement}
+          >
+            Submit
+          </SubmitButton>
+          {mutationData?.mutationSuccessful && (
+            <>Announcement added successfully!</>
+          )}
+        </CenteredBox>
       </Container>
     </AnimatedPage>
   );
 };
+
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const Separator = styled.hr`
+  width: 100%;
+  height: 3px;
+  margin-bottom: 0;
+  opacity: 0;
+`;
 
 const Container = styled.div`
   text-align: center;
@@ -73,7 +141,7 @@ const Container = styled.div`
   gap: 10px;
   height: 100%;
   height: min(60vh, 600px);
-  grid-template: auto auto auto 1fr / 1fr 1fr 1fr;
+  grid-template: auto auto auto 1fr 1fr / 1fr 1fr 1fr;
 
   > div {
     display: flex;
@@ -93,6 +161,11 @@ const Container = styled.div`
   #description {
     grid-column: 1 / 3;
     grid-row: 3 / 5;
+  }
+
+  #submit {
+    grid-column: 2/3;
+    grid-row: 5/6;
   }
 `;
 
@@ -134,20 +207,6 @@ const Input = styled.input`
   font-weight: 400;
 `;
 
-const Select = styled.select`
-  width: 100%;
-  padding: 6px 10px;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  border-radius: 5px;
-  display: block;
-  height: 40px;
-`;
-
-const Option = styled.option`
-  height: 40px;
-`;
-
 const SubmitButton = styled.button`
   background: ${(props) => props.theme.colors.main};
   color: #fff;
@@ -158,10 +217,22 @@ const SubmitButton = styled.button`
   outline: none;
   margin-top: auto;
   height: 50px;
+  width: 100px;
   font-size: 25px;
   font-weight: 700;
   transition: 0.5s all;
   :hover {
     background: ${(props) => props.theme.colors.darkGreen};
   }
+  :disabled {
+    background: ${(props) => props.theme.colors.darkgrey};
+  }
+`;
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
 `;

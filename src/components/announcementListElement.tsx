@@ -12,7 +12,7 @@ type Props = {
 
 export const AnnouncementListElement = ({ announcement }: Props) => {
   return (
-    <LinkStyled to={`details/${announcement.id}`}>
+    <LinkStyled to={`${announcement.id}`}>
       <Container>
         <ImageElement pet={announcement.pet} />
         <LeftContainer>

@@ -40,6 +40,7 @@ export const MyApplications = () => {
           />
         ))}
       </List>
+      <Separator />
       <Pagination
         elementCount={applications.data ? applications.data.count : 1}
         paginationParams={paginationParams}
@@ -61,4 +62,11 @@ const List = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+`;
+
+const Separator = styled.hr`
+  width: 100%;
+  height: 3px;
+  margin-bottom: 0;
+  opacity: 0;
 `;

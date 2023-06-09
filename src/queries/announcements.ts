@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { BACKEND_URL } from "../backendUrl";
-import { Announcement } from "../types/announcement";
 import { AnnouncementFilters } from "../types/announcementFilter";
 import { AnnouncementResponse } from "../types/announcementResponse";
 import { PaginationParameters } from "../types/paginationParameters";
@@ -56,7 +55,6 @@ export const useAnnouncements = (
             creationDate: new Date(announcementResponse.creationDate),
             lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
             closingDate: new Date(announcementResponse.closingDate),
-            jakubPawlak: "aaaaa",
             pet: {
               ...announcementResponse.pet,
               birthday: new Date(announcementResponse.pet.birthday),

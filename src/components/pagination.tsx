@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { PaginationParameters } from "../types/paginationParameters";
 
 type Props = {
@@ -24,10 +23,13 @@ export const Pagination = ({
     pageNumbers.push(i);
   }
 
+  //console.log(pageNumbers);
+
   return (
     <List>
       {pageNumbers.map((index) => (
         <PageButton
+          selected={index === paginationParams.PageNumber + 1}
           onClick={() =>
             setPaginationParams({
               PageNumber: index - 1,
@@ -42,21 +44,22 @@ export const Pagination = ({
   );
 };
 
-const LinkStyled = styled(Link)`
-  text-decoration: none;
-  color: black;
-`;
-
 const List = styled.div`
   display: flex;
   flex-direction: row;
   gap: 5px;
 `;
 
-const PageButton = styled.div`
+const PageButton = styled.div<{ selected: boolean }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  background-color: ${(props) => props.theme.colors.main};
+  background-color: ${({ selected }) => {
+    if (selected === true) {
+      return (props) => props.theme.colors.darkGreen;
+    } else {
+      return (props) => props.theme.colors.main;
+    }
+  }};
   flex: 1;
   color: white;
   display: grid;

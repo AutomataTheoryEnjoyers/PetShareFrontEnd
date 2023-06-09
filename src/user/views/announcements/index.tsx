@@ -79,6 +79,6 @@ const CenteredBox = styled.div`
 const Separator = styled.hr`
   width: 100%;
   height: 3px;
-  background-color: black;
   margin-bottom: 0;
+  opacity: 0;
 `;

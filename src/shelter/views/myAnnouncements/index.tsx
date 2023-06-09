@@ -15,9 +15,9 @@ export const MyAnnouncements = () => {
       PageNumber: 0,
       PageCount: announcementsPerPage,
     });
-  const { data, isLoading } = useMyAnnouncements(paginationParams);
+  const announcements = useMyAnnouncements(paginationParams);
 
-  if (isLoading) {
+  if (announcements.query.isLoading) {
     return (
       <AnimatedPage>
         <Header>Announcements</Header>
@@ -32,7 +32,7 @@ export const MyAnnouncements = () => {
     <AnimatedPage>
       <Header>Announcements</Header>
       <List>
-        {data?.announcements.map((announcement) => (
+        {announcements.response?.announcements.map((announcement) => (
           <AnnouncementListElement
             key={announcement.id}
             announcement={announcement}
@@ -41,7 +41,7 @@ export const MyAnnouncements = () => {
       </List>
       <Separator />
       <Pagination
-        elementCount={data ? data.count : 1}
+        elementCount={announcements.response ? announcements.response.count : 1}
         paginationParams={paginationParams}
         setPaginationParams={setPaginationParams}
       />
@@ -66,6 +66,6 @@ const CenteredBox = styled.div`
 const Separator = styled.hr`
   width: 100%;
   height: 3px;
-  background-color: black;
   margin-bottom: 0;
+  opacity: 0;
 `;

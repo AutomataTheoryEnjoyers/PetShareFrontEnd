@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import { AnnouncementFilters } from "../../types/announcementFilter";
 import { PaginationParameters } from "../../types/paginationParameters";
 import { AnnouncementResponse } from "../../types/announcementResponse";
 import { BACKEND_URL } from "../../backendUrl";
@@ -26,27 +25,39 @@ export const useMyAnnouncements = (
 
   console.log(`announcements?${queryStringArray.join("&")}`);
 
-  const query = useQuery<AnnouncementResponse>("my-announcements-shelter", () =>
-    fetch(BACKEND_URL + `shelter/announcements?${queryStringArray.join("&")}`, {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${userData?.accessToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) =>
-        res.announcements.map((announcementResponse: any) => ({
-          ...announcementResponse,
-          creationDate: new Date(announcementResponse.creationDate),
-          lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
-          closingDate: new Date(announcementResponse.closingDate),
-          pet: {
-            ...announcementResponse.pet,
-            birthday: new Date(announcementResponse.pet.birthday),
+  const query = useQuery<AnnouncementResponse>(
+    `my-announcements-shelter-page-${paginationParams?.PageNumber}`,
+    () =>
+      fetch(
+        BACKEND_URL + `shelter/announcements?${queryStringArray.join("&")}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${userData?.accessToken}`,
+            "Content-Type": "application/json",
           },
-        }))
-      )
+        }
+      ).then((res) => res.json())
   );
-  return query;
+
+  const response = query.isLoading
+    ? null
+    : ({
+        announcements: query.data?.announcements.map(
+          (announcementResponse: any) => ({
+            ...announcementResponse,
+            creationDate: new Date(announcementResponse.creationDate),
+            lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
+            closingDate: new Date(announcementResponse.closingDate),
+            pet: {
+              ...announcementResponse.pet,
+              birthday: new Date(announcementResponse.pet.birthday),
+            },
+          })
+        ),
+        pageNumber: query.data?.pageNumber,
+        count: query.data?.count,
+      } as AnnouncementResponse);
+
+  return { query, response };
 };
