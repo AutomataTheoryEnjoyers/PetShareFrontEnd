@@ -67,7 +67,8 @@ const Container = styled.div<{ applicationStatus: string }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
-  background-color: ${(props) => handleColorType(props.applicationStatus)};
+  background-color: ${({ applicationStatus }) =>
+    handleColorType(applicationStatus)};
   height: 150px;
   display: flex;
   transition: all 0.2s ease-in;

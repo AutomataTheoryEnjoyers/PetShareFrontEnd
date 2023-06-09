@@ -7,14 +7,21 @@ import { PaginationParameters } from "../../../types/paginationParameters";
 import { useState } from "react";
 import { Pagination } from "../../../components/pagination";
 import { ClipLoader } from "react-spinners";
+import { AnnouncementFilters } from "../../../types/announcementFilter";
+import {
+  AnnouncementFiltersForm,
+  DefaultFilterState,
+} from "../../../components/announcementFiltersForm";
 export const FollowedAnnouncements = () => {
+  const [formState, setFormState] =
+    useState<AnnouncementFilters>(DefaultFilterState);
   const announcementsPerPage = 5;
   const [paginationParams, setPaginationParams] =
     useState<PaginationParameters>({
-      PageNumber: 1,
+      PageNumber: 0,
       PageCount: announcementsPerPage,
     });
-  const announcements = useAnnouncements(null, true, paginationParams);
+  const announcements = useAnnouncements(formState, true, paginationParams);
   if (announcements.query.isLoading) {
     return (
       <AnimatedPage>
@@ -29,6 +36,10 @@ export const FollowedAnnouncements = () => {
   return (
     <AnimatedPage>
       <Header>Followed Announcements</Header>
+      <AnnouncementFiltersForm
+        filters={formState}
+        onChange={(arg) => setFormState({ ...formState, ...arg })}
+      />
       <List>
         {announcements.response?.announcements.map((announcement) => (
           <AnnouncementListElement

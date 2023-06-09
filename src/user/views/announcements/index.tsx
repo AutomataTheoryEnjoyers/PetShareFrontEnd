@@ -19,7 +19,7 @@ export const Announcements = () => {
   const announcementsPerPage = 5;
   const [paginationParams, setPaginationParams] =
     useState<PaginationParameters>({
-      PageNumber: 1,
+      PageNumber: 0,
       PageCount: announcementsPerPage,
     });
   const announcements = useAnnouncements(formState, false, paginationParams);

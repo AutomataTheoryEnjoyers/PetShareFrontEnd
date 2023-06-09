@@ -19,7 +19,7 @@ export const MyApplications = () => {
     paginationParams.PageCount
   );
 
-  if (applications.isLoading) {
+  if (applications.query.isLoading) {
     return (
       <AnimatedPage>
         <CenteredBox>
@@ -33,7 +33,7 @@ export const MyApplications = () => {
     <AnimatedPage>
       <Header>My Applications</Header>
       <List>
-        {applications?.data?.applications.map((application) => (
+        {applications?.response?.applications.map((application) => (
           <ApplicationListElement
             key={application.id}
             application={application}
@@ -42,7 +42,9 @@ export const MyApplications = () => {
       </List>
       <Separator />
       <Pagination
-        elementCount={applications.data ? applications.data.count : 1}
+        elementCount={
+          applications?.response ? applications?.response?.count : 1
+        }
         paginationParams={paginationParams}
         setPaginationParams={setPaginationParams}
       />

@@ -19,8 +19,7 @@ export const AnnouncementDetails = () => {
   const { id } = useParams();
   const [isApplicable, setIsApplicable] = useState<boolean>(true);
   const announcement = useGetAnnouncementSingle(id as string);
-  const [applicationsLoading, setApplicationsLoading] =
-    useState<boolean>(false);
+  const [applicationsLoading, setApplicationsLoading] = useState<boolean>(true);
 
   const { userData } = useContext<UserContextType>(UserContext);
 
@@ -62,7 +61,8 @@ export const AnnouncementDetails = () => {
       const matchingApplication = responseFirst.applications.filter(
         (application) => (id === application.announcementId ? true : false)
       );
-      if (matchingApplication !== null) {
+      console.log(matchingApplication);
+      if (matchingApplication.length > 0) {
         setIsApplicable(false);
       }
 
@@ -90,10 +90,14 @@ export const AnnouncementDetails = () => {
   const mutateApplicationWithdraw = usePutApplicationWithdraw();
 
   const useHandlePostApplication = async () => {
-    mutateApplicationPost(id as string);
+    mutateApplicationPost(id as string, {
+      onSuccess: () => setIsApplicable(false),
+    });
   };
   const useWithdrawApplication = async () => {
-    mutateApplicationWithdraw(id as string);
+    mutateApplicationWithdraw(id as string, {
+      onSuccess: () => setIsApplicable(true),
+    });
   };
 
   if (announcement.isLoading) {

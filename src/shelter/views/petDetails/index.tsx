@@ -59,14 +59,10 @@ const Container = styled.div`
   height: min(60vh, 600px);
   grid-template-areas:
     "image image details"
-    "image image details"
-    "image image details"
-    "shelter shelter shelter"
-    "shelter shelter shelter"
     "shelter shelter shelter";
 
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: max(60vh, auto) auto;
 
   #title {
     grid-area: title;
