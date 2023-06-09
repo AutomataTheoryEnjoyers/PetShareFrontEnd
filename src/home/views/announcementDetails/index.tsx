@@ -30,7 +30,13 @@ export const AnnouncementDetails = () => {
           </div>
           <div id="details">
             <AnnouncementDetailsElement announcement={currentAnnouncement} />
-          </div>
+                  </div>
+                  <div id="report-button">
+                      <ReportButton>
+                          Report Announcement
+                      </ReportButton>
+
+                  </div>
         </Container>
       </AnimatedPage>
     )
@@ -50,7 +56,333 @@ const Container = styled.div`
     "details details details"
     "details details details"
     "user user user"
-    "apply apply apply";
+    "report report report
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+";
 
   grid-template-columns: 1fr 1fr 1fr;
 
@@ -75,6 +407,21 @@ const Container = styled.div`
   }
 
   #apply-button {
-    grid-area: apply;
+    grid-area: report;
   }
+`;
+const ReportButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: red;
+        
+    padding: 12px 24px; /* Increase the padding to make the buttons bigger */
+    font-size: 16px; /* Increase the font size */
 `;

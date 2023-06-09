@@ -6,5 +6,6 @@ export type User = {
   phoneNumber?: string;
   email?: string;
   status: string;
+  isAuthorized: boolean;
   address: Address;
 };

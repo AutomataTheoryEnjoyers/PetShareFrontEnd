@@ -32,7 +32,8 @@ export const ShelterDetailsElement = ({ shelter }: Props) => {
       <TileDetails>Address:</TileDetails>
       <TextDetails>{shelter.address.street}</TextDetails>
       <TextDetails>{shelter.address.province}</TextDetails>
-      <TextDetails>{shelter.address.country}</TextDetails>
+          <TextDetails>{shelter.address.country}</TextDetails>
+      <ReportButton>Report Shelter</ReportButton>
     </ShelterDetailsContainer>
   );
 };

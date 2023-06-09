@@ -10,7 +10,6 @@ import { ReportDetailsElement } from "../../../components/reportDetailsElement";
 import { useAnnouncements } from "../../../queries/announcements";
 import { useShelters } from "../../queries/shelters";
 import { Announcement } from "../../../types/announcement";
-import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { Shelter } from "../../../types/shelter";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,6 +17,7 @@ import { faBan, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Title } from "../../../styles/global";
 import { useState } from "react";
 import { ReportAnnouncementDetailsElement } from "../../../components/reportsAnnouncementElement";
+import { useMyAnnouncements } from "../../../shelter/queries/myAnnouncements";
 
 
 export const ReportDetails = () => {
@@ -28,13 +28,18 @@ export const ReportDetails = () => {
         (report) => report.id === id
     ) as Report;
 
-    const adopter = currentReport.adopterId ? useMyUsers().data?.find(
+    const users = useMyUsers();
+    const adopter = currentReport.adopterId ? users.data?.find(
         (adopter) => adopter.id === currentReport.adopterId
     ) as User : null;
-    const announcement = currentReport.announcementId ? useAnnouncements(null).data?.find(
+
+    const announcements = useAnnouncements(null);
+    const announcement = currentReport.announcementId ? announcements.data?.find(
         (announcement) => announcement.id === currentReport.announcementId
     ) as Announcement : null;
-    const shelter = !currentReport.announcementId && currentReport.shelterId ? useShelters().data?.find(
+
+    const shelters = useShelters();
+    const shelter = !currentReport.announcementId && currentReport.shelterId ? shelters.data?.find(
         (shelter) => shelter.id === currentReport.shelterId
     ) as Shelter : null;
     

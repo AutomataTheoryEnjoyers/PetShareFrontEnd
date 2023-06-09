@@ -41,7 +41,13 @@ export const AnnouncementDetails = () => {
             >
               {isApplicable ? "Adopt!" : "Withdraw"}
             </ApplyButton>
-          </div>
+                  </div>
+                  <div id="report-button">
+                      <ReportButton>
+                        Report Announcement
+                      </ReportButton>
+                    
+                  </div>
         </Container>
       </AnimatedPage>
     )
@@ -68,6 +74,21 @@ const ApplyButton = styled.div<{ isApplicable: boolean }>`
         ? props.theme.colors.darkGreen
         : props.theme.colors.darkTomato};
   }
+`;
+const ReportButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: red;
+        
+    padding: 12px 24px; /* Increase the padding to make the buttons bigger */
+    font-size: 16px; /* Increase the font size */
 `;
 
 const Container = styled.div`
