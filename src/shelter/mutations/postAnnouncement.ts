@@ -4,9 +4,12 @@ import { NewAnnouncement } from "../../types/newAnnouncement";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
+import { MutationContextType } from "../../types/mutationContext";
+import { MutationContext } from "../../components/mutationContext";
 
 export const usePostAnnouncement = () => {
   const { userData } = useContext<UserContextType>(UserContext);
+  const { setMutationData } = useContext<MutationContextType>(MutationContext);
 
   const { mutateAsync } = useMutation(
     (announcement: NewAnnouncement) =>
@@ -24,6 +27,7 @@ export const usePostAnnouncement = () => {
         console.log(
           "Announcement successfully added: " + JSON.stringify(responseData)
         );
+        setMutationData({ mutationSuccessful: true });
       },
       onError: (error) => {
         console.log(error);

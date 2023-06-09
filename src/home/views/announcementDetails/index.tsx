@@ -1,41 +1,56 @@
 import styled from "styled-components";
-import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { useAnnouncements } from "../../../queries/announcements";
+import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+import { ClipLoader } from "react-spinners";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  const announcements = useAnnouncements(null);
-  const currentAnnouncement = announcements.data?.find(
-    (announcement) => announcement.id === id
-  ) as Announcement;
+  const announcement = useGetAnnouncementSingle(id as string);
+
+  if (announcement.isLoading) {
+    return (
+      <AnimatedPage>
+        <CenteredBox>
+          <ClipLoader />
+        </CenteredBox>
+      </AnimatedPage>
+    );
+  }
 
   return (
-    currentAnnouncement && (
-      <AnimatedPage>
+    <AnimatedPage>
+      {announcement?.data && (
         <Container>
           <div id="image">
-            <ImageElementDetails pet={currentAnnouncement.pet} />
+            <ImageElementDetails pet={announcement?.data.pet} />
           </div>
           <div id="pet">
-            <PetDetailsElement pet={currentAnnouncement.pet} />
+            <PetDetailsElement pet={announcement?.data.pet} />
           </div>
           <div id="shelter">
-            <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
+            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
           </div>
           <div id="details">
-            <AnnouncementDetailsElement announcement={currentAnnouncement} />
+            <AnnouncementDetailsElement announcement={announcement?.data} />
           </div>
         </Container>
-      </AnimatedPage>
-    )
+      )}
+    </AnimatedPage>
   );
 };
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+`;
 
 const Container = styled.div`
   text-align: center;

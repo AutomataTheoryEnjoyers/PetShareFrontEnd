@@ -9,6 +9,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { usePutApplicationAccept } from "../shelter/mutations/putApplicationAccept";
+import { usePutApplicationReject } from "../shelter/mutations/putApplicationReject";
 
 type HoverState = "None" | "Check" | "Cross";
 
@@ -19,31 +21,43 @@ type Props = {
 export const ApplicationApplyListElement = ({ application }: Props) => {
   const [hoverState, setHoverState] = useState("None" as HoverState);
 
+  const mutateApplicationAccept = usePutApplicationAccept();
+  const mutateApplicationReject = usePutApplicationReject();
+
+  const useAcceptApplication = async () => {
+    mutateApplicationAccept(application.id);
+  };
+
+  const useRejectApplication = async () => {
+    mutateApplicationReject(application.id);
+  };
+
   return (
     <ApplicationContainer hoverState={hoverState}>
       <UsernameText>
-        {application.user.userName} <FontAwesomeIcon icon={faUser} />
+        {application.adopter.userName} <FontAwesomeIcon icon={faUser} />
       </UsernameText>
       <DetailText>
-        <FontAwesomeIcon icon={faPhone} />
-        {application.user.phoneNumber}
+        {<FontAwesomeIcon icon={faPhone} />} {application.adopter.phoneNumber}
       </DetailText>
       <DetailText>
-        <FontAwesomeIcon icon={faEnvelope} />
-        {application.user.email}
+        {<FontAwesomeIcon icon={faEnvelope} />} {application.adopter.email}
       </DetailText>
+      <DetailText>{application.applicationStatus}</DetailText>
       <ButtonsContainer className="buttonContainer">
         <FontAwesomeIcon
           className="check"
           icon={faCheck}
           onMouseEnter={() => setHoverState("Check")}
           onMouseLeave={() => setHoverState("None")}
+          onClick={useAcceptApplication}
         />
         <FontAwesomeIcon
           className="cross"
           icon={faXmark}
           onMouseEnter={() => setHoverState("Cross")}
           onMouseLeave={() => setHoverState("None")}
+          onClick={useRejectApplication}
         />
       </ButtonsContainer>
     </ApplicationContainer>
@@ -63,7 +77,7 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   }};
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   width: calc(33.6% - 10px);
   height: 250px;
 
@@ -97,8 +111,8 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
 `;
 
 const DetailText = styled.p`
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 5px;
+  font-size: 15px;
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;
@@ -114,9 +128,9 @@ const ButtonsContainer = styled.div`
 
 const UsernameText = styled.h2`
   margin: 0;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 20px;
-  font-size: 25px;
+  font-size: 23px;
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;

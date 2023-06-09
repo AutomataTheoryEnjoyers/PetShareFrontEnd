@@ -5,23 +5,40 @@ import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
+import { ApplicationResponse } from "../../types/applicationsResponse";
 
-export const useMyApplicationsShelter = (announcementId: string) => {
+export const useMyApplicationsShelter = (
+  announcementId: string,
+  pageNumber: number,
+  pageCount: number
+) => {
   const { userData } = useContext<UserContextType>(UserContext);
 
-  const query = useQuery<Application[]>(
+  const queryStringArray =
+    [
+      pageNumber &&
+        `PageNumber=${encodeURIComponent(JSON.stringify(pageNumber))}`,
+      pageCount && `PageCount=${encodeURIComponent(JSON.stringify(pageCount))}`,
+    ].filter((s) => !!s) ?? [];
+
+  const query = useQuery<ApplicationResponse>(
     "my-applications-per-announcement",
     () =>
-      fetch(BACKEND_URL + "applications/" + announcementId, {
-        method: "GET",
-        headers: {
-          authorization: `Bearer ${userData?.accessToken}`,
-          "Content-Type": "application/json",
-        },
-      })
+      fetch(
+        `${BACKEND_URL}applications/${announcementId}?${queryStringArray.join(
+          "&"
+        )}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${userData?.accessToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((res) => res.json())
         .then((res) =>
-          res.map((res: any) => ({
+          res.applications.map((res: any) => ({
             ...res,
           }))
         )
