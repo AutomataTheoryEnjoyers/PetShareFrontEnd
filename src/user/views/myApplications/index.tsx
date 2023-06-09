@@ -11,7 +11,7 @@ export const MyApplications = () => {
   const announcementsPerPage = 5;
   const [paginationParams, setPaginationParams] =
     useState<PaginationParameters>({
-      PageNumber: 1,
+      PageNumber: 0,
       PageCount: announcementsPerPage,
     });
   const applications = useMyApplicationsAdopter(

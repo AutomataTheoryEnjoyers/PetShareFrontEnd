@@ -19,7 +19,7 @@ export const useMyApplicationsAdopter = (
     ].filter((s) => !!s) ?? [];
 
   const query = useQuery<ApplicationResponse>(
-    "my-applications-per-announcement",
+    `my-applications-per-announcement-page${pageNumber}`,
     () =>
       fetch(`${BACKEND_URL}applications?${queryStringArray.join("&")}`, {
         method: "GET",

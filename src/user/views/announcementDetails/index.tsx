@@ -14,12 +14,15 @@ import { ApplicationResponse } from "../../../types/applicationsResponse";
 import { UserContext } from "../../../components/userContext";
 import { UserContextType } from "../../../types/userContextType";
 import { BACKEND_URL } from "../../../backendUrl";
+import { Application } from "../../../types/application";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
   const [isApplicable, setIsApplicable] = useState<boolean>(true);
   const announcement = useGetAnnouncementSingle(id as string);
   const [applicationsLoading, setApplicationsLoading] = useState<boolean>(true);
+  const [matchingApplication, setMatchingApplication] =
+    useState<Application | null>(null);
 
   const { userData } = useContext<UserContextType>(UserContext);
 
@@ -58,25 +61,27 @@ export const AnnouncementDetails = () => {
         0,
         100
       )) as ApplicationResponse;
-      const matchingApplication = responseFirst.applications.filter(
+      const foundApplications = responseFirst.applications.filter(
         (application) => (id === application.announcementId ? true : false)
       );
       console.log(matchingApplication);
-      if (matchingApplication.length > 0) {
+      if (foundApplications.length > 0) {
         setIsApplicable(false);
+        setMatchingApplication(foundApplications[0]);
       }
 
-      if (matchingApplication === null && responseFirst.count > 100) {
+      if (foundApplications.length <= 0 && responseFirst.count > 100) {
         for (let i = 1; i < Math.ceil(responseFirst.count / 100); i++) {
           const response = (await fetchMyApplicationsAdopter(
             i,
             100
           )) as ApplicationResponse;
-          const matchingApplication = response.applications.filter(
+          const foundApplications = response.applications.filter(
             (application) => (id === application.announcementId ? true : false)
           );
-          if (matchingApplication !== null) {
+          if (foundApplications.length > 0) {
             setIsApplicable(false);
+            setMatchingApplication(foundApplications[0]);
           }
         }
       }
@@ -95,7 +100,7 @@ export const AnnouncementDetails = () => {
     });
   };
   const useWithdrawApplication = async () => {
-    mutateApplicationWithdraw(id as string, {
+    mutateApplicationWithdraw(matchingApplication?.id as string, {
       onSuccess: () => setIsApplicable(true),
     });
   };
