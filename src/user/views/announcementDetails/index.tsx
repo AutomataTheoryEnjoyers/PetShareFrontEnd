@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
-import { ImageElement } from "../../../components/ImageElement";
+import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
@@ -10,7 +10,6 @@ import { useAnnouncements } from "../../../queries/announcements";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  // const [isApplicable, _] = useState(true); //enpoint z auth
   const isApplicable = true;
   const announcements = useAnnouncements(null);
   const currentAnnouncement = announcements.data?.find(
@@ -22,7 +21,7 @@ export const AnnouncementDetails = () => {
       <AnimatedPage>
         <Container>
           <div id="image">
-            <ImageElement pet={currentAnnouncement.pet} />
+            <ImageElementDetails pet={currentAnnouncement.pet} />
           </div>
           <div id="pet">
             <PetDetailsElement pet={currentAnnouncement.pet} />
@@ -34,7 +33,14 @@ export const AnnouncementDetails = () => {
             <AnnouncementDetailsElement announcement={currentAnnouncement} />
           </div>
           <div id="apply-button">
-            <ApplyButton isApplicable={isApplicable} onClick={() => {/*adopt function*/ }}>{isApplicable ? "Adopt!" : "Withdraw"}</ApplyButton>
+            <ApplyButton
+              isApplicable={isApplicable}
+              onClick={() => {
+                /*adopt function*/
+              }}
+            >
+              {isApplicable ? "Adopt!" : "Withdraw"}
+            </ApplyButton>
           </div>
         </Container>
       </AnimatedPage>
@@ -43,7 +49,8 @@ export const AnnouncementDetails = () => {
 };
 
 const ApplyButton = styled.div<{ isApplicable: boolean }>`
-  background: ${(props) => props.isApplicable ? props.theme.colors.main : props.theme.colors.tomato};
+  background: ${(props) =>
+    props.isApplicable ? props.theme.colors.main : props.theme.colors.tomato};
   color: #fff;
   border: 0;
   border-radius: 5px;
@@ -56,9 +63,12 @@ const ApplyButton = styled.div<{ isApplicable: boolean }>`
   letter-spacing: 5px;
   transition: 0.5s all;
   :hover {
-    background: ${(props) => props.isApplicable ? props.theme.colors.darkGreen : props.theme.colors.darkTomato};
+    background: ${(props) =>
+      props.isApplicable
+        ? props.theme.colors.darkGreen
+        : props.theme.colors.darkTomato};
   }
-`
+`;
 
 const Container = styled.div`
   text-align: center;
@@ -97,7 +107,7 @@ const Container = styled.div`
     grid-area: details;
   }
 
-  #apply-button{
+  #apply-button {
     grid-area: apply;
   }
 `;

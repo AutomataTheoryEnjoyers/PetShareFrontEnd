@@ -1,13 +1,20 @@
-import { useQuery, UseQueryResult } from "react-query";
+import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
 import { Pet } from "../../types/pet";
+import { useContext } from "react";
+import { UserContextType } from "../../types/userContextType";
+import { UserContext } from "../../components/userContext";
+
+export const useMyPets = () => {
+  const { userData } = useContext<UserContextType>(UserContext);
+
 export const useMyPets = (): UseQueryResult<Pet[], unknown> => {
   const query = useQuery<Pet[]>("my-pets", () =>
     fetch(BACKEND_URL + "shelter/pets", {
       method: "GET",
       headers: {
+        authorization: `Bearer ${userData?.accessToken}`,
         "Content-Type": "application/json",
-        accept: "text/plain",
       },
     })
       .then((res) => res.json())

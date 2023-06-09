@@ -11,12 +11,12 @@ test("renders announcementListElement component", async () => {
 
   expect(screen.getByRole("img")).toBeInTheDocument();
   expect(screen.getByRole("heading")).toHaveTextContent(
-    mockAnnouncements[0].title
+    mockAnnouncements[0].title as string
   );
   expect(
-    screen.getByText(mockAnnouncements[0].pet.name, { exact: false })
+    screen.getByText(mockAnnouncements[0].pet.name as string, { exact: false })
   ).toBeInTheDocument();
   expect(
-    screen.getByText(mockAnnouncements[0].pet.breed, { exact: false })
+    screen.getByText(mockAnnouncements[0].pet.breed as string, { exact: false })
   ).toBeInTheDocument();
 });

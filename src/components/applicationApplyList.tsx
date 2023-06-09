@@ -8,13 +8,13 @@ type Props = {
   applications: Application[];
 };
 
-export const ApplicationApplyList = ({
-  announcement,
-  applications,
-}: Props) => {
-  var usableApplications = applications.filter(
-    (application) => application.announcement.id === announcement.id
-  );
+export const ApplicationApplyList = ({ announcement, applications }: Props) => {
+  var usableApplications =
+    applications !== undefined
+      ? applications.filter(
+          (application) => application.announcement.id === announcement.id
+        )
+      : [];
   return (
     <ApplicationListContainer>
       {usableApplications.map((application) => (

@@ -9,7 +9,7 @@ export const defaultTheme = {
     lightTomato: "#fcc2b8",
     darkTomato: "#c14732",
     highlight: "#85af98",
-    opposite: "#c34c8e",
+    opposite: "#f9edf3",
     darkgrey: "#545454",
     main: "#3cb371",
   },

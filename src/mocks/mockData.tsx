@@ -1,5 +1,7 @@
 import { Announcement } from "../types/announcement";
 import { Application } from "../types/application";
+import { Pet } from "../types/pet";
+import { User } from "../types/user";
 import { Report } from "../types/report";
 
 export const mockAddresses = [
@@ -35,7 +37,7 @@ export const mockUsers = [
     userName: "KononowiczKrzysztof",
     phoneNumber: "325232675",
     email: "warmianin@katolik.com",
-    isAuthorized: true,
+    status: "Active",
     address: mockAddresses[0],
   },
     {
@@ -43,7 +45,7 @@ export const mockUsers = [
     userName: "Meksikano",
     phoneNumber: "343232675",
     email: "natret@bialystok.com",
-    isAuthorized: true,
+    status: "Active",
     address: mockAddresses[1],
   },
     {
@@ -51,10 +53,10 @@ export const mockUsers = [
     userName: "MajorSuchek",
     phoneNumber: "343232675",
     email: "majorek@nitro.com",
-    isAuthorized: false,
+    status: "Active",
     address: mockAddresses[2],
   },
-];
+] as User[];
 
 export const mockShelters = [
   {
@@ -70,14 +72,14 @@ export const mockShelters = [
     id: "2",
     fullShelterName: "Even Cuter and Funnier Shelter",
     phoneNumber: "928762322",
-    email: "GimmeShelter@RS.com",
+    email: "GimmeShelterer@RS.com",
     address: mockAddresses[1],
     addressId: mockAddresses[1].id,
     isAuthorized: true,
   },
   {
     id: "3",
-    fullShelterName: "Kentucky Fired Chicken",
+    fullShelterName: "Kentucky Fried Chicken",
     phoneNumber: "929252322",
     email: "KFC@RS.com",
     address: mockAddresses[2],
@@ -94,11 +96,11 @@ export const mockPets = [
     species: "kotowaty",
     breed: "kot",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
-    photo:
+    photoUrl:
       "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
-    shelterId: mockShelters[0].id,
     description:
       "this is a mock pet, some test data to check working of the service",
+    status: "active",
     shelter: mockShelters[0],
   },
   {
@@ -108,11 +110,11 @@ export const mockPets = [
     species: "pieski",
     breed: "piesek",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
-    photo:
+    photoUrl:
       "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
-    shelterId: mockShelters[0].id,
     description:
       "this is a mock pet, some test data to check working of the service",
+    status: "active",
     shelter: mockShelters[0],
   },
   {
@@ -122,14 +124,14 @@ export const mockPets = [
     species: "maupa",
     breed: "szympans",
     birthday: new Date("2018-02-28T16:41:41.090Z"),
-    photo:
+    photoUrl:
       "https://preview.redd.it/9vpjwej8sopa1.png?width=640&crop=smart&auto=webp&v=enabled&s=89d8d1904862a0d40e86817306404d89a71d9cc6",
-    shelterId: mockShelters[2].id,
     description:
       "this is a mock pet, some test data to check working of the service",
+    status: "active",
     shelter: mockShelters[2],
   },
-];
+] as Pet[];
 
 export const mockAnnouncements = [
   {
@@ -138,10 +140,9 @@ export const mockAnnouncements = [
     creationDate: new Date("2018-02-28T16:41:41.090Z"),
     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
     title: "Anouncement1",
-    status: 1,
+    status: "Open",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    idPet: mockPets[0].id,
     pet: mockPets[0],
   },
   {
@@ -150,10 +151,9 @@ export const mockAnnouncements = [
     creationDate: new Date("2018-02-28T16:41:41.090Z"),
     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
     title: "Anouncement1",
-    status: 1,
+    status: "Open",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    idPet: mockPets[1].id,
     pet: mockPets[1],
   },
   {
@@ -162,10 +162,9 @@ export const mockAnnouncements = [
     creationDate: new Date("2018-02-28T16:41:41.090Z"),
     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
     title: "Anouncement1",
-    status: 1,
+    status: "Open",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    idPet: mockPets[2].id,
     pet: mockPets[2],
   },
 ] as Announcement[];

@@ -2,16 +2,19 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import { TextDetails, Title } from "../styles/global";
 import { Announcement } from "../types/announcement";
 
 type Props = {
-  announcement: Announcement,
-  isFollowed?: boolean,
-  isShelter?: boolean,
+  announcement: Announcement;
+  isFollowed?: boolean;
+  isShelter?: boolean;
 };
 
-export const AnnouncementDetailsElement = ({ announcement, isFollowed = true, isShelter }: Props) => {
+export const AnnouncementDetailsElement = ({
+  announcement,
+  isFollowed = true,
+  isShelter,
+}: Props) => {
   const [overFollow, setOverFollow] = useState(!!isFollowed);
   return (
     <Container>
@@ -25,11 +28,24 @@ export const AnnouncementDetailsElement = ({ announcement, isFollowed = true, is
           </TextDetails>
         </TopContainerLeft>
         <TopContainerRight>
-          {!isShelter && <FollowContainer
-            onMouseOver={() => setOverFollow(true)}
-            onMouseLeave={() => setOverFollow(false)}
-            onClick={() => { /*function for following*/ }}
-          ><FontAwesomeIcon icon={faHeart} data-testid="followIcon" style={{ transform: `scale(${overFollow ? 1.15 : 1})` }} font-size={25} color={isFollowed || overFollow ? "red" : "black"} className="followIcon"></FontAwesomeIcon></FollowContainer>}
+          {!isShelter && (
+            <FollowContainer
+              onMouseOver={() => setOverFollow(true)}
+              onMouseLeave={() => setOverFollow(false)}
+              onClick={() => {
+                /*function for following*/
+              }}
+            >
+              <FontAwesomeIcon
+                icon={faHeart}
+                data-testid="followIcon"
+                style={{ transform: `scale(${overFollow ? 1.15 : 1})` }}
+                font-size={25}
+                color={isFollowed || overFollow ? "red" : "black"}
+                className="followIcon"
+              ></FontAwesomeIcon>
+            </FollowContainer>
+          )}
         </TopContainerRight>
       </TopContainer>
       <Title>{announcement.title && announcement.title}</Title>
@@ -70,14 +86,14 @@ const TopContainerRight = styled.div`
   align-items: flex-end;
 `;
 const FollowContainer = styled.div`
-padding: 5px;
-.followIcon{
-  transition: all 0.1s;
-}
-:hover {
-cursor: pointer;
-}
-`
+  padding: 5px;
+  .followIcon {
+    transition: all 0.1s;
+  }
+  :hover {
+    cursor: pointer;
+  }
+`;
 const DescriptionText = styled.p`
   margin: 0;
   font-size: 14px;
@@ -96,4 +112,16 @@ const AnnouncementIdContainer = styled.div`
   padding: 5px;
   float: left;
   font-size: 10px;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
+`;
+
+const TextDetails = styled.p`
+  margin: 0;
+  padding: 2px;
+  font-size: 15px;
 `;

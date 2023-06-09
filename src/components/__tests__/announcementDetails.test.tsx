@@ -6,7 +6,10 @@ import { renderWithRouter } from "../testUtils/functions";
 describe("AnnouncementDetailsElement", () => {
   it("renders the announcement details", () => {
     const { getByText, getByTestId } = renderWithRouter(
-      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} isShelter={false} />
+      <AnnouncementDetailsElement
+        announcement={mockAnnouncements[0]}
+        isShelter={false}
+      />
     );
 
     expect(
@@ -24,7 +27,10 @@ describe("AnnouncementDetailsElement", () => {
 
   it("does not render follow button when the view is for a shelter", () => {
     const { queryByTestId } = renderWithRouter(
-      <AnnouncementDetailsElement announcement={mockAnnouncements[0]} isShelter={true} />
+      <AnnouncementDetailsElement
+        announcement={mockAnnouncements[0]}
+        isShelter={true}
+      />
     );
 
     expect(queryByTestId("followIcon")).toBeNull();

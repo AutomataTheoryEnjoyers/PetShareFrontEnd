@@ -2,12 +2,11 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Title } from "../styles/global";
 import { Application } from "../types/application";
 
 type Props = {
   application: Application;
-}
+};
 
 export const ApplicationListElement = ({ application }: Props) => {
   return (
@@ -17,8 +16,10 @@ export const ApplicationListElement = ({ application }: Props) => {
         <LeftContainer>
           <Title>{application.announcement.title}</Title>
           <BottomText>
-            {application.announcement.pet.name}, {application.announcement.pet.breed},{" "}
-            {new Date().getFullYear() - application.announcement.pet.birthday.getFullYear()}{" "}
+            {application.announcement.pet.name},{" "}
+            {application.announcement.pet.breed},{" "}
+            {new Date().getFullYear() -
+              application.announcement.pet.birthday.getFullYear()}{" "}
             years old
           </BottomText>
         </LeftContainer>
@@ -35,15 +36,24 @@ export const ApplicationListElement = ({ application }: Props) => {
 };
 
 const LinkStyled = styled(Link)`
-text-decoration: none;
-color: black;
+  text-decoration: none;
+  color: black;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
 `;
 
 const Container = styled.div<{ isWithdrawed: boolean }>`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 10px;
-  background-color: ${(props) => props.isWithdrawed ? props.theme.colors.lightTomato : props.theme.colors.powderWhite};
+  background-color: ${(props) =>
+    props.isWithdrawed
+      ? props.theme.colors.lightTomato
+      : props.theme.colors.powderWhite};
   height: 150px;
   display: flex;
   transition: all 0.2s ease-in;
