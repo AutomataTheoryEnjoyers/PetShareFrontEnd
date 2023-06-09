@@ -17,7 +17,7 @@ export const Pagination = ({
   const pageNumbers = [];
   for (
     let i = 1;
-    i < Math.ceil(elementCount / paginationParams.PageCount);
+    i <= Math.ceil(elementCount / paginationParams.PageCount);
     i++
   ) {
     pageNumbers.push(i);
