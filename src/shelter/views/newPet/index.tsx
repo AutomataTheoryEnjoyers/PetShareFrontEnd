@@ -1,11 +1,17 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { usePostPet } from "../../mutations/postPet";
 import { NewPet } from "../../../types/newPet";
 import { placeholderUrl } from "../../../placeholderUrl";
+import { MutationContext } from "../../../components/mutationContext";
+import { MutationContextType } from "../../../types/mutationContext";
+import { ClipLoader } from "react-spinners";
 
 export const NewPetForm = () => {
+  const { mutationData, setMutationData } =
+    useContext<MutationContextType>(MutationContext);
+
   const [name, setName] = useState<string>("");
   const [sex, setSex] = useState<string>("Unknown");
   const [species, setSpecies] = useState<string>("");
@@ -15,7 +21,12 @@ export const NewPetForm = () => {
   const [photoData, setPhotoData] = useState<File | null>(null);
 
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isPostingPet, setPostingPet] = useState(false);
   const postPet = usePostPet();
+
+  useEffect(() => {
+    setMutationData({ mutationSuccessful: false });
+  }, [setMutationData]);
 
   const handleBirthdayInputChange = (event: { target: { value: any } }) => {
     const inputBirthday = event.target.value;
@@ -40,6 +51,8 @@ export const NewPetForm = () => {
   }, [name, species, breed, description, photoData]);
 
   const useHandleSubmit = async () => {
+    setMutationData({ mutationSuccessful: false });
+    setPostingPet(true);
     const newPetData = {
       name: name,
       sex: sex,
@@ -49,7 +62,10 @@ export const NewPetForm = () => {
       description: description,
       photoUrl: placeholderUrl,
     } as NewPet;
-    postPet({ petData: newPetData, petPhotoData: photoData });
+    postPet(
+      { petData: newPetData, petPhotoData: photoData },
+      { onSettled: () => setPostingPet(false) }
+    );
   };
 
   return (
@@ -134,9 +150,15 @@ export const NewPetForm = () => {
           />
         </div>
         <div id="submit">
-          <SubmitButton onClick={useHandleSubmit} disabled={!isFormValid}>
-            Submit
-          </SubmitButton>
+          <CenteredBox>
+            <SubmitButton
+              onClick={useHandleSubmit}
+              disabled={!isFormValid || isPostingPet}
+            >
+              {isPostingPet ? <ClipLoader /> : <>Submit</>}
+            </SubmitButton>
+            {mutationData?.mutationSuccessful && <>Pet added successfully!</>}
+          </CenteredBox>
         </div>
       </Container>
     </AnimatedPage>
@@ -266,6 +288,7 @@ const SubmitButton = styled.button`
   outline: none;
   margin-top: auto;
   height: 50px;
+  width: 100px;
   font-size: 25px;
   font-weight: 700;
   transition: 0.5s all;
@@ -275,4 +298,12 @@ const SubmitButton = styled.button`
   :disabled {
     background: ${(props) => props.theme.colors.darkgrey};
   }
+`;
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
 `;

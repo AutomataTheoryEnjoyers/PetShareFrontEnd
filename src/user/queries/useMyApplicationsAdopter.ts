@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
-import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
 import { ApplicationResponse } from "../../types/applicationsResponse";
+import { useQuery } from "react-query";
 
-export const useMyApplicationsShelter = (
-  announcementId: string,
+export const useMyApplicationsAdopter = (
   pageNumber: number,
   pageCount: number
 ) => {
@@ -22,18 +21,13 @@ export const useMyApplicationsShelter = (
   const query = useQuery<ApplicationResponse>(
     `my-applications-per-announcement-page${pageNumber}`,
     () =>
-      fetch(
-        `${BACKEND_URL}applications/${announcementId}?${queryStringArray.join(
-          "&"
-        )}`,
-        {
-          method: "GET",
-          headers: {
-            authorization: `Bearer ${userData?.accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      ).then((res) => res.json())
+      fetch(`${BACKEND_URL}applications?${queryStringArray.join("&")}`, {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${userData?.accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }).then((res) => res.json())
   );
 
   const response = query.isLoading

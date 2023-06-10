@@ -8,7 +8,11 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { usePutApplicationAccept } from "../shelter/mutations/putApplicationAccept";
+import { usePutApplicationReject } from "../shelter/mutations/putApplicationReject";
+import { MutationContext } from "./mutationContext";
+import { MutationContextType } from "../types/mutationContext";
 
 type HoverState = "None" | "Check" | "Cross";
 
@@ -17,35 +21,56 @@ type Props = {
 };
 
 export const ApplicationApplyListElement = ({ application }: Props) => {
+  const { setMutationData } = useContext<MutationContextType>(MutationContext);
   const [hoverState, setHoverState] = useState("None" as HoverState);
+
+  const mutateApplicationAccept = usePutApplicationAccept();
+  const mutateApplicationReject = usePutApplicationReject();
+
+  const useAcceptApplication = async () => {
+    setMutationData({ mutationSuccessful: false });
+    mutateApplicationAccept(application.id, {
+      onSuccess: () => setMutationData({ mutationSuccessful: true }),
+    });
+  };
+
+  const useRejectApplication = async () => {
+    setMutationData({ mutationSuccessful: false });
+    mutateApplicationReject(application.id, {
+      onSuccess: () => setMutationData({ mutationSuccessful: true }),
+    });
+  };
 
   return (
     <ApplicationContainer hoverState={hoverState}>
       <UsernameText>
-        {application.user.userName} <FontAwesomeIcon icon={faUser} />
+        {application.adopter.userName} <FontAwesomeIcon icon={faUser} />
       </UsernameText>
       <DetailText>
-        <FontAwesomeIcon icon={faPhone} />
-        {application.user.phoneNumber}
+        {<FontAwesomeIcon icon={faPhone} />} {application.adopter.phoneNumber}
       </DetailText>
       <DetailText>
-        <FontAwesomeIcon icon={faEnvelope} />
-        {application.user.email}
+        {<FontAwesomeIcon icon={faEnvelope} />} {application.adopter.email}
       </DetailText>
-      <ButtonsContainer className="buttonContainer">
-        <FontAwesomeIcon
-          className="check"
-          icon={faCheck}
-          onMouseEnter={() => setHoverState("Check")}
-          onMouseLeave={() => setHoverState("None")}
-        />
-        <FontAwesomeIcon
-          className="cross"
-          icon={faXmark}
-          onMouseEnter={() => setHoverState("Cross")}
-          onMouseLeave={() => setHoverState("None")}
-        />
-      </ButtonsContainer>
+      <DetailText>{application.applicationStatus}</DetailText>
+      {application.applicationStatus === "Created" && (
+        <ButtonsContainer className="buttonContainer">
+          <FontAwesomeIcon
+            className="check"
+            icon={faCheck}
+            onMouseEnter={() => setHoverState("Check")}
+            onMouseLeave={() => setHoverState("None")}
+            onClick={useAcceptApplication}
+          />
+          <FontAwesomeIcon
+            className="cross"
+            icon={faXmark}
+            onMouseEnter={() => setHoverState("Cross")}
+            onMouseLeave={() => setHoverState("None")}
+            onClick={useRejectApplication}
+          />
+        </ButtonsContainer>
+      )}
     </ApplicationContainer>
   );
 };
@@ -63,7 +88,7 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
   }};
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   width: calc(33.6% - 10px);
   height: 250px;
 
@@ -97,8 +122,8 @@ const ApplicationContainer = styled.div<{ hoverState: HoverState }>`
 `;
 
 const DetailText = styled.p`
-  margin-top: 10px;
-  font-size: 18px;
+  margin-top: 5px;
+  font-size: 15px;
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;
@@ -114,9 +139,9 @@ const ButtonsContainer = styled.div`
 
 const UsernameText = styled.h2`
   margin: 0;
-  margin-top: 10px;
+  margin-top: 5px;
   margin-bottom: 20px;
-  font-size: 25px;
+  font-size: 23px;
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;
