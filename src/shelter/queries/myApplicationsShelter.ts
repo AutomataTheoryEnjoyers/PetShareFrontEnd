@@ -1,6 +1,4 @@
-// import { useQuery } from "react-query"
 import { useContext } from "react";
-//import { Application } from "../../types/application";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { useQuery } from "react-query";
@@ -22,7 +20,7 @@ export const useMyApplicationsShelter = (
     ].filter((s) => !!s) ?? [];
 
   const query = useQuery<ApplicationResponse>(
-    "my-applications-per-announcement",
+    `my-applications-per-announcement-page${pageNumber}`,
     () =>
       fetch(
         `${BACKEND_URL}applications/${announcementId}?${queryStringArray.join(
@@ -35,13 +33,37 @@ export const useMyApplicationsShelter = (
             "Content-Type": "application/json",
           },
         }
-      )
-        .then((res) => res.json())
-        .then((res) =>
-          res.applications.map((res: any) => ({
-            ...res,
-          }))
-        )
+      ).then((res) => res.json())
   );
-  return query;
+
+  const response = query.isLoading
+    ? null
+    : ({
+        applications: query.data?.applications.map(
+          (applicationResponse: any) => ({
+            ...applicationResponse,
+            announcement: {
+              ...applicationResponse.announcement,
+              creationDate: new Date(
+                applicationResponse.announcement.creationDate
+              ),
+              lastUpdateDate: new Date(
+                applicationResponse.announcement.lastUpdateDate
+              ),
+              closingDate: new Date(
+                applicationResponse.announcement.closingDate
+              ),
+              pet: {
+                ...applicationResponse.announcement.pet,
+                birthday: new Date(
+                  applicationResponse.announcement.pet.birthday
+                ),
+              },
+            },
+          })
+        ),
+        pageNumber: query.data?.pageNumber,
+        count: query.data?.count,
+      } as ApplicationResponse);
+  return { query, response };
 };

@@ -12,7 +12,7 @@ export const ApplicationListElement = ({ application }: Props) => {
   return (
     <LinkStyled to={`/user/announcements/${application.announcement.id}`}>
       <Container applicationStatus={application.applicationStatus}>
-        <Image src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fus-tuna-sounds-images.voicemod.net%2F8b2da0e8-5f18-4c46-b436-a80629388aa0-1662350742067.jpg&f=1&nofb=1&ipt=56ff424dfc11ad96ed521268ede16776efc3d3ec8c1133b0d0ef15ae352e6d55&ipo=images" />
+        <Image src={application.announcement.pet.photoUrl} />
         <LeftContainer>
           <Title>{application.announcement.title}</Title>
           <BottomText>
@@ -49,15 +49,18 @@ const Title = styled.h1`
 const handleColorType = (status: string) => {
   switch (status) {
     case "Created":
-      return "#03a9f3";
+      return (props: { theme: { colors: { powderWhite: any } } }) =>
+        props.theme.colors.powderWhite;
     case "Accepted":
-      return "#f56342";
+      return (props: { theme: { colors: { main: any } } }) =>
+        props.theme.colors.main;
     case "Rejected":
-      return "#aa0000";
+      return (props: { theme: { colors: { lightTomato: any } } }) =>
+        props.theme.colors.lightTomato;
     case "Withdrawn":
       return "0000aa";
     case "Deleted":
-      return "ffffff";
+      return "0000aa";
     default:
       return "#fff";
   }

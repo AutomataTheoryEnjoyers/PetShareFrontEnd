@@ -8,9 +8,11 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { usePutApplicationAccept } from "../shelter/mutations/putApplicationAccept";
 import { usePutApplicationReject } from "../shelter/mutations/putApplicationReject";
+import { MutationContext } from "./mutationContext";
+import { MutationContextType } from "../types/mutationContext";
 
 type HoverState = "None" | "Check" | "Cross";
 
@@ -19,17 +21,24 @@ type Props = {
 };
 
 export const ApplicationApplyListElement = ({ application }: Props) => {
+  const { setMutationData } = useContext<MutationContextType>(MutationContext);
   const [hoverState, setHoverState] = useState("None" as HoverState);
 
   const mutateApplicationAccept = usePutApplicationAccept();
   const mutateApplicationReject = usePutApplicationReject();
 
   const useAcceptApplication = async () => {
-    mutateApplicationAccept(application.id);
+    setMutationData({ mutationSuccessful: false });
+    mutateApplicationAccept(application.id, {
+      onSuccess: () => setMutationData({ mutationSuccessful: true }),
+    });
   };
 
   const useRejectApplication = async () => {
-    mutateApplicationReject(application.id);
+    setMutationData({ mutationSuccessful: false });
+    mutateApplicationReject(application.id, {
+      onSuccess: () => setMutationData({ mutationSuccessful: true }),
+    });
   };
 
   return (
@@ -44,22 +53,24 @@ export const ApplicationApplyListElement = ({ application }: Props) => {
         {<FontAwesomeIcon icon={faEnvelope} />} {application.adopter.email}
       </DetailText>
       <DetailText>{application.applicationStatus}</DetailText>
-      <ButtonsContainer className="buttonContainer">
-        <FontAwesomeIcon
-          className="check"
-          icon={faCheck}
-          onMouseEnter={() => setHoverState("Check")}
-          onMouseLeave={() => setHoverState("None")}
-          onClick={useAcceptApplication}
-        />
-        <FontAwesomeIcon
-          className="cross"
-          icon={faXmark}
-          onMouseEnter={() => setHoverState("Cross")}
-          onMouseLeave={() => setHoverState("None")}
-          onClick={useRejectApplication}
-        />
-      </ButtonsContainer>
+      {application.applicationStatus === "Created" && (
+        <ButtonsContainer className="buttonContainer">
+          <FontAwesomeIcon
+            className="check"
+            icon={faCheck}
+            onMouseEnter={() => setHoverState("Check")}
+            onMouseLeave={() => setHoverState("None")}
+            onClick={useAcceptApplication}
+          />
+          <FontAwesomeIcon
+            className="cross"
+            icon={faXmark}
+            onMouseEnter={() => setHoverState("Cross")}
+            onMouseLeave={() => setHoverState("None")}
+            onClick={useRejectApplication}
+          />
+        </ButtonsContainer>
+      )}
     </ApplicationContainer>
   );
 };

@@ -15,15 +15,16 @@ export const Pagination = ({
   setPaginationParams,
 }: Props) => {
   const pageNumbers = [];
-  for (
-    let i = 1;
-    i <= Math.ceil(elementCount / paginationParams.PageCount);
-    i++
-  ) {
-    pageNumbers.push(i);
-  }
 
-  //console.log(pageNumbers);
+  if (Math.ceil(elementCount / paginationParams.PageCount) > 1) {
+    for (
+      let i = 1;
+      i <= Math.ceil(elementCount / paginationParams.PageCount);
+      i++
+    ) {
+      pageNumbers.push(i);
+    }
+  }
 
   return (
     <List>

@@ -11,23 +11,29 @@ import { Application } from "../../../types/application";
 import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
 import { ClipLoader } from "react-spinners";
 import { PaginationParameters } from "../../../types/paginationParameters";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Pagination } from "../../../components/pagination";
+import { MutationContext } from "../../../components/mutationContext";
+import { MutationContextType } from "../../../types/mutationContext";
 
 export const AnnouncementDetails = () => {
+  const { mutationData } = useContext<MutationContextType>(MutationContext);
+
   const { id } = useParams();
   const announcement = useGetAnnouncementSingle(id as string);
-  const announcementsPerPage = 5;
+  const applicationsPerPage = 3;
   const [paginationParams, setPaginationParams] =
     useState<PaginationParameters>({
-      PageNumber: 1,
-      PageCount: announcementsPerPage,
+      PageNumber: 0,
+      PageCount: applicationsPerPage,
     });
   const applications = useMyApplicationsShelter(
     id as string,
     paginationParams.PageNumber,
     paginationParams.PageCount
   );
+
+  useEffect(() => {}, [mutationData]);
 
   if (announcement.isLoading) {
     return (
@@ -58,15 +64,21 @@ export const AnnouncementDetails = () => {
           <div id="userlist">
             <ApplicationApplyList
               announcement={announcement?.data}
-              applications={applications.data?.applications as Application[]}
+              applications={
+                applications.response?.applications as Application[]
+              }
             />
           </div>
-          <Separator />
-          <Pagination
-            elementCount={applications.data ? applications.data.count : 1}
-            paginationParams={paginationParams}
-            setPaginationParams={setPaginationParams}
-          />
+          <div id="pagination">
+            <Separator />
+            <Pagination
+              elementCount={
+                applications.response ? applications.response?.count : 1
+              }
+              paginationParams={paginationParams}
+              setPaginationParams={setPaginationParams}
+            />
+          </div>
         </Container>
       )}
     </AnimatedPage>
@@ -100,7 +112,8 @@ const Container = styled.div`
     "image image shelter"
     "details details details"
     "details details details"
-    "user user user";
+    "user user user"
+    "page page page";
 
   grid-template-columns: 1fr 1fr 1fr;
 
@@ -126,5 +139,9 @@ const Container = styled.div`
 
   #userlist {
     grid-area: user;
+  }
+
+  #pagination {
+    grid-area: page;
   }
 `;

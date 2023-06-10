@@ -29,7 +29,7 @@ describe("NewAnnouncement", () => {
 
   it("renders a form for creating a new announcement", () => {
     // mock useMyPets to return some pets
-    useMyPets.mockReturnValue({ data: pets });
+    useMyPets.mockReturnValue({ response: pets });
 
     renderWithRouterAndQueryProvider(<NewAnnouncement />);
 
