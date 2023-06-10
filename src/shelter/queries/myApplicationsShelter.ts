@@ -1,6 +1,6 @@
 // import { useQuery } from "react-query"
 import { useContext } from "react";
-import { Application } from "../../types/application";
+//import { Application } from "../../types/application";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { useQuery } from "react-query";
