@@ -86,9 +86,10 @@ export const NewAnnouncement = () => {
           <Label htmlFor="pet-input">Pet:</Label>
           <List>
             {pets.response?.pets?.map((pet) => (
-              <div
+              <div id="pet-input"
                 onClick={() => {
-                  setPetID(pet.id);
+                        setPetID(pet.id);
+                        
                 }}
               >
                 <PetListElementNewAnnouncement

@@ -17,7 +17,7 @@ export const MyPets = () => {
     });
   const pets = useMyPets(paginationParams);
 
-  if (pets.query.isLoading) {
+  if (pets?.query?.isLoading) {
     return (
       <AnimatedPage>
         <CenteredBox>

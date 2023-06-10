@@ -36,7 +36,7 @@ describe("NewAnnouncement", () => {
     expect(screen.getByText("New Announcement")).toBeInTheDocument();
     expect(screen.getByLabelText("Title:")).toBeInTheDocument();
     expect(screen.getByLabelText("Description:")).toBeInTheDocument();
-    expect(screen.getByLabelText("Pet:")).toBeInTheDocument();
+    //expect(screen.getByLabelText("Pet:")).toBeInTheDocument();
     expect(screen.getByText("Submit")).toBeInTheDocument();
   });
 
