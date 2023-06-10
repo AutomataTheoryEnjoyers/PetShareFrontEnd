@@ -1,29 +1,27 @@
-import { useQuery, UseQueryResult } from "react-query";
+import { useQuery } from "react-query";
 import { BACKEND_URL } from "../../backendUrl";
 import { Report } from "../../types/report";
-import { mockReports } from "../../mocks/mockData"
+import { useContext } from "react";
+import { UserContextType } from "../../types/userContextType";
+import { UserContext } from "../../components/userContext";
 
-export const useReports = () => { //UseQueryResult<User[], unknown> => {
-    const reports = {
-        isLoading: false,
-        data: mockReports, 
-    }
+export const useReports = () => {
+    const { userData } = useContext<UserContextType>(UserContext);
 
-    return reports;
-    //const query = useQuery<User[]>("my-user", () =>
-    //    fetch(BACKEND_URL + "shelter/user", {
-    //        method: "GET",
-    //        headers: {
-    //            "Content-Type": "application/json",
-    //            accept: "text/plain",
-    //        },
-    //    })
-    //        .then((res) => res.json())
-    //        .then((res) =>
-    //            res.map((res: any) => ({
-    //                ...res,
-    //            }))
-    //        )
-    //);
-    //return query;
+    const query = useQuery<Report[]>("reports", () =>
+        fetch(BACKEND_URL + "reports", {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${userData?.accessToken}`,
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((res) =>
+                res.map((res: any) => ({
+                    ...res
+                }))
+            )
+    );
+    return query;
 };

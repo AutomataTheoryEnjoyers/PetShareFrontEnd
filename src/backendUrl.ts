@@ -1,3 +1,3 @@
-//export const BACKEND_URL = "https://petshare.azurewebsites.net/";
+export const BACKEND_URL = "https://petshare.azurewebsites.net/";
 // for local developement
-export const BACKEND_URL = "https://localhost:3000/";
+//export const BACKEND_URL = "https://localhost:3000/";

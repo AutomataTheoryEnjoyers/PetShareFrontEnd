@@ -33,7 +33,7 @@ export const ReportDetails = () => {
         (adopter) => adopter.id === currentReport.adopterId
     ) as User : null;
 
-    const announcements = useAnnouncements(null);
+    const announcements = useAnnouncements(null, false, null);
     const announcement = currentReport.announcementId ? announcements.data?.find(
         (announcement) => announcement.id === currentReport.announcementId
     ) as Announcement : null;
