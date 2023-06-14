@@ -1,30 +1,20 @@
 import styled from "styled-components";
-import { useMyUsers } from "../../queries/myUsers";
+
 import { Report } from "../../../types/report";
-import { User } from "../../../types/user";
+
 import { useParams } from "react-router-dom";
-import { UserDetailsElement } from "../../../components/userDetailsElement";
+
 import { AnimatedPage } from "../../../components/animatedPage";
 import { useReports } from "../../queries/reports";
 import { ReportDetailsElement } from "../../../components/reportDetailsElement";
-import { useAnnouncements } from "../../../queries/announcements";
-import { useShelters } from "../../queries/shelters";
-import { Announcement } from "../../../types/announcement";
-import { Shelter } from "../../../types/shelter";
-import { ShelterDetailsElement } from "../../../components/shelterDetails";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBan, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
+
 import { Title } from "../../../styles/global";
-import { useEffect, useState } from "react";
-import { ReportAnnouncementDetailsElement } from "../../../components/reportsAnnouncementElement";
-import { useMyAnnouncements } from "../../../shelter/queries/myAnnouncements";
-import { useGetUserSingle } from "../../queries/getUserSingle";
-import { useGetShelterSingle } from "../../queries/getShelterSingle";
-import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+
 import { ClipLoader } from "react-spinners";
-import { report } from "process";
+
 import { ShelterDetailsInReportElement } from "../../shelterDetailsInReport";
 import { AnnouncementDetailsInReportElement } from "../../announcementDetailsInReport";
+import { UserDetailsInReportElement } from "../../userDetailsInReportElement";
 
 type ConfirmationDialogProps = {
     handleConfirm: () => void;
@@ -80,25 +70,14 @@ export const ReportDetails = () => {
                         <ReportDetailsElement report={currentReport} />
                     </div>
                     <div id="user">
-                        {/*{adopter && <UserDetailsElement user={adopter.data!} />}*/}
+                        {currentReport.reportType === "adopter" && <UserDetailsInReportElement report={currentReport} />}
                         {currentReport.reportType === "announcement" && <AnnouncementDetailsInReportElement report={currentReport} />}
                         {currentReport.reportType === "shelter" && <ShelterDetailsInReportElement report={currentReport} />}
                     </div>
                     
-                    {/*<ConfirmationDialogBlock*/}
-                    {/*    handleConfirm={handleBlock}*/}
-                    {/*    handleCancel={handleBlock}*/}
-                    {/*/>*/}
-                </Container>
-                {/*{showDismissConfirmation && (*/}
-                {/*    <ConfirmationDialogDismiss*/}
-                {/*        handleConfirm={handleDismiss}*/}
-                {/*        handleCancel={handleDismiss}*/}
-                {/*    />*/}
-                {/*)}*/}
-                {/*{(*/}
                     
-                {/*)}*/}
+                </Container>
+                
             </AnimatedPage>
         )
     );

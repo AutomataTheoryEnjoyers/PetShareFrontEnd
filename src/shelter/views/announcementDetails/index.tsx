@@ -56,10 +56,10 @@ export const AnnouncementDetails = () => {
             <PetDetailsElement pet={announcement?.data.pet} />
           </div>
           <div id="shelter">
-                      <ShelterDetailsElement shelter={announcement?.data.pet.shelter} isAdmin={false} />
+                      <ShelterDetailsElement shelter={announcement?.data.pet.shelter} isAdmin={true} />
           </div>
           <div id="details">
-            <AnnouncementDetailsElement announcement={announcement?.data} />
+                      <AnnouncementDetailsElement announcement={announcement?.data} isFollowed={false} isShelter={true} />
           </div>
           <div id="userlist">
             <ApplicationApplyList

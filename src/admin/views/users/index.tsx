@@ -3,19 +3,44 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { UserListElement } from "../../../components/userListElement";
 import { Header } from "../../../components/header";
-import { useMyUsers } from "../../queries/myUsers";
+import { useUsers } from "../../queries/getUsers";
 import { DefaultFilterState, UserFiltersForm } from "../../../components/userFiltersForm";
 import { UserFilters } from "../../../types/userFilter";
+import { ClipLoader } from "react-spinners";
 
 export const Users = () => {
-    const { data: initialData } = useMyUsers();
+    const users = useUsers(null);
     const [formState, setFormState] = useState<UserFilters>(DefaultFilterState);
     const [sortedBy, setSortedBy] = useState<string | null>(null);
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-    const [data, setData] = useState(initialData);
+    
+    const initialData = users.response;
+    const [data, setData] = useState(initialData?.adopters);
+    useEffect(() => {
+        if (!users.query.isLoading) {
+            const sorted = [...initialData!.adopters].sort((a, b) => {
+                if (sortOrder === "asc") {
+                    return a.userName.localeCompare(b.userName);
+                } else {
+                    return b.userName.localeCompare(a.userName);
+                }
+            });
+            setData(sorted);
+        }
+    }, [initialData, formState, sortOrder]);
 
+    if (users.query.isLoading) {
+        return (
+            <AnimatedPage>
+                <Header>Users</Header>
+                <CenteredBox>
+                    <ClipLoader />
+                </CenteredBox>
+            </AnimatedPage>
+        );
+    }
     const sortUsers = (field: string) => {
-        const sortedUsers = [...data].sort((a, b) => {
+        const sortedUsers = [...data!].sort((a, b) => {
             if (sortOrder === "asc") {
                 return a.userName?.localeCompare(b.userName || "") || 0;
             } else {
@@ -28,21 +53,10 @@ export const Users = () => {
 
     const clearSort = () => {
         setSortedBy(null);
-        setData(initialData);
+        setData(initialData!.adopters);
     };
 
-    useEffect(() => {
-        if (initialData) {
-            const sorted = [...initialData].sort((a, b) => {
-                if (sortOrder === "asc") {
-                    return a.userName.localeCompare(b.userName);
-                } else {
-                    return b.userName.localeCompare(a.userName);
-                }
-            });
-            setData(sorted);
-        }
-    }, [initialData, formState, sortOrder]);
+    
 
     const toggleSortOrder = () => {
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -57,9 +71,6 @@ export const Users = () => {
                     <SortButton active={sortedBy === "username"} onClick={() => { toggleSortOrder(); sortUsers("username"); }}>
                         Sort by Username {sortedBy === "username" && (sortOrder === "asc" ? "▲" : "▼")}
                     </SortButton>
-                    {/*<SortButton active={sortedBy === "email"} onClick={() => sortUsers("email")}>*/}
-                    {/*    Sort by Email*/}
-                    {/*</SortButton>*/}
                     <SortButton active={sortedBy !== null} onClick={clearSort}>
                         Clear Sort
                     </SortButton>
@@ -124,4 +135,11 @@ const List = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+`
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
 `;

@@ -1,20 +1,26 @@
 import styled from "styled-components";
-import { useMyUsers } from "../../queries/myUsers";
-import { User } from "../../../types/user";
 import { useParams } from "react-router-dom";
-import { ImageElement } from "../../../components/ImageElement";
-import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { UserDetailsElement } from "../../../components/userDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
+import { useGetUserSingle } from "../../queries/getUserSingle";
+import { Header } from "../../../components/header";
+import { ClipLoader } from "react-spinners";
 
 export const UserDetails = () => {
     const { id } = useParams();
 
-    const users = useMyUsers();
-    const currentUser = users.data?.find(
-        (user) => user.id === id
-    ) as User;
-   
+    const currentUser = useGetUserSingle(id!);
+
+    if (currentUser.isLoading) {
+        return (
+            <AnimatedPage>
+                <Header>Users</Header>
+                <CenteredBox>
+                    <ClipLoader />
+                </CenteredBox>
+            </AnimatedPage>
+        );
+    }
 
     return (
         currentUser && (
@@ -22,7 +28,7 @@ export const UserDetails = () => {
                 <Container>
                     
                     <div id="user">
-                        <UserDetailsElement user={currentUser} />
+                        <UserDetailsElement user={currentUser.data!} />
                     </div>
                     
                 </Container>
@@ -49,4 +55,11 @@ const Container = styled.div`
   #user {
     grid-area: user;
   }
+`;
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
 `;

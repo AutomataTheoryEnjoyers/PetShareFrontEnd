@@ -13,10 +13,10 @@ import { PageUnauthorized } from "../views/pageUnauthorized";
 const RouteShelter: FC<{ children: React.ReactElement }> = ({ children }) => {
   const { userData } = useContext<UserContextType>(UserContext);
 
-  if (userData === null || userData?.role !== "shelter") {
-    console.log("User is not shelter");
-    return <PageUnauthorized />;
-  }
+  //if (userData === null || userData?.role !== "shelter") {
+  //  console.log("User is not shelter");
+  //  return <PageUnauthorized />;
+  //}
   return children;
 };
 

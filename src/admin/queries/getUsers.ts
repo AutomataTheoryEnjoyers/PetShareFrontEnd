@@ -1,20 +1,20 @@
 import { useQuery } from "react-query";
-import { ReportResponse } from "../../types/reportResponse";
+import { UserResponse } from "../../types/userResponse";
 import { BACKEND_URL } from "../../backendUrl";
 import { PaginationParameters } from "../../types/paginationParameters";
 import { UserContextType } from "../../types/userContextType";
 import { useContext } from "react";
 import { UserContext } from "../../components/userContext";
 
-export const useReports = (
+export const useUsers = (
     paginationParams: PaginationParameters | null
 ) => {
-    
+
     const { userData } = useContext<UserContextType>(UserContext);
-    const query = useQuery<ReportResponse>(
-        `my-announcements-page-${paginationParams?.PageNumber}`,
+    const query = useQuery<UserResponse>(
+        `users-page-${paginationParams?.PageNumber}`,
         () =>
-            fetch(BACKEND_URL + `reports`, {
+            fetch(BACKEND_URL + `adopter`, {
                 method: "GET",
                 headers: {
                     authorization: `Bearer ${userData?.accessToken}`,
@@ -25,15 +25,17 @@ export const useReports = (
 
     const response = query.isLoading
         ? null
-        : ({
-            reports: query.data?.reports.map(
-                (reportResponse: any) => ({
-                   ...reportResponse
-                })
-            ),
+        : {
+            adopters: query.data?.adopters.map((userResponse: any) => ({
+                ...userResponse,
+                isAuthorized: false,
+                address: {
+                    ...userResponse.address,
+                },
+            })),
             pageNumber: query.data?.pageNumber,
             count: query.data?.count,
-        } as ReportResponse);
+        } as UserResponse;
 
     console.log(response);
     return { query, response };

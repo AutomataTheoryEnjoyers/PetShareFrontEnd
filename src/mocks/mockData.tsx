@@ -37,7 +37,7 @@ export const mockUsers = [
     userName: "KononowiczKrzysztof",
     phoneNumber: "325232675",
     email: "warmianin@katolik.com",
-    status: "Active",
+    status: 0,
     address: mockAddresses[0],
   },
     {
@@ -45,7 +45,7 @@ export const mockUsers = [
     userName: "Meksikano",
     phoneNumber: "343232675",
     email: "natret@bialystok.com",
-    status: "Active",
+    status: 0,
     address: mockAddresses[1],
   },
     {
@@ -53,7 +53,7 @@ export const mockUsers = [
     userName: "MajorSuchek",
     phoneNumber: "343232675",
     email: "majorek@nitro.com",
-    status: "Active",
+    status: 0,
     address: mockAddresses[2],
   },
 ] as User[];
