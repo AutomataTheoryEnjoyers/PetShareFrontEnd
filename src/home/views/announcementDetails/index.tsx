@@ -27,33 +27,13 @@ export const AnnouncementDetails = () => {
   }
 
 
-    //const [showReportModal, setShowReportModal] = useState(false);
-    //const [reportReason, setReportReason] = useState("");
 
-    //const handleReportClick = () => {
-    //    setShowReportModal(true);
-    //};
-
-    //const handleSendReport = () => {
-    //    // Logic to handle sending the report
-    //    console.log("Report sent:", reportReason);
-    //    setShowReportModal(false);
-    //};
-
-    //const handleCancelReport = () => {
-    //    setShowReportModal(false);
-    //};
 
 
     return (
         announcement && (
             <AnimatedPage>
                 <Container>
-                    <div id="report-button">
-                        <ReportButton>
-                            <FontAwesomeIcon icon={faFlag} /> Report Announcement
-                        </ReportButton>
-                    </div>
                     <div id="image">
                         <ImageElementDetails pet={announcement.data!.pet} />
                     </div>

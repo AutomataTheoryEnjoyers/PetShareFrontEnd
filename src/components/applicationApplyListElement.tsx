@@ -76,7 +76,7 @@ export const ApplicationApplyListElement = ({ application }: Props) => {
         });
     }
 
-    const isVerified = useAdopterVerification(application.adopter.id);
+    const isVerified = useAdopterVerification(application.adopter.id, application.adopter.email!);
     if (isVerified.query.isLoading) {
         return (
             <AnimatedPage>
@@ -104,7 +104,7 @@ export const ApplicationApplyListElement = ({ application }: Props) => {
               <ButtonsContainer className="buttonContainer">
                   <ButtonRow>
                        
-                          <>
+                          
                           {isVerified.response?.isVerified && (
                               <FontAwesomeIcon
                                   className="check"
@@ -124,12 +124,12 @@ export const ApplicationApplyListElement = ({ application }: Props) => {
                                   onClick={useRejectApplication}
                           />
                               
-                      </>
+                      
                     
                      
                   </ButtonRow>
                   <ReportButtonContainer>
-                      {isVerified.response?.isVerified ? <ReportButton onClick={useVerifyAdopter} className="verified" disabled={true}>
+                      {isVerified.response?.isVerified ? <ReportButton className="verified" disabled={true}>
                           <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon> Adopter Verified
                       </ReportButton> : <ReportButton onClick={useVerifyAdopter} className="verify">
                           <FontAwesomeIcon icon={faCheckCircle}></FontAwesomeIcon> Verify Adopter

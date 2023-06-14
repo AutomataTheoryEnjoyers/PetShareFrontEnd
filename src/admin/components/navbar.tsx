@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { Link } from "../../components/navbarLink";
-
+import { LogoutButton } from "../../components/logoutButton";
 export const Navbar = () => {
   return (
     <Bar>
       <Header>PetShare-Shelter</Header>
       <Links>
         <Link name="Users" path="/admin/users" />
-        <Link name="Reports" path="/admin/reports" />
+              <Link name="Reports" path="/admin/reports" />
+        <LogoutButton/>
       </Links>
     </Bar>
   );

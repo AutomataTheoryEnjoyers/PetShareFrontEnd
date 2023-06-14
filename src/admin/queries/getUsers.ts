@@ -9,12 +9,22 @@ import { UserContext } from "../../components/userContext";
 export const useUsers = (
     paginationParams: PaginationParameters | null
 ) => {
-
+    const queryStringArray =
+        [
+            paginationParams?.PageNumber &&
+            `PageNumber=${encodeURIComponent(
+                JSON.stringify(paginationParams.PageNumber)
+            )}`,
+            paginationParams?.PageCount &&
+            `PageCount=${encodeURIComponent(
+                JSON.stringify(paginationParams.PageCount)
+            )}`,
+        ].filter((s) => !!s) ?? [];
     const { userData } = useContext<UserContextType>(UserContext);
     const query = useQuery<UserResponse>(
         `users-page-${paginationParams?.PageNumber}`,
         () =>
-            fetch(BACKEND_URL + `adopter`, {
+            fetch(BACKEND_URL + `adopter/?${queryStringArray.join("&")}`, {
                 method: "GET",
                 headers: {
                     authorization: `Bearer ${userData?.accessToken}`,
