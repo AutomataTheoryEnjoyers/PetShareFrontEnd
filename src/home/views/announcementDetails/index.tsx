@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
@@ -10,8 +9,22 @@ import { useAnnouncements } from "../../../queries/announcements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFlag } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+import { ClipLoader } from "react-spinners";
 
 export const AnnouncementDetails = () => {
+  const { id } = useParams();
+  const announcement = useGetAnnouncementSingle(id as string);
+
+  if (announcement.isLoading) {
+    return (
+      <AnimatedPage>
+        <CenteredBox>
+          <ClipLoader />
+        </CenteredBox>
+      </AnimatedPage>
+    );
+  }
     const { id } = useParams();
     const announcements = useAnnouncements(null, false, null);
     const currentAnnouncement = announcements.data?.find(
@@ -61,7 +74,35 @@ export const AnnouncementDetails = () => {
             </AnimatedPage>
         )
     );
+  return (
+    <AnimatedPage>
+      {announcement?.data && (
+        <Container>
+          <div id="image">
+            <ImageElementDetails pet={announcement?.data.pet} />
+          </div>
+          <div id="pet">
+            <PetDetailsElement pet={announcement?.data.pet} />
+          </div>
+          <div id="shelter">
+            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
+          </div>
+          <div id="details">
+            <AnnouncementDetailsElement announcement={announcement?.data} />
+          </div>
+        </Container>
+      )}
+    </AnimatedPage>
+  );
 };
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+`;
 
 const Container = styled.div`
   text-align: center;

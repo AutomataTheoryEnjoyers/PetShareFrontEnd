@@ -47,6 +47,7 @@ const DetailsSection = ({ prompt, children }: DetailsProps) => {
 
 const Separator = styled.hr`
   width: 100%;
+  margin: 0;
 `;
 
 const PetDetailsContainer = styled.div`

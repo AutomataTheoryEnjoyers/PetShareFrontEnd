@@ -1,4 +1,4 @@
 export type PaginationParameters = {
-    PageNumber: number;
-    PageCount: number;
+  PageNumber: number;
+  PageCount: number;
 };

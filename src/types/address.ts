@@ -6,3 +6,12 @@ export type Address = {
   postalCode?: string;
   country?: string;
 };
+
+export const dummyAddress = {
+  id: "",
+  street: "",
+  city: "",
+  province: "",
+  postalCode: "",
+  country: "",
+} as Address;
