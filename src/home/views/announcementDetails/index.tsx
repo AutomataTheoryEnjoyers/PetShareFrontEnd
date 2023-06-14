@@ -25,32 +25,28 @@ export const AnnouncementDetails = () => {
       </AnimatedPage>
     );
   }
-    const { id } = useParams();
-    const announcements = useAnnouncements(null, false, null);
-    const currentAnnouncement = announcements.data?.find(
-        (announcement) => announcement.id === id
-    ) as Announcement;
 
-    const [showReportModal, setShowReportModal] = useState(false);
-    const [reportReason, setReportReason] = useState("");
 
-    const handleReportClick = () => {
-        setShowReportModal(true);
-    };
+    //const [showReportModal, setShowReportModal] = useState(false);
+    //const [reportReason, setReportReason] = useState("");
 
-    const handleSendReport = () => {
-        // Logic to handle sending the report
-        console.log("Report sent:", reportReason);
-        setShowReportModal(false);
-    };
+    //const handleReportClick = () => {
+    //    setShowReportModal(true);
+    //};
 
-    const handleCancelReport = () => {
-        setShowReportModal(false);
-    };
+    //const handleSendReport = () => {
+    //    // Logic to handle sending the report
+    //    console.log("Report sent:", reportReason);
+    //    setShowReportModal(false);
+    //};
+
+    //const handleCancelReport = () => {
+    //    setShowReportModal(false);
+    //};
 
 
     return (
-        currentAnnouncement && (
+        announcement && (
             <AnimatedPage>
                 <Container>
                     <div id="report-button">
@@ -59,41 +55,21 @@ export const AnnouncementDetails = () => {
                         </ReportButton>
                     </div>
                     <div id="image">
-                        <ImageElementDetails pet={currentAnnouncement.pet} />
+                        <ImageElementDetails pet={announcement.data!.pet} />
                     </div>
                     <div id="pet">
-                        <PetDetailsElement pet={currentAnnouncement.pet} />
+                        <PetDetailsElement pet={announcement.data!.pet} />
                     </div>
                     <div id="shelter">
-                        <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
+                        <ShelterDetailsElement shelter={announcement.data!.pet.shelter} isAdmin={ false} />
                     </div>
                     <div id="details">
-                        <AnnouncementDetailsElement announcement={currentAnnouncement} />
+                        <AnnouncementDetailsElement announcement={announcement.data!} />
                     </div>
                 </Container>
             </AnimatedPage>
         )
     );
-  return (
-    <AnimatedPage>
-      {announcement?.data && (
-        <Container>
-          <div id="image">
-            <ImageElementDetails pet={announcement?.data.pet} />
-          </div>
-          <div id="pet">
-            <PetDetailsElement pet={announcement?.data.pet} />
-          </div>
-          <div id="shelter">
-            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
-          </div>
-          <div id="details">
-            <AnnouncementDetailsElement announcement={announcement?.data} />
-          </div>
-        </Container>
-      )}
-    </AnimatedPage>
-  );
 };
 
 const CenteredBox = styled.div`

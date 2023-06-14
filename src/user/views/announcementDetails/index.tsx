@@ -17,172 +17,157 @@ import { BACKEND_URL } from "../../../backendUrl";
 import { Application } from "../../../types/application";
 
 export const AnnouncementDetails = () => {
-  const { id } = useParams();
-  const [isApplicable, setIsApplicable] = useState<boolean>(true);
-  const announcement = useGetAnnouncementSingle(id as string);
-  const [applicationsLoading, setApplicationsLoading] =
-    useState<boolean>(false);
-  const [applicationsViewed, setApplicationsViewed] = useState<boolean>(false);
-  const [matchingApplication, setMatchingApplication] =
-    useState<Application | null>(null);
+    const { id } = useParams();
+    const [isApplicable, setIsApplicable] = useState<boolean>(true);
+    const announcement = useGetAnnouncementSingle(id as string);
+    const [applicationsLoading, setApplicationsLoading] =
+        useState<boolean>(false);
+    const [applicationsViewed, setApplicationsViewed] = useState<boolean>(false);
+    const [matchingApplication, setMatchingApplication] =
+        useState<Application | null>(null);
 
-  const { userData } = useContext<UserContextType>(UserContext);
+    const { userData } = useContext<UserContextType>(UserContext);
 
-  useEffect(() => {
-    const fetchMyApplicationsAdopter = async (
-      pageNumber: number,
-      pageCount: number
-    ) => {
-      const queryStringArray =
-        [
-          pageNumber &&
-            `PageNumber=${encodeURIComponent(JSON.stringify(pageNumber))}`,
-          pageCount &&
-            `PageCount=${encodeURIComponent(JSON.stringify(pageCount))}`,
-        ].filter((s) => !!s) ?? [];
+    useEffect(() => {
+        const fetchMyApplicationsAdopter = async (
+            pageNumber: number,
+            pageCount: number
+        ) => {
+            const queryStringArray =
+                [
+                    pageNumber &&
+                    `PageNumber=${encodeURIComponent(JSON.stringify(pageNumber))}`,
+                    pageCount &&
+                    `PageCount=${encodeURIComponent(JSON.stringify(pageCount))}`,
+                ].filter((s) => !!s) ?? [];
 
-      const response = await fetch(
-        `${BACKEND_URL}applications?${queryStringArray.join("&")}`,
-        {
-          method: "GET",
-          headers: {
-            authorization: `Bearer ${userData?.accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const responseDecoded = await response.json();
-      console.log(responseDecoded);
-      return responseDecoded as ApplicationResponse;
-    };
-
-    const checkApplications = async () => {
-      // Skaranie boskie
-      setApplicationsLoading(true);
-      const responseFirst = (await fetchMyApplicationsAdopter(
-        0,
-        100
-      )) as ApplicationResponse;
-      const foundApplications = responseFirst.applications.filter(
-        (application) =>
-          id === application.announcementId &&
-          application.applicationStatus === "Created"
-            ? true
-            : false
-      );
-      console.log(foundApplications);
-      if (foundApplications.length > 0) {
-        setIsApplicable(false);
-        setMatchingApplication(foundApplications[0]);
-      }
-
-      if (foundApplications.length <= 0 && responseFirst.count > 100) {
-        for (let i = 1; i < Math.ceil(responseFirst.count / 100); i++) {
-          const response = (await fetchMyApplicationsAdopter(
-            i,
-            100
-          )) as ApplicationResponse;
-          const foundApplications = response.applications.filter(
-            (application) => (id === application.announcementId ? true : false)
-          );
-          if (foundApplications.length > 0) {
-            setIsApplicable(false);
-            setMatchingApplication(foundApplications[0]);
-          }
-        }
-      }
-      setApplicationsViewed(true);
-      setApplicationsLoading(false);
-    };
-
-    if (applicationsViewed === false) {
-      checkApplications();
-    }
-  }, [
-    applicationsLoading,
-    id,
-    matchingApplication,
-    userData?.accessToken,
-    applicationsViewed,
-  ]);
-
-  const mutateApplicationPost = usePostApplication();
-  const mutateApplicationWithdraw = usePutApplicationWithdraw();
-
-  const useHandlePostApplication = async () => {
-    mutateApplicationPost(id as string, {
-      onSuccess: () => setIsApplicable(false),
-    });
-  };
-  const useWithdrawApplication = async () => {
-    mutateApplicationWithdraw(matchingApplication?.id as string, {
-      onSuccess: () => setIsApplicable(true),
-    });
-  };
-
-  if (announcement.isLoading) {
-    return (
-      <AnimatedPage>
-        <CenteredBox>
-          <ClipLoader />
-        </CenteredBox>
-      </AnimatedPage>
-    );
-  }
-
-  return (
-    <AnimatedPage>
-      {announcement?.data && (
-        <Container>
-          <div id="image">
-            <ImageElementDetails pet={announcement?.data.pet} />
-          </div>
-          <div id="pet">
-            <PetDetailsElement pet={announcement?.data.pet} />
-          </div>
-          <div id="shelter">
-            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
-          </div>
-          <div id="details">
-            <AnnouncementDetailsElement announcement={announcement?.data} />
-          </div>
-          <div id="apply-button">
-            {applicationsLoading ? (
-              <CenteredBox>
-                <ClipLoader />
-              </CenteredBox>
-            ) : (
-              <ApplyButton
-                isApplicable={isApplicable}
-                onClick={
-                  isApplicable
-                    ? useHandlePostApplication
-                    : useWithdrawApplication
+            const response = await fetch(
+                `${BACKEND_URL}applications?${queryStringArray.join("&")}`,
+                {
+                    method: "GET",
+                    headers: {
+                        authorization: `Bearer ${userData?.accessToken}`,
+                        "Content-Type": "application/json",
+                    },
                 }
-              >
-                {isApplicable ? "Adopt!" : "Withdraw"}
-              </ApplyButton>
+            );
+            const responseDecoded = await response.json();
+            console.log(responseDecoded);
+            return responseDecoded as ApplicationResponse;
+        };
+
+        const checkApplications = async () => {
+            // Skaranie boskie
+            setApplicationsLoading(true);
+            const responseFirst = (await fetchMyApplicationsAdopter(
+                0,
+                100
+            )) as ApplicationResponse;
+            const foundApplications = responseFirst.applications.filter(
+                (application) =>
+                    id === application.announcementId &&
+                        application.applicationStatus === "Created"
+                        ? true
+                        : false
+            );
+            console.log(foundApplications);
+            if (foundApplications.length > 0) {
+                setIsApplicable(false);
+                setMatchingApplication(foundApplications[0]);
+            }
+
+            if (foundApplications.length <= 0 && responseFirst.count > 100) {
+                for (let i = 1; i < Math.ceil(responseFirst.count / 100); i++) {
+                    const response = (await fetchMyApplicationsAdopter(
+                        i,
+                        100
+                    )) as ApplicationResponse;
+                    const foundApplications = response.applications.filter(
+                        (application) => (id === application.announcementId ? true : false)
+                    );
+                    if (foundApplications.length > 0) {
+                        setIsApplicable(false);
+                        setMatchingApplication(foundApplications[0]);
+                    }
+                }
+            }
+            setApplicationsViewed(true);
+            setApplicationsLoading(false);
+        };
+
+        if (applicationsViewed === false) {
+            checkApplications();
+        }
+    }, [
+        applicationsLoading,
+        id,
+        matchingApplication,
+        userData?.accessToken,
+        applicationsViewed,
+    ]);
+
+    const mutateApplicationPost = usePostApplication();
+    const mutateApplicationWithdraw = usePutApplicationWithdraw();
+
+    const useHandlePostApplication = async () => {
+        mutateApplicationPost(id as string, {
+            onSuccess: () => setIsApplicable(false),
+        });
+    };
+    const useWithdrawApplication = async () => {
+        mutateApplicationWithdraw(matchingApplication?.id as string, {
+            onSuccess: () => setIsApplicable(true),
+        });
+    };
+
+    if (announcement.isLoading) {
+        return (
+            <AnimatedPage>
+                <CenteredBox>
+                    <ClipLoader />
+                </CenteredBox>
+            </AnimatedPage>
+        );
+    }
+
+    return (
+        <AnimatedPage>
+            {announcement?.data && (
+                <Container>
+                    <div id="image">
+                        <ImageElementDetails pet={announcement?.data.pet} />
+                    </div>
+                    <div id="pet">
+                        <PetDetailsElement pet={announcement?.data.pet} />
+                    </div>
+                    <div id="shelter">
+                        <ShelterDetailsElement shelter={announcement?.data.pet.shelter} isAdmin={false} />
+                    </div>
+                    <div id="details">
+                        <AnnouncementDetailsElement announcement={announcement?.data} />
+                    </div>
+                    <div id="apply-button">
+                        {applicationsLoading ? (
+                            <CenteredBox>
+                                <ClipLoader />
+                            </CenteredBox>
+                        ) : (
+                            <ApplyButton
+                                isApplicable={isApplicable}
+                                onClick={
+                                    isApplicable
+                                        ? useHandlePostApplication
+                                        : useWithdrawApplication
+                                }
+                            >
+                                {isApplicable ? "Adopt!" : "Withdraw"}
+                            </ApplyButton>
+                        )}
+                    </div>
+                </Container>
             )}
-          </div>
-            <ApplyButton
-              isApplicable={isApplicable}
-              onClick={() => {
-                /*adopt function*/
-              }}
-            >
-              {isApplicable ? "Adopt!" : "Withdraw"}
-            </ApplyButton>
-                  </div>
-                  <div id="report-button">
-                      <ReportButton>
-                        Report Announcement
-                      </ReportButton>
-                    
-                  </div>
-        </Container>
-      )}
-    </AnimatedPage>
-  );
+        </AnimatedPage>
+    );
 };
 
 const ApplyButton = styled.div<{ isApplicable: boolean }>`
@@ -190,7 +175,7 @@ const ApplyButton = styled.div<{ isApplicable: boolean }>`
   align-items: center;
   justify-content: center;
   background: ${(props) =>
-    props.isApplicable ? props.theme.colors.main : props.theme.colors.tomato};
+        props.isApplicable ? props.theme.colors.main : props.theme.colors.tomato};
   color: #fff;
   border: 0;
   border-radius: 5px;
@@ -205,25 +190,10 @@ const ApplyButton = styled.div<{ isApplicable: boolean }>`
 
   :hover {
     background: ${(props) =>
-      props.isApplicable
-        ? props.theme.colors.darkGreen
-        : props.theme.colors.darkTomato};
+        props.isApplicable
+            ? props.theme.colors.darkGreen
+            : props.theme.colors.darkTomato};
   }
-`;
-const ReportButton = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    background-color: red;
-        
-    padding: 12px 24px; /* Increase the padding to make the buttons bigger */
-    font-size: 16px; /* Increase the font size */
 `;
 
 const Container = styled.div`

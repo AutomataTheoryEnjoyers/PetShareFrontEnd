@@ -11,15 +11,13 @@ type Props = {
 
 export const ReportListElement = ({ report }: Props) => {
   const renderIcon = () => {
-    if (report.announcementId !== null) {
+    if (report.reportType == "announcement") {
       return <FontAwesomeIcon icon={faBullhorn} size="2x"/>;
-    } else if (report.adopterId !== null) {
+    } else if (report.reportType == "adopter") {
         return <FontAwesomeIcon icon={faUser} size="2x" />;
-    } else if (report.shelterId !== null) {
-        return <FontAwesomeIcon icon={faHome} size="2x" />;
     } else {
-      return null;
-    }
+        return <FontAwesomeIcon icon={faHome} size="2x" />;
+    } 
   };
 
   return (
@@ -27,7 +25,7 @@ export const ReportListElement = ({ report }: Props) => {
       <Container>
         <LeftContainer>
                   <Title>Report ID: {report.id}</Title>
-          <BottomText>{report.reason}</BottomText>
+          <BottomText>{report.message}</BottomText>
         </LeftContainer>
         <RightContainer>
           {renderIcon()}

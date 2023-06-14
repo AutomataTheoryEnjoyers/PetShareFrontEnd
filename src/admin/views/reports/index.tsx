@@ -4,18 +4,24 @@ import { ReportListElement } from "../../../components/reportListElement";
 import { Header } from "../../../components/header";
 import { useReports } from "../../queries/reports";
 export const Reports = () => {
-    const { data } = useReports();
+    const reports = useReports(null);
     return (
         <AnimatedPage>
             <Header>Reports</Header>
             <List>
-                {data?.map((report) => (
+                {reports.response?.reports.map((report) => (
                     <ReportListElement
                         key={report.id}
                         report={report}
                     />
                 ))}
             </List>
+            {/*<Separator />*/}
+            {/*<Pagination*/}
+            {/*    elementCount={announcements.response ? announcements.response.count : 1}*/}
+            {/*    paginationParams={paginationParams}*/}
+            {/*    setPaginationParams={setPaginationParams}*/}
+            {/*/>*/}
         </AnimatedPage>
     );
 };

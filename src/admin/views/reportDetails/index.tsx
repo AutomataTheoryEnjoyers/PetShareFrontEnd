@@ -15,44 +15,59 @@ import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan, faTrash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { Title } from "../../../styles/global";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReportAnnouncementDetailsElement } from "../../../components/reportsAnnouncementElement";
 import { useMyAnnouncements } from "../../../shelter/queries/myAnnouncements";
+import { useGetUserSingle } from "../../queries/getUserSingle";
+import { useGetShelterSingle } from "../../queries/getShelterSingle";
+import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+import { ClipLoader } from "react-spinners";
+import { report } from "process";
+import { ShelterDetailsInReportElement } from "../../shelterDetailsInReport";
+import { AnnouncementDetailsInReportElement } from "../../announcementDetailsInReport";
 
+type ConfirmationDialogProps = {
+    handleConfirm: () => void;
+    handleCancel: () => void;
+};
 
 export const ReportDetails = () => {
     const { id } = useParams();
 
-    const reports = useReports();
-    const currentReport = reports.data?.find(
+    const reports = useReports(null);
+    const currentReport = reports?.response?.reports?.find(
         (report) => report.id === id
     ) as Report;
+    if (reports.query.isLoading) {
+        return (
+            <AnimatedPage>
+                <CenteredBox>
+                    <ClipLoader />
+                </CenteredBox>
+            </AnimatedPage>
+        );
+    }
 
-    const users = useMyUsers();
-    const adopter = currentReport.adopterId ? users.data?.find(
-        (adopter) => adopter.id === currentReport.adopterId
-    ) as User : null;
+    //const users = useMyUsers();
+    //const adopter = currentReport.reportType == "adopter" ? useGetUserSingle(currentReport.targetId) : null;
 
-    const announcements = useAnnouncements(null, false, null);
-    const announcement = currentReport.announcementId ? announcements.data?.find(
-        (announcement) => announcement.id === currentReport.announcementId
-    ) as Announcement : null;
+    //const shelter = currentReport.reportType == "shelter" ? useGetShelterSingle(currentReport.targetId) : null;
 
-    const shelters = useShelters();
-    const shelter = !currentReport.announcementId && currentReport.shelterId ? shelters.data?.find(
-        (shelter) => shelter.id === currentReport.shelterId
-    ) as Shelter : null;
+
+    //const announcement = currentReport.reportType == "announcement" ? useGetAnnouncementSingle(currentReport.targetId) : null;
     
-    const [showDismissConfirmation, setShowDismissConfirmation] = useState(false);
-    const [showBlockConfirmation, setShowBlockConfirmation] = useState(false);
-    const handleDismiss = () => {
-        setShowDismissConfirmation(true);
-    };
+    //const [showDismissConfirmation, setShowDismissConfirmation] = useState(false);
+    //const [showBlockConfirmation, setShowBlockConfirmation] = useState(false);
+    //const handleDismiss = () => {
+    //    //setShowDismissConfirmation(true);
+    //};
     
 
-    const handleBlock = () => {
-        setShowBlockConfirmation(true);
-    };
+    //const handleBlock = () => {
+    //    setShowBlockConfirmation(true);
+    //};
+
+    
 
     return (
         currentReport && (
@@ -65,41 +80,25 @@ export const ReportDetails = () => {
                         <ReportDetailsElement report={currentReport} />
                     </div>
                     <div id="user">
-                        {adopter && <UserDetailsElement user={adopter} />}
-                        {announcement && <ReportAnnouncementDetailsElement announcement={announcement} />}
-                        {shelter && <ShelterDetailsElement shelter={shelter} />}
+                        {/*{adopter && <UserDetailsElement user={adopter.data!} />}*/}
+                        {currentReport.reportType === "announcement" && <AnnouncementDetailsInReportElement report={currentReport} />}
+                        {currentReport.reportType === "shelter" && <ShelterDetailsInReportElement report={currentReport} />}
                     </div>
-                    <div id="buttons">
-                    <ButtonsContainer>
-                        <Button onClick={handleDismiss} className="dismiss">
-                                <FontAwesomeIcon icon={faTrash} />{"Dismiss Report"}
-                        </Button>
-                        <Button onClick={handleBlock} className="block">
-                                {currentReport.announcementId ? <FontAwesomeIcon icon={faXmark} /> : <FontAwesomeIcon icon={faBan} />}{" "}
-                            {currentReport.adopterId ? "Block User" :
-                                currentReport.announcementId ? "Remove Announcement" : "Block Shelter"} 
-                        </Button>
-                        </ButtonsContainer>
-                    </div>
-                
-                {(showDismissConfirmation || showBlockConfirmation) && (
-                    <ConfirmationDialog>
-                        <div className="dialog-window">
-                                <p className="message">{showDismissConfirmation ?
-                                    "Are you sure you want to dismiss the report? It will be permanently removed." :
-                                    currentReport.announcementId ? "Are you sure you want to permanently remove the announcement?"
-                                        : currentReport.adopterId ? "Are you sure you want to block this user?"
-                                        : "Are you sure you want to block this shelter?"}</p>
-                            <div className="buttons">
-                                <Button className="confirm">Confirm</Button>
-                                    <Button className="cancel" onClick={() =>
-                                    { setShowDismissConfirmation(false); setShowBlockConfirmation(false); }}>Cancel</Button>
-                            </div>
-                        </div>
-                    </ConfirmationDialog>
-
-                    )}
+                    
+                    {/*<ConfirmationDialogBlock*/}
+                    {/*    handleConfirm={handleBlock}*/}
+                    {/*    handleCancel={handleBlock}*/}
+                    {/*/>*/}
                 </Container>
+                {/*{showDismissConfirmation && (*/}
+                {/*    <ConfirmationDialogDismiss*/}
+                {/*        handleConfirm={handleDismiss}*/}
+                {/*        handleCancel={handleDismiss}*/}
+                {/*    />*/}
+                {/*)}*/}
+                {/*{(*/}
+                    
+                {/*)}*/}
             </AnimatedPage>
         )
     );
@@ -113,7 +112,7 @@ const Container = styled.div`
   min-height: 60vh;
   grid-template-areas:
     "title title title"
-    "report report user"
+    "user report report"
     "buttons buttons buttons";
 
   grid-template-columns: 1fr 1fr 1fr;
@@ -170,41 +169,14 @@ const Button = styled.button`
     font-size: 16px; /* Increase the font size */
 `;
 
-const ConfirmationDialog = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
 
-    .dialog-window {
-        width: 300px;
-        height: 300px;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
 
-    .message {
-        margin-bottom: 20px;
-    }
-
-    .buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-    }
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
 `;
-
-
 
 

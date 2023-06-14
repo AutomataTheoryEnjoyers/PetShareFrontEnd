@@ -5,8 +5,8 @@ import { renderWithRouter } from "../testUtils/functions";
 import { mockAnnouncements } from "../../mocks/mockData";
 
 test("renders PetDetailsElement component", () => {
-  const {} = renderWithRouter(
-    <ShelterDetailsElement shelter={mockAnnouncements[0].pet.shelter} />
+    const { } = renderWithRouter(
+        <ShelterDetailsElement shelter={mockAnnouncements[0].pet.shelter} isAdmin={false}/>
   );
 
   expect(

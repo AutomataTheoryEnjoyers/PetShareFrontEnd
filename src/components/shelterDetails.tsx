@@ -13,10 +13,11 @@ import { usePostReport } from "../home/mutations/PostReport";
 
 
 type Props = {
-  shelter: Shelter;
+    shelter: Shelter;
+    isAdmin: boolean;
 };
 
-export const ShelterDetailsElement = ({ shelter }: Props) => {
+export const ShelterDetailsElement = ({ shelter, isAdmin}: Props) => {
     const [showReportModal, setShowReportModal] = useState(false);
     const [reportReason, setReportReason] = useState("");
     const mutatePostReport = usePostReport();
@@ -50,12 +51,14 @@ export const ShelterDetailsElement = ({ shelter }: Props) => {
         <FontAwesomeIcon icon={faEnvelope} /> {shelter.email}
       </DetailsSection>
 
-      <Separator />
-      <TileDetails>Address:</TileDetails>
-      <TextDetails>{shelter.address.street}</TextDetails>
-      <TextDetails>{shelter.address.province}</TextDetails>
+          <Separator />
+
+          <TileDetails>Address:</TileDetails>
+      <TileDetails>{shelter.address.street}</TileDetails>
+              <TextDetails>{shelter.address.province}</TextDetails>
+          
           <TextDetails>{shelter.address.country}</TextDetails>
-          <ReportButton onClick={handleReportClick}><FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>Report Shelter</ReportButton>
+          {!isAdmin && (<ReportButton onClick={handleReportClick}><FontAwesomeIcon icon={faFlag}></FontAwesomeIcon>Report Shelter</ReportButton>)}
           {showReportModal && (
               <ReportModal>
                   <ModalContent>

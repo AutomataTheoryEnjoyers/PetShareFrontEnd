@@ -1,7 +1,7 @@
 export type Report = {
     id: string;
-    reason: string;
-    shelterId?: string | null;
-    announcementId?: string | null;
-    adopterId?: string | null;
+    targetId: string;
+    message: string;
+    reportType: string,
+    state: string,
 };

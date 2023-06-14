@@ -56,7 +56,7 @@ export const AnnouncementDetails = () => {
             <PetDetailsElement pet={announcement?.data.pet} />
           </div>
           <div id="shelter">
-            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
+                      <ShelterDetailsElement shelter={announcement?.data.pet.shelter} isAdmin={false} />
           </div>
           <div id="details">
             <AnnouncementDetailsElement announcement={announcement?.data} />
