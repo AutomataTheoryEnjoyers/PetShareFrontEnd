@@ -1,5 +1,5 @@
 import { UseMutateAsyncFunction, useMutation } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { BACKEND_URL, SHELTER_URL } from "../../backendUrl";
 import { NewShelter } from "../../types/newShelter";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
@@ -14,7 +14,7 @@ export const usePostNewShelter = () => {
 
   const { mutateAsync, isError } = useMutation(
     (shelter: NewShelter) =>
-      fetch(BACKEND_URL + "shelter", {
+      fetch(SHELTER_URL + "shelter", {
         method: "POST",
         body: JSON.stringify(shelter),
         headers: {

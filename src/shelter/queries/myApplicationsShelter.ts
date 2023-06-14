@@ -4,7 +4,7 @@ import { Application } from "../../types/application";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 
 export const useMyApplicationsShelter = (announcementId: string) => {
   const { userData } = useContext<UserContextType>(UserContext);
@@ -12,7 +12,7 @@ export const useMyApplicationsShelter = (announcementId: string) => {
   const query = useQuery<Application[]>(
     "my-applications-per-announcement",
     () =>
-      fetch(BACKEND_URL + "applications/" + announcementId, {
+      fetch(ADOPTER_URL + "applications/" + announcementId, {
         method: "GET",
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,

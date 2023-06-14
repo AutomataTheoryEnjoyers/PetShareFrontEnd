@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../backendUrl";
+import { ANNOUNCEMENT_URL, BACKEND_URL } from "../backendUrl";
 import { Announcement } from "../types/announcement";
 import { AnnouncementFilters } from "../types/announcementFilter";
 
@@ -18,7 +18,7 @@ export const useAnnouncements = (filters: AnnouncementFilters | null) => {
   console.log(`announcements?${queryStringArray.join("&")}`);
 
   const query = useQuery<Announcement[]>("my-announcements", () =>
-    fetch(BACKEND_URL + `announcements?${queryStringArray.join("&")}`, {
+    fetch(ANNOUNCEMENT_URL + `announcements?${queryStringArray.join("&")}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

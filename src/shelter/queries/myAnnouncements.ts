@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ANNOUNCEMENT_URL } from "../../backendUrl";
 import { Announcement } from "../../types/announcement";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
@@ -9,7 +9,7 @@ export const useMyAnnouncements = () => {
   const { userData } = useContext<UserContextType>(UserContext);
 
   const query = useQuery<Announcement[]>("my-announcements", () =>
-    fetch(BACKEND_URL + "shelter/announcements", {
+    fetch(ANNOUNCEMENT_URL + "shelter/announcements", {
       method: "GET",
       headers: {
         authorization: `Bearer ${userData?.accessToken}`,

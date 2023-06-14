@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ANNOUNCEMENT_URL } from "../../backendUrl";
 import { NewAnnouncement } from "../../types/newAnnouncement";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
@@ -10,7 +10,7 @@ export const usePostAnnouncement = () => {
 
   const { mutateAsync } = useMutation(
     (announcement: NewAnnouncement) =>
-      fetch(BACKEND_URL + "announcements", {
+      fetch(ANNOUNCEMENT_URL + "announcements", {
         method: "POST",
         body: JSON.stringify(announcement),
         headers: {
