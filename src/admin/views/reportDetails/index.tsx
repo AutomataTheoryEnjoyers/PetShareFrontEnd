@@ -27,10 +27,6 @@ export const ReportDetails = () => {
         );
     }
 
-    
-
-    
-
     return (
         currentReport && (
             <AnimatedPage>
@@ -45,11 +41,8 @@ export const ReportDetails = () => {
                         {currentReport.reportType === "adopter" && <UserDetailsInReportElement report={currentReport} />}
                         {currentReport.reportType === "announcement" && <AnnouncementDetailsInReportElement report={currentReport} />}
                         {currentReport.reportType === "shelter" && <ShelterDetailsInReportElement report={currentReport} />}
-                    </div>
-                    
-                    
-                </Container>
-                
+                    </div>        
+                </Container>        
             </AnimatedPage>
         )
     );
@@ -63,8 +56,7 @@ const Container = styled.div`
   min-height: 60vh;
   grid-template-areas:
     "title title title"
-    "user report report"
-    "buttons buttons buttons";
+    "user report report";
 
   grid-template-columns: 1fr 1fr 1fr;
 

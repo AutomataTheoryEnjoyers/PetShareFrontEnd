@@ -17,9 +17,6 @@ import { MutationContext } from "./mutationContext";
 import { MutationContextType } from "../types/mutationContext";
 import { usePutAdopterVerify } from "../shelter/mutations/putAdopterVerify";
 import { useAdopterVerification } from "../shelter/queries/adopterVerification";
-import { AnimatedPage } from "./animatedPage";
-import { ClipLoader } from "react-spinners";
-import { Header } from "./header";
 import { usePostReport } from "../home/mutations/PostReport";
 
 type HoverState = "None" | "Check" | "Cross";
@@ -77,18 +74,8 @@ export const ApplicationApplyListElement = ({ application }: Props) => {
     }
 
     const isVerified = useAdopterVerification(application.adopter.id, application.adopter.email!);
-    if (isVerified.query.isLoading) {
-        return (
-            <AnimatedPage>
-                <Header>Announcements</Header>
-                <CenteredBox>
-                    <ClipLoader />
-                </CenteredBox>
-            </AnimatedPage>
-        );
-    }
 
-  return (
+    return (
     <ApplicationContainer hoverState={hoverState}>
       <UsernameText>
         {application.adopter.userName} <FontAwesomeIcon icon={faUser} />
@@ -238,14 +225,6 @@ const UsernameText = styled.h2`
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;
-`;
-
-const CenteredBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
-  justify-items: center;
 `;
 
 const ReportButtonContainer = styled.div`

@@ -49,6 +49,7 @@ const CenteredBox = styled.div`
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  height: 100%;
   justify-items: center;
 `;
 
@@ -56,11 +57,9 @@ const Container = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   padding: 12px;
-  padding-bottom: 20px;
   background-color: ${(props) => props.theme.colors.powderWhite};
   text-align: left;
-  height: 100%;
-  height: min(60vh, 600px);
+  height: 520px !important;
 `;
 
 const TopContainer = styled.div`

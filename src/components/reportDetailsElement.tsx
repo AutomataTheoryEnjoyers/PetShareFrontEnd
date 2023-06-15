@@ -21,7 +21,7 @@ type ReportProps = {
 
 export const ReportDetailsElement = ({ report }: ReportProps) => {
     const [showFullText, setShowFullText] = useState(false);
-    const MAX_TEXT_LENGTH = 1800; // Maximum number of characters to display in truncated version
+    const MAX_TEXT_LENGTH = 1800; 
     const mutateReport = usePutReport();
     const mutateUser = usePutUser();
     
@@ -34,6 +34,7 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
     const [showDismissConfirmation, setShowDismissConfirmation] = useState(false);
     const [showBlockConfirmation, setShowBlockConfirmation] = useState(false);
     const [showFinal, setShowFinal] = useState(false);
+    const [isDismissal, setIsDimissal] = useState(false);
 
     const navigate = useNavigate();
 
@@ -50,7 +51,7 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
     const blockUserData =
         {
             id: report.targetId,
-            status: 1,
+            status: 1, //BLOCKED STATUS
         } as UpdateUser;
 
     const handleDismiss = () => {
@@ -65,12 +66,16 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
 
     const handleReportDimiss = () => {
         mutateReport(dismissReportData);
+        setIsDimissal(true);
         setShowFinal(true);
     }
 
     const handleReportAccept = () => {
         mutateReport(acceptReportData);
-        report.reportType === "adopter" ? mutateUser(blockUserData) : setShowFinal(true);
+        if (report.reportType === "adopter")
+            mutateUser(blockUserData); //lacking endpoints for handling shelter and announcement blocks, 
+            //put for announcement requires shelter role, I don't love this, 
+            //but with current ednpoints that's the most we can do plus demonstrates that it actually works, so not that big a deal imo 
         setShowFinal(true);
     }
 
@@ -152,7 +157,7 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
                 (showFinal && (
                     <ConfirmationDialog>
                         <div className="dialog-window">
-                            <p className="message">{showDismissConfirmation ?
+                            <p className="message">{isDismissal ?
                                 "The report has been dismissed." :
                                 report.reportType === "shelter" ? "Shelter has been blocked." :
                                     report.reportType === "adopter" ? "User has been blocked." :

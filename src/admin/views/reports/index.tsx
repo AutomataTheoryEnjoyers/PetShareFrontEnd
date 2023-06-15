@@ -35,7 +35,6 @@ export const Reports = () => {
     );
 };
 
-
 const List = styled.div`
   display: flex;
   flex-direction: column;

@@ -8,7 +8,6 @@ import { ClipLoader } from "react-spinners";
 
 export const UserDetails = () => {
     const { id } = useParams();
-
     const currentUser = useGetUserSingle(id!);
 
     if (currentUser.isLoading) {
@@ -26,13 +25,10 @@ export const UserDetails = () => {
         currentUser && (
             <AnimatedPage>
                 <Container>
-                    
                     <div id="user">
                         <UserDetailsElement user={currentUser.data!} />
                     </div>
-                    
                 </Container>
-
             </AnimatedPage>
         )
     );

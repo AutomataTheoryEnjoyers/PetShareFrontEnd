@@ -1,4 +1,5 @@
-﻿import { useEffect, useState } from "react";
+﻿// eslint-disable-next-line
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { UserListElement } from "../../../components/userListElement";
@@ -7,13 +8,21 @@ import { useUsers } from "../../queries/getUsers";
 import { DefaultFilterState, UserFiltersForm } from "../../../components/userFiltersForm";
 import { UserFilters } from "../../../types/userFilter";
 import { ClipLoader } from "react-spinners";
+import { PaginationParameters } from "../../../types/paginationParameters";
+import { Pagination } from "../../../components/pagination";
 
 export const Users = () => {
-    const users = useUsers(null);
+    const usersPerPage = 5;
+    const [paginationParams, setPaginationParams] =
+        useState<PaginationParameters>({
+            PageNumber: 0,
+            PageCount: usersPerPage,
+        });
+    const users = useUsers(paginationParams);
     const [formState, setFormState] = useState<UserFilters>(DefaultFilterState);
     const [sortedBy, setSortedBy] = useState<string | null>(null);
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
-    
+
     const initialData = users.response;
     const [data, setData] = useState(initialData?.adopters);
     useEffect(() => {
@@ -27,7 +36,7 @@ export const Users = () => {
             });
             setData(sorted);
         }
-    }, [initialData, formState, sortOrder]);
+    }, [initialData, formState, sortOrder, users.query.isLoading]);
 
     if (users.query.isLoading) {
         return (
@@ -56,7 +65,7 @@ export const Users = () => {
         setData(initialData!.adopters);
     };
 
-    
+
 
     const toggleSortOrder = () => {
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -69,19 +78,24 @@ export const Users = () => {
             <SortSection>
                 <SortButtons>
                     <SortButton active={sortedBy === "username"} onClick={() => { toggleSortOrder(); sortUsers("username"); }}>
-                        Sort by Username {sortedBy === "username" && (sortOrder === "asc" ? "▲" : "▼")}
+                        Sort by Username {sortedBy === "username" && (sortOrder === "asc" ? "asc" : "desc")}
                     </SortButton>
                     <SortButton active={sortedBy !== null} onClick={clearSort}>
                         Clear Sort
                     </SortButton>
                 </SortButtons>
-                
+
             </SortSection>
             <List>
                 {data?.map((user) => (
                     <UserListElement key={user.id} user={user} />
                 ))}
             </List>
+            <Pagination
+                elementCount={users.response ? users.response.count : 1}
+                paginationParams={paginationParams}
+                setPaginationParams={setPaginationParams}
+            />
         </AnimatedPage>
     );
 };
@@ -96,7 +110,7 @@ const SortButtons = styled.div`
   gap: 10px;
   margin-bottom: 10px;
 `;
- 
+
 const SortButton = styled.button<{ active: boolean }>`
   padding: 5px 10px;
   background-color: lightblue;

@@ -3,10 +3,14 @@ import "@testing-library/jest-dom";
 import { ShelterDetailsElement } from "../shelterDetails";
 import { renderWithRouter } from "../testUtils/functions";
 import { mockAnnouncements } from "../../mocks/mockData";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 test("renders PetDetailsElement component", () => {
+    const queryClient = new QueryClient();
     const { } = renderWithRouter(
-        <ShelterDetailsElement shelter={mockAnnouncements[0].pet.shelter} isAdmin={false}/>
+        <QueryClientProvider client={queryClient}>
+            <ShelterDetailsElement shelter={mockAnnouncements[0].pet.shelter} isAdmin={false} />
+        </QueryClientProvider >
   );
 
   expect(

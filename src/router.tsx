@@ -6,6 +6,7 @@ import { Router as AdminRouter } from "./admin/router";
 import { AnimatePresence } from "framer-motion";
 import RouteShelter from "./components/RouteShelter";
 import RouteAdopter from "./components/RouteAdopter";
+import RouteAdmin from "./components/RouteAdmin";
 
 export const Router = () => {
     return (
@@ -32,9 +33,9 @@ export const Router = () => {
                     <Route
                         path="/admin/*"
                         element={
-                            <RouteAdopter>
+                            <RouteAdmin>
                                 <AdminRouter />
-                            </RouteAdopter>
+                            </RouteAdmin>
                         }
                     />
                 </Routes>
