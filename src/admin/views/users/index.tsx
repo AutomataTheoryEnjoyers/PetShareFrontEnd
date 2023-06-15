@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { UserListElement } from "../../../components/userListElement";
@@ -96,39 +96,13 @@ const SortButtons = styled.div`
   gap: 10px;
   margin-bottom: 10px;
 `;
-
-
-
-
-
-const RadioButtonContainer = styled.div`
-  display: flex;
-  gap: 5px;
-`;
-
-const RadioButtonLabel = styled.label`
-  display: flex;
-  align-items: center;
-`;
-
-const RadioButton = styled.input`
-  margin-right: 3px;
-`;
-
  
-
 const SortButton = styled.button<{ active: boolean }>`
   padding: 5px 10px;
   background-color: lightblue;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-`;
-
-const SortOrderSelection = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
 `;
 
 const List = styled.div`

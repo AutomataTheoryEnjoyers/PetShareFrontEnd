@@ -5,13 +5,9 @@ import {
     faPhone,
     faEnvelope,
     faUser,
-    faCheck,
-    faTimes,
     faHouse,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
-import { BACKEND_URL } from "../backendUrl";
 
 type HoverState = "None" | "Check" | "Cross";
 
@@ -101,24 +97,4 @@ const UsernameText = styled.h2`
   flex: 1;
   -webkit-text-fit: contain; /* for Safari */
   text-fit: contain;
-`;
-
-const ButtonContainer = styled.div`
-  margin-top: 20px;
-  text-align: center;
-  a {
-      display: inline-block;
-      padding: 8px 16px;
-      background-color: #f5f5f5;
-      color: #333;
-      font-size: 16px;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: 0.2s background-color;
-
-      &:hover {
-        background-color: #ccc;
-      }
-    }
-  }
 `;

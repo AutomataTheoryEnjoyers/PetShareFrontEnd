@@ -5,10 +5,6 @@ import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { useAnnouncements } from "../../../queries/announcements";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFlag } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
 import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
 import { ClipLoader } from "react-spinners";
 
@@ -104,18 +100,3 @@ const Container = styled.div`
   }
 `;
 
-const ReportButton = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    background-color: darkblue;
-        
-    padding: 12px 14px; /* Increase the padding to make the buttons bigger */
-    font-size: 16px; /* Increase the font size */
-`;

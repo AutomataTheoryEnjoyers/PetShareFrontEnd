@@ -11,9 +11,9 @@ type Props = {
 
 export const ReportListElement = ({ report }: Props) => {
   const renderIcon = () => {
-    if (report.reportType == "announcement") {
+    if (report.reportType === "announcement") {
       return <FontAwesomeIcon icon={faBullhorn} size="2x"/>;
-    } else if (report.reportType == "adopter") {
+    } else if (report.reportType === "adopter") {
         return <FontAwesomeIcon icon={faUser} size="2x" />;
     } else {
         return <FontAwesomeIcon icon={faHome} size="2x" />;

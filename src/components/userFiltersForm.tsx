@@ -168,10 +168,6 @@ const CategoryContainer = styled(motion.div)`
   transition: 2s all;
 `
 
-const CategoryTitle = styled.h3`
-  margin: 0;
-`
-
 const FieldsContainer = styled.div`
   display: flex;
   flex-direction: row;

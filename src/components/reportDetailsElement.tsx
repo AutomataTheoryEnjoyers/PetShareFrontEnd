@@ -2,20 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Report } from "../types/report";
 import {
-    faPhone,
-    faEnvelope,
-    faUser,
-    faCheck,
-    faTimes,
-    faHouse,
     faTrash,
     faBan,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { BACKEND_URL } from "../backendUrl";
-import { Title } from "../styles/global";
+import { useNavigate } from "react-router-dom";
 import { AnimatedPage } from "./animatedPage";
 import { usePutReport } from "../admin/mutations/putReport";
 import { UpdateReport } from "../types/updateReport";
@@ -141,8 +133,8 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
                 <div className="dialog-window">
                     <p className="message">{showDismissConfirmation ?
                         "Are you sure you want to dismiss the report? It will be permanently removed." :
-                        report.reportType=="announcement" ? "Are you sure you want to permanently remove the announcement?" :
-                            report.reportType=="adopter" ? "Are you sure you want to block this user?" :
+                        report.reportType==="announcement" ? "Are you sure you want to permanently remove the announcement?" :
+                            report.reportType==="adopter" ? "Are you sure you want to block this user?" :
                                 "Are you sure you want to block this shelter?"}</p>
                     <div className="buttons">
                                 <Button className="confirm" onClick={() => {
@@ -262,13 +254,6 @@ const Container = styled.div`
   }
 `;
 
-const DetailText = styled.p`
-  margin-top: 10px;
-  font-size: 18px;
-  flex: 1;
-  -webkit-text-fit: contain; /* for Safari */
-  text-fit: contain;
-`;
 
 const UsernameText = styled.h2`
   margin: 0;

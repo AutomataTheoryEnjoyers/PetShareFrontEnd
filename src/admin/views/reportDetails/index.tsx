@@ -1,25 +1,14 @@
 import styled from "styled-components";
-
 import { Report } from "../../../types/report";
-
 import { useParams } from "react-router-dom";
-
 import { AnimatedPage } from "../../../components/animatedPage";
 import { useReports } from "../../queries/reports";
 import { ReportDetailsElement } from "../../../components/reportDetailsElement";
-
 import { Title } from "../../../styles/global";
-
 import { ClipLoader } from "react-spinners";
-
 import { ShelterDetailsInReportElement } from "../../shelterDetailsInReport";
 import { AnnouncementDetailsInReportElement } from "../../announcementDetailsInReport";
 import { UserDetailsInReportElement } from "../../userDetailsInReportElement";
-
-type ConfirmationDialogProps = {
-    handleConfirm: () => void;
-    handleCancel: () => void;
-};
 
 export const ReportDetails = () => {
     const { id } = useParams();
@@ -97,41 +86,6 @@ const Container = styled.div`
     grid-area: title;
   }
 `;
-
-const ButtonsContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-`;
-
-const Button = styled.button`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px 20px;
-    color: white;
-    font-weight: bold;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-     &.dismiss {
-        background-color: black;
-    }
-    &.block {
-        background-color: red;
-    }
-    &.cancel {
-        background-color: darkgrey;
-    }
-    &.confirm {
-        background-color: darkgreen;
-    }
-    padding: 12px 24px; /* Increase the padding to make the buttons bigger */
-    font-size: 16px; /* Increase the font size */
-`;
-
-
 
 const CenteredBox = styled.div`
   display: flex;
