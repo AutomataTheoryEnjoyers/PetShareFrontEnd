@@ -38,24 +38,7 @@ export const ReportDetails = () => {
         );
     }
 
-    //const users = useMyUsers();
-    //const adopter = currentReport.reportType == "adopter" ? useGetUserSingle(currentReport.targetId) : null;
-
-    //const shelter = currentReport.reportType == "shelter" ? useGetShelterSingle(currentReport.targetId) : null;
-
-
-    //const announcement = currentReport.reportType == "announcement" ? useGetAnnouncementSingle(currentReport.targetId) : null;
     
-    //const [showDismissConfirmation, setShowDismissConfirmation] = useState(false);
-    //const [showBlockConfirmation, setShowBlockConfirmation] = useState(false);
-    //const handleDismiss = () => {
-    //    //setShowDismissConfirmation(true);
-    //};
-    
-
-    //const handleBlock = () => {
-    //    setShowBlockConfirmation(true);
-    //};
 
     
 

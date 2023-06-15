@@ -7,7 +7,7 @@ export const Navbar = () => {
       <Header>PetShare-Shelter</Header>
       <Links>
         <Link name="Users" path="/admin/users" />
-              <Link name="Reports" path="/admin/reports" />
+        <Link name="Reports" path="/admin/reports" />
         <LogoutButton/>
       </Links>
     </Bar>

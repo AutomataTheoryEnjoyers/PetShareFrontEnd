@@ -13,7 +13,7 @@ import {
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../backendUrl";
 import { Title } from "../styles/global";
 import { AnimatedPage } from "./animatedPage";
@@ -39,6 +39,10 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
     };
     const [showDismissConfirmation, setShowDismissConfirmation] = useState(false);
     const [showBlockConfirmation, setShowBlockConfirmation] = useState(false);
+    const [showFinal, setShowFinal] = useState(false);
+
+    const navigate = useNavigate();
+
     const dismissReportData = {
         id: report.id,
         state: "Declined",
@@ -61,10 +65,12 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
 
     const handleReportDimiss = () => {
         mutateReport(dismissReportData);
+        setShowFinal(true);
     }
 
     const handleReportAccept = () => {
         mutateReport(acceptReportData);
+        setShowFinal(true);
     }
 
     
@@ -140,7 +146,27 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
                 </div>
             </ConfirmationDialog>
         )
-    }
+            }
+            {
+                (showFinal && (
+                    <ConfirmationDialog>
+                        <div className="dialog-window">
+                            <p className="message">{showDismissConfirmation ?
+                                "The report has been dismissed." :
+                                report.reportType === "shelter" ? "Shelter has been blocked." :
+                                    report.reportType === "adopter" ? "User has been blocked." :
+                                        "Announcement has been removed"}</p>
+                            <div className="buttons">
+                                <Button className="confirm" onClick={() => {
+                                    setShowFinal(false); 
+                                    navigate('../reports')
+                                }}>Ok</Button>
+
+                            </div>
+                        </div>
+                    </ConfirmationDialog>)
+                )
+            }
     </AnimatedPage>
     );
 };
