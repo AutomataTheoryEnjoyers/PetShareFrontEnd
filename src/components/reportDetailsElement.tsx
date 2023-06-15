@@ -14,7 +14,6 @@ import { UpdateReport } from "../types/updateReport";
 import { UpdateUser } from "../types/updateUser";
 import { usePutUser } from "../admin/mutations/putUser";
 
-type HoverState = "None" | "Check" | "Cross";
 
 type ReportProps = {
     report: Report;
