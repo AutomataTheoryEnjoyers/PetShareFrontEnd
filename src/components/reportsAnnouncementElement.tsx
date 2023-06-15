@@ -2,7 +2,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import styled from "styled-components";
-import { TextDetails, Title } from "../styles/global";
 import { Announcement } from "../types/announcement";
 
 type Props = {
@@ -83,4 +82,16 @@ const Separator = styled.hr`
 const AnnouncementIdContainer = styled.div`
   padding: 5px;
   font-size: 10px;
+`;
+
+const TextDetails = styled.p`
+  margin: 0;
+  padding: 2px;
+  font-size: 15px;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
 `;

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { User } from "../types/user";
-import { Title } from "../styles/global";
 import { faArrowRight, faEnvelope, faHouse, faPhone, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -107,4 +106,10 @@ const RightContainer = styled.div`
   margin-left: auto;
   flex-direction: column;
   justify-content: center;
+`;
+
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
 `;

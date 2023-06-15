@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { useReports } from "../../queries/reports";
 import { ReportDetailsElement } from "../../../components/reportDetailsElement";
-import { Title } from "../../../styles/global";
 import { ClipLoader } from "react-spinners";
 import { ShelterDetailsInReportElement } from "../../shelterDetailsInReport";
 import { AnnouncementDetailsInReportElement } from "../../announcementDetailsInReport";
@@ -87,4 +86,8 @@ const CenteredBox = styled.div`
   justify-items: center;
 `;
 
-
+const Title = styled.h1`
+  margin: 0;
+  padding: 5px;
+  font-size: 20px;
+`;

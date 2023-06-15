@@ -47,6 +47,5 @@ export const useUsers = (
             count: query.data?.count,
         } as UserResponse;
 
-    console.log(response);
     return { query, response };
 };

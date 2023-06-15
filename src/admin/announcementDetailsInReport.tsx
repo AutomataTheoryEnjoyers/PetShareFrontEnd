@@ -3,7 +3,7 @@ import { Report } from "../types/report";
 import { ClipLoader } from "react-spinners";
 import { AnimatedPage } from "../components/animatedPage";
 import { useGetAnnouncementSingle } from "../queries/getAnnouncementSingle";
-import { TextDetails } from "../styles/global";
+
 
 type Props = {
     report: Report;
@@ -82,3 +82,8 @@ const DescriptionText = styled.p`
   text-align: center; /* Added text alignment to center */
 `;
 
+const TextDetails = styled.p`
+  margin: 0;
+  padding: 2px;
+  font-size: 15px;
+`;

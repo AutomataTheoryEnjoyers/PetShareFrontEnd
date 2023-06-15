@@ -4,7 +4,7 @@ import { LogoutButton } from "../../components/logoutButton";
 export const Navbar = () => {
   return (
     <Bar>
-      <Header>PetShare-Shelter</Header>
+      <Header>PetShare-Admin</Header>
       <Links>
         <Link name="Users" path="/admin/users" />
         <Link name="Reports" path="/admin/reports" />
