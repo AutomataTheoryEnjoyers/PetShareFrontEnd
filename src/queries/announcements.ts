@@ -32,8 +32,8 @@ export const useAnnouncements = (
         )}`,
     ].filter((s) => !!s) ?? [];
 
-  console.log(filters);
-  console.log(`announcements?${queryStringArray.join("&")}`);
+    console.log(filters);
+    console.log(`announcements?${queryStringArray.join("&")}`);
 
   const query = useQuery<AnnouncementResponse>(
     `my-announcements-page-${paginationParams?.PageNumber}`,

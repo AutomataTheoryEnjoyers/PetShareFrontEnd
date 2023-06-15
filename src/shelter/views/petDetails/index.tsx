@@ -32,7 +32,7 @@ export const PetDetails = () => {
         </div>
         <div id="shelter">
           {pet.data?.shelter && (
-            <ShelterDetailsElement shelter={pet.data?.shelter} />
+                      <ShelterDetailsElement shelter={pet.data?.shelter} isAdmin={false} />
           )}
         </div>
         <div id="details">

@@ -22,26 +22,30 @@ export const AnnouncementDetails = () => {
     );
   }
 
-  return (
-    <AnimatedPage>
-      {announcement?.data && (
-        <Container>
-          <div id="image">
-            <ImageElementDetails pet={announcement?.data.pet} />
-          </div>
-          <div id="pet">
-            <PetDetailsElement pet={announcement?.data.pet} />
-          </div>
-          <div id="shelter">
-            <ShelterDetailsElement shelter={announcement?.data.pet.shelter} />
-          </div>
-          <div id="details">
-            <AnnouncementDetailsElement announcement={announcement?.data} />
-          </div>
-        </Container>
-      )}
-    </AnimatedPage>
-  );
+
+
+
+
+    return (
+        announcement && (
+            <AnimatedPage>
+                <Container>
+                    <div id="image">
+                        <ImageElementDetails pet={announcement.data!.pet} />
+                    </div>
+                    <div id="pet">
+                        <PetDetailsElement pet={announcement.data!.pet} />
+                    </div>
+                    <div id="shelter">
+                        <ShelterDetailsElement shelter={announcement.data!.pet.shelter} isAdmin={ false} />
+                    </div>
+                    <div id="details">
+                        <AnnouncementDetailsElement announcement={announcement.data!} />
+                    </div>
+                </Container>
+            </AnimatedPage>
+        )
+    );
 };
 
 const CenteredBox = styled.div`
@@ -60,17 +64,23 @@ const Container = styled.div`
   height: min(60vh, 600px);
   grid-template-areas:
     "title title title"
+    "report report report"
     "image image pet"
     "image image shelter"
     "details details details"
     "details details details"
-    "user user user"
-    "apply apply apply";
+    "user user user";
 
   grid-template-columns: 1fr 1fr 1fr;
 
   #title {
     grid-area: title;
+  }
+
+  #report-button {
+    grid-area: report;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #image {
@@ -88,8 +98,5 @@ const Container = styled.div`
   #details {
     grid-area: details;
   }
-
-  #apply-button {
-    grid-area: apply;
-  }
 `;
+

@@ -3,12 +3,12 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { PageNotFound } from "../views/pageNotFound";
 import { Navbar } from "./components/navbar";
-import { AnnouncementDetails } from "./views/announcementDetails";
-import { PetDetails } from "./views/petDetails";
-import { MyAnnouncements } from "./views/myAnnouncements";
-import { NewAnnouncement } from "./views/newAnnouncement";
-import { MyPets } from "./views/myPets";
-import { NewPetForm } from "./views/newPet";
+
+import { UserDetails } from "./views/userDetails";
+import { ReportDetails } from "./views/reportDetails";
+import { Users } from "./views/users";
+import { Reports } from "./views/reports";
+
 export const Router = () => {
     const location = useLocation();
     return (
@@ -19,14 +19,15 @@ export const Router = () => {
                     <AnimatePresence mode="wait">
                         <Routes key={location.pathname} location={location}>
                             <Route
-                                path="my-announcements/:id"
-                                element={<AnnouncementDetails />}
+                                path="users/:id"
+                                element={<UserDetails />}
                             />
-                            <Route path="my-announcements" element={<MyAnnouncements />} />
-                            <Route path="new-announcement" element={<NewAnnouncement />} />
-                            <Route path="my-pets/:id" element={<PetDetails />} />
-                            <Route path="my-pets" element={<MyPets />} />
-                            <Route path="new-pet" element={<NewPetForm />} />
+                            <Route path="users" element={<Users />} />
+                            <Route path="reports" element={<Reports />} />
+                            <Route
+                                path="reports/:id"
+                                element={<ReportDetails />}
+                            />
                             <Route path="*" element={<PageNotFound />} />
                         </Routes>
                     </AnimatePresence>
