@@ -13,6 +13,8 @@ import { UserFilters } from "../../../types/userFilter";
 import { ClipLoader } from "react-spinners";
 import { PaginationParameters } from "../../../types/paginationParameters";
 import { Pagination } from "../../../components/pagination";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown, faArrowUp } from "@fortawesome/free-solid-svg-icons";
 
 export const Users = () => {
     const usersPerPage = 5;
@@ -81,7 +83,8 @@ export const Users = () => {
             <SortSection>
                 <SortButtons>
                     <SortButton active={sortedBy === "username"} onClick={() => { toggleSortOrder(); sortUsers("username"); }}>
-                        Sort by Username {sortedBy === "username" && (sortOrder === "asc" ? "asc" : "desc")}
+                        Sort by Username {sortedBy === "username" && (sortOrder === "asc" ? <FontAwesomeIcon icon={faArrowUp} /> :
+                            <FontAwesomeIcon icon={faArrowDown} />)}
                     </SortButton>
                     <SortButton active={sortedBy !== null} onClick={clearSort}>
                         Clear Sort
