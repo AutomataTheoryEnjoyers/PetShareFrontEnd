@@ -19,6 +19,8 @@ import { Title } from "../styles/global";
 import { AnimatedPage } from "./animatedPage";
 import { usePutReport } from "../admin/mutations/putReport";
 import { UpdateReport } from "../types/updateReport";
+import { UpdateUser } from "../types/updateUser";
+import { usePutUser } from "../admin/mutations/putUser";
 
 type HoverState = "None" | "Check" | "Cross";
 
@@ -30,6 +32,7 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
     const [showFullText, setShowFullText] = useState(false);
     const MAX_TEXT_LENGTH = 1800; // Maximum number of characters to display in truncated version
     const mutateReport = usePutReport();
+    const mutateUser = usePutUser();
     
     const { message } = report;
     const truncatedText = message.slice(0, MAX_TEXT_LENGTH);
@@ -53,6 +56,12 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
         state: "Accepted",
     } as UpdateReport;
 
+    const blockUserData =
+        {
+            id: report.targetId,
+            status: 1,
+        } as UpdateUser;
+
     const handleDismiss = () => {
         setShowDismissConfirmation(true);
         
@@ -70,6 +79,7 @@ export const ReportDetailsElement = ({ report }: ReportProps) => {
 
     const handleReportAccept = () => {
         mutateReport(acceptReportData);
+        report.reportType === "adopter" ? mutateUser(blockUserData) : setShowFinal(true);
         setShowFinal(true);
     }
 

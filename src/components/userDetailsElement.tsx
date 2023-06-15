@@ -53,6 +53,10 @@ export const UserDetailsElement = ({ user }: UserProps) => {
             <DetailText>
                 {user.address?.province}, {" "} {user.address.country} 
             </DetailText>
+            <DetailText>
+                {user.status === 0 ? "This user's account is active" : user.status === 1 ? "This user's account has been blocked" : 
+                "This user's account has been deleted"}
+            </DetailText>
         </ApplicationContainer>
     );
 };
