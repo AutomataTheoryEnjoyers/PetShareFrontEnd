@@ -8,7 +8,6 @@ export type LikeQueryParams = {
   announcementId: string,
   isLiked: boolean
 }
-
 export const usePostLike = () => {
   const { userData } = useContext<UserContextType>(UserContext);
 

@@ -14,22 +14,22 @@ export const useAnnouncements = (
       filters?.maxAge && `maxAge=${filters.maxAge}`,
       filters?.minAge && `minAge=${filters.minAge}`,
       filters?.breed.length &&
-        `breed=${encodeURIComponent(JSON.stringify(filters.breed))}`,
+      `breed=${encodeURIComponent(JSON.stringify(filters.breed))}`,
       filters?.shelter.length &&
-        `shelter=${encodeURIComponent(JSON.stringify(filters.shelter))}`,
+      `shelter=${encodeURIComponent(JSON.stringify(filters.shelter))}`,
       filters?.species.length &&
-        `species=${encodeURIComponent(JSON.stringify(filters.species))}`,
+      `species=${encodeURIComponent(JSON.stringify(filters.species))}`,
       filters?.location.length &&
-        `location=${encodeURIComponent(JSON.stringify(filters.location))}`,
+      `location=${encodeURIComponent(JSON.stringify(filters.location))}`,
       liked && `isLiked=${encodeURIComponent(JSON.stringify(liked))}`,
       paginationParams?.PageNumber &&
-        `PageNumber=${encodeURIComponent(
-          JSON.stringify(paginationParams.PageNumber)
-        )}`,
+      `PageNumber=${encodeURIComponent(
+        JSON.stringify(paginationParams.PageNumber)
+      )}`,
       paginationParams?.PageCount &&
-        `PageCount=${encodeURIComponent(
-          JSON.stringify(paginationParams.PageCount)
-        )}`,
+      `PageCount=${encodeURIComponent(
+        JSON.stringify(paginationParams.PageCount)
+      )}`,
     ].filter((s) => !!s) ?? [];
 
   console.log(filters);
@@ -49,21 +49,21 @@ export const useAnnouncements = (
   const response = query.isLoading
     ? null
     : ({
-        announcements: query.data?.announcements.map(
-          (announcementResponse: any) => ({
-            ...announcementResponse,
-            creationDate: new Date(announcementResponse.creationDate),
-            lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
-            closingDate: new Date(announcementResponse.closingDate),
-            pet: {
-              ...announcementResponse.pet,
-              birthday: new Date(announcementResponse.pet.birthday),
-            },
-          })
-        ),
-        pageNumber: query.data?.pageNumber,
-        count: query.data?.count,
-      } as AnnouncementResponse);
+      announcements: query.data?.announcements.map(
+        (announcementResponse: any) => ({
+          ...announcementResponse,
+          creationDate: new Date(announcementResponse.creationDate),
+          lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
+          closingDate: new Date(announcementResponse.closingDate),
+          pet: {
+            ...announcementResponse.pet,
+            birthday: new Date(announcementResponse.pet.birthday),
+          },
+        })
+      ),
+      pageNumber: query.data?.pageNumber,
+      count: query.data?.count,
+    } as AnnouncementResponse);
 
   console.log(response);
   return { query, response };
