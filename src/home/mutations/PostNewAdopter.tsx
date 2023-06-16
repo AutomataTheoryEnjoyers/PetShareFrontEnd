@@ -1,5 +1,5 @@
 import { UseMutateAsyncFunction, useMutation } from "react-query";
-import { ADOPTER_URL, BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 import { NewAdopter } from "../../types/NewAdopter";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";

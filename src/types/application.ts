@@ -2,10 +2,11 @@ import { User } from "./user";
 import { Announcement } from "./announcement";
 
 export type Application = {
-  id?: string;
-  dateOfApplication: Date;
-  isWithdrawed: boolean;
-  lastUpdateDate: Date;
-  user: User;
+  id: string;
+  creationDate?: Date;
+  lastUpdateDate?: Date;
+  adopter: User;
+  announcementId: string;
   announcement: Announcement;
+  applicationStatus: string;
 };

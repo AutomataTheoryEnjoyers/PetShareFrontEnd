@@ -1,9 +1,9 @@
 export type NewPet = {
-  Name: string;
-  Sex: string;
-  Species: string;
-  Breed: string;
-  Birthday: Date;
-  Description: string;
+  name: string;
+  sex: string;
+  species: string;
+  breed: string;
+  birthday: Date;
+  description: string;
   photoUrl: string;
 };

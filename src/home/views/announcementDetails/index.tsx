@@ -1,41 +1,60 @@
 import styled from "styled-components";
-import { Announcement } from "../../../types/announcement";
 import { useParams } from "react-router-dom";
 import { ImageElementDetails } from "../../../components/ImageElementDetails";
 import { ShelterDetailsElement } from "../../../components/shelterDetails";
 import { AnnouncementDetailsElement } from "../../../components/announcementDetails";
 import { PetDetailsElement } from "../../../components/petDetailsElement";
 import { AnimatedPage } from "../../../components/animatedPage";
-import { useAnnouncements } from "../../../queries/announcements";
+import { useGetAnnouncementSingle } from "../../../queries/getAnnouncementSingle";
+import { ClipLoader } from "react-spinners";
 
 export const AnnouncementDetails = () => {
   const { id } = useParams();
-  const announcements = useAnnouncements(null);
-  const currentAnnouncement = announcements.data?.find(
-    (announcement) => announcement.id === id
-  ) as Announcement;
+  const announcement = useGetAnnouncementSingle(id as string);
 
-  return (
-    currentAnnouncement && (
+  if (announcement.isLoading) {
+    return (
       <AnimatedPage>
-        <Container>
-          <div id="image">
-            <ImageElementDetails pet={currentAnnouncement.pet} />
-          </div>
-          <div id="pet">
-            <PetDetailsElement pet={currentAnnouncement.pet} />
-          </div>
-          <div id="shelter">
-            <ShelterDetailsElement shelter={currentAnnouncement.pet.shelter} />
-          </div>
-          <div id="details">
-            <AnnouncementDetailsElement announcement={currentAnnouncement} />
-          </div>
-        </Container>
+        <CenteredBox>
+          <ClipLoader />
+        </CenteredBox>
       </AnimatedPage>
-    )
-  );
+    );
+  }
+
+
+
+
+
+    return (
+        announcement && (
+            <AnimatedPage>
+                <Container>
+                    <div id="image">
+                        <ImageElementDetails pet={announcement.data!.pet} />
+                    </div>
+                    <div id="pet">
+                        <PetDetailsElement pet={announcement.data!.pet} />
+                    </div>
+                    <div id="shelter">
+                        <ShelterDetailsElement shelter={announcement.data!.pet.shelter} isAdmin={ false} />
+                    </div>
+                    <div id="details">
+                        <AnnouncementDetailsElement announcement={announcement.data!} />
+                    </div>
+                </Container>
+            </AnimatedPage>
+        )
+    );
 };
+
+const CenteredBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-items: center;
+`;
 
 const Container = styled.div`
   text-align: center;
@@ -45,17 +64,23 @@ const Container = styled.div`
   height: min(60vh, 600px);
   grid-template-areas:
     "title title title"
+    "report report report"
     "image image pet"
     "image image shelter"
     "details details details"
     "details details details"
-    "user user user"
-    "apply apply apply";
+    "user user user";
 
   grid-template-columns: 1fr 1fr 1fr;
 
   #title {
     grid-area: title;
+  }
+
+  #report-button {
+    grid-area: report;
+    display: flex;
+    justify-content: flex-end;
   }
 
   #image {
@@ -73,8 +98,5 @@ const Container = styled.div`
   #details {
     grid-area: details;
   }
-
-  #apply-button {
-    grid-area: apply;
-  }
 `;
+

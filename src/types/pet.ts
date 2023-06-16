@@ -1,4 +1,4 @@
-import { Shelter } from "./shelter";
+import { Shelter, dummyShelter } from "./shelter";
 
 export type Pet = {
   id: string;
@@ -12,3 +12,16 @@ export type Pet = {
   status: string;
   shelter: Shelter;
 };
+
+export const dummyPet = {
+  id: "",
+  name: "",
+  sex: "",
+  species: "",
+  breed: "",
+  birthday: new Date(),
+  description: "",
+  photoUrl: "",
+  status: "",
+  shelter: dummyShelter,
+} as Pet;

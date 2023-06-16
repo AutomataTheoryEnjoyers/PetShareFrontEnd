@@ -2,6 +2,7 @@ import { Announcement } from "../types/announcement";
 import { Application } from "../types/application";
 import { Pet } from "../types/pet";
 import { User } from "../types/user";
+import { Report } from "../types/report";
 
 export const mockAddresses = [
   {
@@ -31,25 +32,28 @@ export const mockAddresses = [
 ];
 
 export const mockUsers = [
-  {
+    {
+    id: "1",
     userName: "KononowiczKrzysztof",
     phoneNumber: "325232675",
     email: "warmianin@katolik.com",
-    status: "Active",
+    status: 0,
     address: mockAddresses[0],
   },
-  {
+    {
+    id: "2",
     userName: "Meksikano",
     phoneNumber: "343232675",
     email: "natret@bialystok.com",
-    status: "Active",
+    status: 0,
     address: mockAddresses[1],
   },
-  {
+    {
+    id: "3",
     userName: "MajorSuchek",
     phoneNumber: "343232675",
     email: "majorek@nitro.com",
-    status: "Active",
+    status: 0,
     address: mockAddresses[2],
   },
 ] as User[];
@@ -168,26 +172,50 @@ export const mockAnnouncements = [
 export const mockApplications = [
   {
     id: "2137",
-    dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-    isWithdrawed: false,
+    creationDate: new Date("2018-02-28T16:41:41.090Z"),
     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-    user: mockUsers[0],
+    adopter: mockUsers[0],
+    announcementId: mockAnnouncements[0].id,
     announcement: mockAnnouncements[0],
   },
   {
     id: "2138",
-    dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-    isWithdrawed: true,
+    creationDate: new Date("2018-02-28T16:41:41.090Z"),
     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-    user: mockUsers[1],
+    adopter: mockUsers[1],
+    announcementId: mockAnnouncements[1].id,
     announcement: mockAnnouncements[1],
   },
   {
     id: "2139",
-    dateOfApplication: new Date("2018-02-28T16:41:41.090Z"),
-    isWithdrawed: false,
+    creationDate: new Date("2018-02-28T16:41:41.090Z"),
     lastUpdateDate: new Date("2018-02-28T16:41:41.090Z"),
-    user: mockUsers[0],
+    adopter: mockUsers[2],
+    announcementId: mockAnnouncements[2].id,
     announcement: mockAnnouncements[2],
   },
 ] as Application[];
+
+export const mockReports = [
+    {
+        id: "1",
+        reason: "He tormented his cat",
+        adopterId: mockUsers[0].id,
+        announcementId: null,
+        shelterId: null,
+    },
+    {
+        id: "2",
+        reason: "This announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dogThis announcement is for a non existing dog",
+        announcementId: mockAnnouncements[0].id,
+        shelterId: mockShelters[0].id,
+        adopterId: null,
+    },
+    {
+        id: "3",
+        message: "This shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animalsThis shelter seems to neglect their animals",
+        reportType:"shelter",
+        targetId: mockShelters[1].id,
+        state: "new",
+    },
+] as Report[];

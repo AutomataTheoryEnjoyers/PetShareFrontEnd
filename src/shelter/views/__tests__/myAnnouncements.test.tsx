@@ -22,7 +22,7 @@ describe("MyAnnouncements component", () => {
 
   test("renders header text", () => {
     const { getByRole } = renderWithRouterAndQueryProvider(<MyAnnouncements />);
-    const heading = getByRole("heading", { name: /my announcements/i });
+    const heading = getByRole("heading", { name: /announcements/i });
     expect(heading).toBeInTheDocument();
   });
 

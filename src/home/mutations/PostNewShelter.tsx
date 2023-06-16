@@ -1,5 +1,5 @@
 import { UseMutateAsyncFunction, useMutation } from "react-query";
-import { BACKEND_URL, SHELTER_URL } from "../../backendUrl";
+import { SHELTER_URL } from "../../backendUrl";
 import { NewShelter } from "../../types/newShelter";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";

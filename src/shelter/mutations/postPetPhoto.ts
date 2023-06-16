@@ -3,9 +3,12 @@ import { ANNOUNCEMENT_URL } from "../../backendUrl";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { useContext } from "react";
+import { MutationContext } from "../../components/mutationContext";
+import { MutationContextType } from "../../types/mutationContext";
 
 export const usePostPetPhoto = () => {
   const { userData } = useContext<UserContextType>(UserContext);
+  const { setMutationData } = useContext<MutationContextType>(MutationContext);
 
   const { mutateAsync } = useMutation(
     (data: { petId: string; formData: FormData }) =>
@@ -14,17 +17,13 @@ export const usePostPetPhoto = () => {
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,
           Accept: "*/*",
-          //"Content-Type": "multipart/form-data",
-          //"Content-Length": `${data.petPhotoData.length}`,
         },
         body: data.formData,
       }),
     {
-      onSuccess: async (response) => {
-        console.log(
-          "Pet's photo successfully added: " +
-          JSON.stringify(await response.json())
-        );
+      onSuccess: async () => {
+        console.log("Pet's photo successfully added");
+        setMutationData({ mutationSuccessful: true });
       },
       onError: (error) => {
         console.log(error);

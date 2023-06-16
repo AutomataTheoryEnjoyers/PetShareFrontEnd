@@ -1,34 +1,64 @@
 import { useQuery } from "react-query";
+import { PaginationParameters } from "../../types/paginationParameters";
+import { AnnouncementResponse } from "../../types/announcementResponse";
 import { ANNOUNCEMENT_URL } from "../../backendUrl";
-import { Announcement } from "../../types/announcement";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 
-export const useMyAnnouncements = () => {
+export const useMyAnnouncements = (
+  paginationParams: PaginationParameters | null
+) => {
   const { userData } = useContext<UserContextType>(UserContext);
 
-  const query = useQuery<Announcement[]>("my-announcements", () =>
-    fetch(ANNOUNCEMENT_URL + "shelter/announcements", {
-      method: "GET",
-      headers: {
-        authorization: `Bearer ${userData?.accessToken}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) =>
-        res.map((announcementResponse: any) => ({
-          ...announcementResponse,
-          creationDate: new Date(announcementResponse.creationDate),
-          lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
-          closingDate: new Date(announcementResponse.closingDate),
-          pet: {
-            ...announcementResponse.pet,
-            birthday: new Date(announcementResponse.pet.birthday),
+  const queryStringArray =
+    [
+      paginationParams?.PageNumber &&
+        `PageNumber=${encodeURIComponent(
+          JSON.stringify(paginationParams.PageNumber)
+        )}`,
+      paginationParams?.PageCount &&
+        `PageCount=${encodeURIComponent(
+          JSON.stringify(paginationParams.PageCount)
+        )}`,
+    ].filter((s) => !!s) ?? [];
+
+  console.log(`announcements?${queryStringArray.join("&")}`);
+
+  const query = useQuery<AnnouncementResponse>(
+    `my-announcements-shelter-page-${paginationParams?.PageNumber}`,
+    () =>
+      fetch(
+        ANNOUNCEMENT_URL +
+          `shelter/announcements?${queryStringArray.join("&")}`,
+        {
+          method: "GET",
+          headers: {
+            authorization: `Bearer ${userData?.accessToken}`,
+            "Content-Type": "application/json",
           },
-        }))
-      )
+        }
+      ).then((res) => res.json())
   );
-  return query;
+
+  const response = query.isLoading
+    ? null
+    : ({
+        announcements: query.data?.announcements.map(
+          (announcementResponse: any) => ({
+            ...announcementResponse,
+            creationDate: new Date(announcementResponse.creationDate),
+            lastUpdateDate: new Date(announcementResponse.lastUpdateDate),
+            closingDate: new Date(announcementResponse.closingDate),
+            pet: {
+              ...announcementResponse.pet,
+              birthday: new Date(announcementResponse.pet.birthday),
+            },
+          })
+        ),
+        pageNumber: query.data?.pageNumber,
+        count: query.data?.count,
+      } as AnnouncementResponse);
+
+  return { query, response };
 };
