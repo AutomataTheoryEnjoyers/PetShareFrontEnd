@@ -9,4 +9,5 @@ export type Announcement = {
   lastUpdateDate: Date;
   status: string;
   pet: Pet;
+  isLiked: boolean;
 };

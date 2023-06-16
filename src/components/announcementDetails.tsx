@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { usePostReport } from "../home/mutations/PostReport";
 import { Announcement } from "../types/announcement";
+import { usePostLike } from "../user/mutations/postLike";
 
 type Props = {
   announcement: Announcement;
@@ -13,29 +14,30 @@ type Props = {
 
 export const AnnouncementDetailsElement = ({
   announcement,
-  isFollowed = true,
-  isShelter,
+  isShelter = false,
 }: Props) => {
-    const [overFollow, setOverFollow] = useState(!!isFollowed);
-    const [showReportModal, setShowReportModal] = useState(false);
-    const [reportReason, setReportReason] = useState("");
-    const mutatePostReport = usePostReport();
+  const mutateLike = usePostLike();
+  const [overFollow, setOverFollow] = useState(announcement.isLiked);
+  const [isLiked, setIsLiked] = useState(announcement.isLiked);
+  const [showReportModal, setShowReportModal] = useState(false);
+  const [reportReason, setReportReason] = useState("");
+  const mutatePostReport = usePostReport();
 
-    const handleReportClick = () => {
-        setShowReportModal(true);
-    };
-    const handleCancelReport = () => {
-        setShowReportModal(false);
-    };
-    const handleSendReport = () => {
-        mutatePostReport({
-            targetId: announcement.id,
-            reportType: "announcement",
-            message: reportReason,
-        });
-        console.log("Report sent:", reportReason);
-        setShowReportModal(false);
-    };
+  const handleReportClick = () => {
+    setShowReportModal(true);
+  };
+  const handleCancelReport = () => {
+    setShowReportModal(false);
+  };
+  const handleSendReport = () => {
+    mutatePostReport({
+      targetId: announcement.id,
+      reportType: "announcement",
+      message: reportReason,
+    });
+    console.log("Report sent:", reportReason);
+    setShowReportModal(false);
+  };
   return (
     <Container>
       <TopContainer>
@@ -47,33 +49,34 @@ export const AnnouncementDetailsElement = ({
             Last Update: {announcement.lastUpdateDate.toDateString()}
           </TextDetails>
         </TopContainerLeft>
-              <TopContainerRight>
-                  {!isShelter && (
-                      <>
-                          <ReportButton
-                              onClick={handleReportClick}
-                          >
-                              <FontAwesomeIcon icon={faFlag} /> Report Announcement
-                          </ReportButton>
-                          <FollowContainer
-                              onMouseOver={() => setOverFollow(true)}
-                              onMouseLeave={() => setOverFollow(false)}
-                              onClick={() => {
-                                  /* function for following */
-                              }}
-                          >
-                              <FontAwesomeIcon
-                                  icon={faHeart}
-                                  data-testid="followIcon"
-                                  style={{ transform: `scale(${overFollow ? 1.15 : 1})` }}
-                                  fontSize={25}
-                                  color={isFollowed || overFollow ? "red" : "black"}
-                                  className="followIcon"
-                              />
-                          </FollowContainer>
-                      </>
-                  )}
-              </TopContainerRight>
+        <TopContainerRight>
+          {!isShelter && (
+            <>
+              <ReportButton
+                onClick={handleReportClick}
+              >
+                <FontAwesomeIcon icon={faFlag} /> Report Announcement
+              </ReportButton>
+              <FollowContainer
+                onMouseOver={() => setOverFollow(true)}
+                onMouseLeave={() => setOverFollow(false)}
+                onClick={() => {
+                  mutateLike(announcement.id);
+                  setIsLiked(true);
+                }}
+              >
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  data-testid="followIcon"
+                  style={{ transform: `scale(${overFollow ? 1.15 : 1})` }}
+                  fontSize={25}
+                  color={isLiked || overFollow ? "red" : "black"}
+                  className="followIcon"
+                />
+              </FollowContainer>
+            </>
+          )}
+        </TopContainerRight>
       </TopContainer>
       <Title>{announcement.title && announcement.title}</Title>
       <DescriptionText>
@@ -82,22 +85,22 @@ export const AnnouncementDetailsElement = ({
       <BottomContainer>
         <Separator />
         <AnnouncementIdContainer>ID: {announcement.id}</AnnouncementIdContainer>
-          </BottomContainer>
-          {showReportModal && (
-              <ReportModal>
-                  <ModalContent>
-                      <ModalText>Your reason for the report:</ModalText>
-                      <ReportInput
-                          value={reportReason}
-                          onChange={(e) => setReportReason(e.target.value)}
-                      />
-                      <ModalButtonContainer>
-                          <ModalButton onClick={handleSendReport} className="send">Send</ModalButton>
-                          <ModalButton onClick={handleCancelReport} className="cancel">Cancel</ModalButton>
-                      </ModalButtonContainer>
-                  </ModalContent>
-              </ReportModal>
-          )}
+      </BottomContainer>
+      {showReportModal && (
+        <ReportModal>
+          <ModalContent>
+            <ModalText>Your reason for the report:</ModalText>
+            <ReportInput
+              value={reportReason}
+              onChange={(e) => setReportReason(e.target.value)}
+            />
+            <ModalButtonContainer>
+              <ModalButton onClick={handleSendReport} className="send">Send</ModalButton>
+              <ModalButton onClick={handleCancelReport} className="cancel">Cancel</ModalButton>
+            </ModalButtonContainer>
+          </ModalContent>
+        </ReportModal>
+      )}
     </Container>
   );
 };
