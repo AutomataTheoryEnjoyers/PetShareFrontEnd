@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { AnimatedPage } from "../../../components/animatedPage";
 import { AnnouncementListElement } from "../../../components/announcementListElement";
 import { Header } from "../../../components/header";
-import { useAnnouncements } from "../../../queries/announcements";
 import { PaginationParameters } from "../../../types/paginationParameters";
 import { useState } from "react";
 import { Pagination } from "../../../components/pagination";
@@ -12,6 +11,7 @@ import {
   AnnouncementFiltersForm,
   DefaultFilterState,
 } from "../../../components/announcementFiltersForm";
+import { useAnnouncementsUser } from "../../queries/useAnnouncementsUser";
 export const FollowedAnnouncements = () => {
   const [formState, setFormState] =
     useState<AnnouncementFilters>(DefaultFilterState);
@@ -21,7 +21,7 @@ export const FollowedAnnouncements = () => {
       PageNumber: 0,
       PageCount: announcementsPerPage,
     });
-  const announcements = useAnnouncements(formState, true, paginationParams);
+  const announcements = useAnnouncementsUser(formState, true, paginationParams);
   if (announcements.query.isLoading) {
     return (
       <AnimatedPage>

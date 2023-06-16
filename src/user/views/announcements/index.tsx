@@ -8,10 +8,10 @@ import {
 import { AnnouncementListElement } from "../../../components/announcementListElement";
 import { Header } from "../../../components/header";
 import { AnnouncementFilters } from "../../../types/announcementFilter";
-import { useAnnouncements } from "../../../queries/announcements";
 import { Pagination } from "../../../components/pagination";
 import { PaginationParameters } from "../../../types/paginationParameters";
 import { ClipLoader } from "react-spinners";
+import { useAnnouncementsUser } from "../../queries/useAnnouncementsUser";
 
 export const Announcements = () => {
   const [formState, setFormState] =
@@ -22,7 +22,7 @@ export const Announcements = () => {
       PageNumber: 0,
       PageCount: announcementsPerPage,
     });
-  const announcements = useAnnouncements(formState, false, paginationParams);
+  const announcements = useAnnouncementsUser(formState, false, paginationParams);
 
   if (announcements.query.isLoading) {
     return (

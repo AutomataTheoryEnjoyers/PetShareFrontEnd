@@ -1,14 +1,19 @@
+import { useContext } from "react";
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../backendUrl";
-import { AnnouncementFilters } from "../types/announcementFilter";
-import { AnnouncementResponse } from "../types/announcementResponse";
-import { PaginationParameters } from "../types/paginationParameters";
+import { BACKEND_URL } from "../../backendUrl";
+import { UserContext } from "../../components/userContext";
+import { AnnouncementFilters } from "../../types/announcementFilter";
+import { AnnouncementResponse } from "../../types/announcementResponse";
+import { PaginationParameters } from "../../types/paginationParameters";
+import { UserContextType } from "../../types/userContextType";
 
-export const useAnnouncements = (
+export const useAnnouncementsUser = (
   filters: AnnouncementFilters | null,
   liked: boolean,
   paginationParams: PaginationParameters | null
 ) => {
+  const { userData } = useContext<UserContextType>(UserContext);
+
   const queryStringArray =
     [
       filters?.maxAge && `maxAge=${filters.maxAge}`,
@@ -41,6 +46,7 @@ export const useAnnouncements = (
       fetch(BACKEND_URL + `announcements?${queryStringArray.join("&")}`, {
         method: "GET",
         headers: {
+          authorization: `Bearer ${userData?.accessToken}`,
           "Content-Type": "application/json",
         },
       }).then((res) => res.json())
