@@ -4,12 +4,17 @@ import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 
+export type LikeQueryParams = {
+  announcementId: string,
+  isLiked: boolean
+}
+
 export const usePostLike = () => {
   const { userData } = useContext<UserContextType>(UserContext);
 
   const { mutateAsync } = useMutation(
-    (announcementId: string) =>
-      fetch(ANNOUNCEMENT_URL + "announcements/" + announcementId + "/like", {
+    ({ announcementId, isLiked }: LikeQueryParams) =>
+      fetch(ANNOUNCEMENT_URL + "announcements/" + announcementId + `/like?isLiked=${isLiked.toString()}`, {
         method: "PUT",
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,
