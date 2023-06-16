@@ -14,10 +14,11 @@ export const REPORT_URL = "";
 export const SHELTER_URL = "https://petshare-shelterapi-dev.azurewebsites.net/";
 
 // gr 16
-// export const ADOPTER_URL = "https://petshare-adopterapi-dev.azurewebsites.net/";
-// export const ANNOUNCEMENT_URL = "https://petshare-announcementsapi-dev.azurewebsites.net/";
-// export const REPORT_URL = "";
-// export const SHELTER_URL = "https://petshare-shelterapi-dev.azurewebsites.net/";
+// export const ADOPTER_URL = "https://pet-share-web-api-dev.azurewebsites.net/";
+// export const ANNOUNCEMENT_URL =
+//   "https://pet-share-web-api-dev.azurewebsites.net/";
+// export const REPORT_URL = "https://pet-share-web-api-dev.azurewebsites.net/";
+// export const SHELTER_URL = "https://pet-share-web-api-dev.azurewebsites.net/";
 
 // for local developement
 //export const BACKEND_URL = "https://localhost:7156/";

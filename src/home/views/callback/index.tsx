@@ -19,6 +19,7 @@ export const Callback = () => {
       try {
         await getAccessTokenSilently().then((accessToken) => {
           const accessTokenDecoded = jwt(accessToken) as any;
+          console.log(accessTokenDecoded);
           setUserData({
             userIdAuth0: accessTokenDecoded["sub"],
             userIdDB: accessTokenDecoded["db_id"],
@@ -47,11 +48,9 @@ export const Callback = () => {
         <Navigate to="/user/announcements" />
       ) : userData && userData.role === "shelter" ? (
         <Navigate to="/shelter/my-announcements" />
-      ) :
-        userData && userData.role === "admin" ? (
+      ) : userData && userData.role === "admin" ? (
         <Navigate to="/admin/reports" />
-      ) :
-      (
+      ) : (
         <Navigate to="/register" />
       )}
     </AnimatedPage>

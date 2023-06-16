@@ -23,6 +23,9 @@ export const usePostNewShelter = () => {
         },
       }),
     {
+      onSettled: async (response) => {
+        console.log(response);
+      },
       onSuccess: async (response) => {
         const responseDecoded = await response.json();
         const updatedUserData = {
