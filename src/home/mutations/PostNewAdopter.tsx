@@ -1,5 +1,5 @@
 import { UseMutateAsyncFunction, useMutation } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 import { NewAdopter } from "../../types/NewAdopter";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
@@ -14,7 +14,7 @@ export const usePostNewAdopter = () => {
 
   const { mutateAsync, isError } = useMutation(
     (adopter: NewAdopter) =>
-      fetch(BACKEND_URL + "adopter", {
+      fetch(ADOPTER_URL + "adopter", {
         method: "POST",
         body: JSON.stringify(adopter),
         headers: {

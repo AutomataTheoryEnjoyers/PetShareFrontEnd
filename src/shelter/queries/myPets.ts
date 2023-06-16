@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ANNOUNCEMENT_URL } from "../../backendUrl";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
@@ -24,7 +24,7 @@ export const useMyPets = (paginationParams: PaginationParameters | null) => {
   const query = useQuery<PetResponse>(
     `my-pets-page-${paginationParams?.PageNumber}`,
     () =>
-      fetch(BACKEND_URL + `shelter/pets?${queryStringArray.join("&")}`, {
+      fetch(ANNOUNCEMENT_URL + `shelter/pets?${queryStringArray.join("&")}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,

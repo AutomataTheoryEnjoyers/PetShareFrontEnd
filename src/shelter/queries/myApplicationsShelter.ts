@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 import { ApplicationResponse } from "../../types/applicationsResponse";
 
 export const useMyApplicationsShelter = (
@@ -23,7 +23,7 @@ export const useMyApplicationsShelter = (
     `my-applications-per-announcement-page${pageNumber}`,
     () =>
       fetch(
-        `${BACKEND_URL}applications/${announcementId}?${queryStringArray.join(
+        `${ADOPTER_URL}applications/${announcementId}?${queryStringArray.join(
           "&"
         )}`,
         {

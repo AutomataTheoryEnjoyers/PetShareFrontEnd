@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ANNOUNCEMENT_URL } from "../../backendUrl";
 import { NewPet } from "../../types/newPet";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
@@ -12,7 +12,7 @@ export const usePostPet = () => {
 
   const { mutateAsync } = useMutation(
     (pet: { petData: NewPet; petPhotoData: File | null }) =>
-      fetch(BACKEND_URL + "pet", {
+      fetch(ANNOUNCEMENT_URL + "pet", {
         method: "POST",
         body: JSON.stringify(pet.petData),
         headers: {

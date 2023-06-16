@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { usePostReport } from "../home/mutations/PostReport";
 import { Announcement } from "../types/announcement";
-import { usePostLike } from "../user/mutations/postLike";
+import { LikeQueryParams, usePostLike } from "../user/mutations/postLike";
 
 type Props = {
   announcement: Announcement;
@@ -61,7 +61,7 @@ export const AnnouncementDetailsElement = ({
                 onMouseOver={() => setOverFollow(true)}
                 onMouseLeave={() => setOverFollow(false)}
                 onClick={() => {
-                  mutateLike(announcement.id);
+                  mutateLike({ announcementId: announcement.id, isLiked: true } as LikeQueryParams);
                   setIsLiked(true);
                 }}
               >

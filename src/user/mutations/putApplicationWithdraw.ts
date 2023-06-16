@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
@@ -9,7 +9,7 @@ export const usePutApplicationWithdraw = () => {
 
   const { mutateAsync } = useMutation(
     (applicationId: string) =>
-      fetch(BACKEND_URL + "applications/" + applicationId + "/withdraw", {
+      fetch(ADOPTER_URL + "applications/" + applicationId + "/withdraw", {
         method: "PUT",
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,

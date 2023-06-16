@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import { BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
@@ -9,7 +9,7 @@ export const usePostApplication = () => {
 
   const { mutateAsync } = useMutation(
     (announcementId: string) =>
-      fetch(BACKEND_URL + "applications", {
+      fetch(ADOPTER_URL + "applications", {
         method: "POST",
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,

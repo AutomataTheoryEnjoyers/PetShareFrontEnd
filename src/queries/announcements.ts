@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { BACKEND_URL } from "../backendUrl";
+import { ANNOUNCEMENT_URL } from "../backendUrl";
 import { AnnouncementFilters } from "../types/announcementFilter";
 import { AnnouncementResponse } from "../types/announcementResponse";
 import { PaginationParameters } from "../types/paginationParameters";
@@ -38,7 +38,7 @@ export const useAnnouncements = (
   const query = useQuery<AnnouncementResponse>(
     `my-announcements-page-${paginationParams?.PageNumber}`,
     () =>
-      fetch(BACKEND_URL + `announcements?${queryStringArray.join("&")}`, {
+      fetch(ANNOUNCEMENT_URL + `announcements?${queryStringArray.join("&")}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

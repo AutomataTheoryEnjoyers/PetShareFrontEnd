@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
-import { BACKEND_URL } from "../../backendUrl";
+import { ADOPTER_URL } from "../../backendUrl";
 import { ApplicationResponse } from "../../types/applicationsResponse";
 import { useQuery } from "react-query";
 
@@ -21,7 +21,7 @@ export const useMyApplicationsAdopter = (
   const query = useQuery<ApplicationResponse>(
     `my-applications-per-announcement-page${pageNumber}`,
     () =>
-      fetch(`${BACKEND_URL}applications?${queryStringArray.join("&")}`, {
+      fetch(`${ADOPTER_URL}applications?${queryStringArray.join("&")}`, {
         method: "GET",
         headers: {
           authorization: `Bearer ${userData?.accessToken}`,

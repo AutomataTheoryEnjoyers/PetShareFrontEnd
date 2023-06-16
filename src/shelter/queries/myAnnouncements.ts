@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { PaginationParameters } from "../../types/paginationParameters";
 import { AnnouncementResponse } from "../../types/announcementResponse";
-import { BACKEND_URL } from "../../backendUrl";
+import { ANNOUNCEMENT_URL } from "../../backendUrl";
 import { useContext } from "react";
 import { UserContextType } from "../../types/userContextType";
 import { UserContext } from "../../components/userContext";
@@ -29,7 +29,8 @@ export const useMyAnnouncements = (
     `my-announcements-shelter-page-${paginationParams?.PageNumber}`,
     () =>
       fetch(
-        BACKEND_URL + `shelter/announcements?${queryStringArray.join("&")}`,
+        ANNOUNCEMENT_URL +
+          `shelter/announcements?${queryStringArray.join("&")}`,
         {
           method: "GET",
           headers: {
